@@ -32,7 +32,7 @@ The above copyright notice and this permission notice shall be included in all c
 
 <body class="">
   <div class="wrapper ">
-    <div class="sidebar" data-color="purple" data-background-color="white" data-image="../assets/img/sidebar-1.jpg">
+    <div class="sidebar" data-color="azure" data-background-color="white" data-image="../assets/img/sidebar-1.jpg">
       <!--
         Tip 1: You can change the color of the sidebar using: data-color="purple | azure | green | orange | danger"
 
@@ -733,6 +733,7 @@ The above copyright notice and this permission notice shall be included in all c
   <script>
     $(document).ready(function() {
       $().ready(function() {
+        
         $sidebar = $('.sidebar');
 
         $sidebar_img_container = $sidebar.find('.sidebar-background');
@@ -770,7 +771,7 @@ The above copyright notice and this permission notice shall be included in all c
           $(this).addClass('active');
 
           var new_color = $(this).data('color');
-
+          
           if ($sidebar.length != 0) {
             $sidebar.attr('data-color', new_color);
           }
