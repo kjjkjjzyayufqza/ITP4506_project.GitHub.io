@@ -70,99 +70,115 @@ The above copyright notice and this permission notice shall be included in all c
     <div class="main-panel">
       <!-- Navbar -->
     <?php
-      //include "./upnavigationbar.html"
+      include "./upnavigationbar.html"
     ?>
       <!-- End Navbar -->
       <div class="content">
         <div class="container-fluid">
           <div class="row">
-			<div class="col-md-8">
-
+            <div class="col-md-6">
+			  <div class="dropdown">
+				  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+					Choose Coverage
+				  </button>
+				  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+					<a class="dropdown-item" href="#">Year</a>
+					<a class="dropdown-item" href="#">Month</a>
+				  </div>
+			  </div>
 			</div>
-             <div class="col-md-4">
-              <div class="input-group no-border">
-                <input type="text" value="" class="form-control" placeholder="Search...">
-                <button type="submit" class="btn btn-white btn-round btn-just-icon">
-                  <i class="material-icons">search</i>
-                  <div class="ripple-container"></div>
-                </button>
-              </div>
-			  <div class="form-check">
-			 <input type="checkbox" value="student"/>  Student
-			 <input type="checkbox" value="teacher"/>  Teacher
-			 </div>
-			 </div>
+			
             <div class="col-md-12">
               <div class="card">
                 <div class="card-header card-header-primary">
-                  <h4 class="card-title ">User List</h4>
+                  <h4 class="card-title ">Attendace Record</h4>
                 </div>
                 <div class="card-body">
                   <div class="table-responsive">
                     <table class="table">
                       <thead class=" text-primary">
                         <th>
-                          ID
-                        </th>
-                        <th>
-                          First Name
-                        </th>
-                        <th>
-                          Last Name
+                          Name
                         </th>
                         <th>
                           Class
                         </th>
                         <th>
-                          Role
+                          Date1 & Time1
                         </th>
                         <th>
+                          Date2 & Time2
+                        </th>
+                        <th>
+                          Date3 & Time3
+                        </th>
+                        <th>
+                          Date4 & Time4
                         </th>
                       </thead>
                       <tbody>
                         <tr>
                           <td>
-                            1
+                            Johnson
                           </td>
                           <td>
-                            Rice
+                            2B
                           </td>
                           <td>
-                            Dakota
+                            Present
                           </td>
                           <td>
-                            1A
+                            Present
                           </td>
                           <td>
-                            Student
+                            Present
                           </td>
                           <td>
-                            <button type="button" class="btn btn-primary" onClick="window.location.href='./profile.php';">Detail</button>
+                            Present
                           </td>
                         </tr>
                         <tr>
                           <td>
-                            2
+                            Alvin
                           </td>
                           <td>
-                            Hooper
+                            2B
                           </td>
                           <td>
-                            Minerva
+                            Present
                           </td>
                           <td>
-                            1A
+                            Present
                           </td>
                           <td>
-                            Teacher
+                            Present
                           </td>
                           <td>
-                            <button type="button" class="btn btn-primary">Detail</button>
+                            Present
                           </td>
                         </tr>
                       </tbody>
+                        <tr>
+                          <td>
+                            Ken
+                          </td>
+                          <td>
+                            2B
+                          </td>
+                          <td>
+                            Present
+                          </td>
+                          <td>
+                            Sick Leave
+                          </td>
+                          <td>
+                            Present
+                          </td>
+                          <td>
+                            Present
+                          </td>
+                        </tr>
                     </table>
-						 <button type="button" style="width: 99%" class="btn btn-primary" onClick="window.location.href='./add_account.php';">+ Add New Account</button>
                   </div>
                 </div>
               </div>

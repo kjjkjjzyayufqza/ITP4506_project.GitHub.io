@@ -34,64 +34,34 @@ The above copyright notice and this permission notice shall be included in all c
 <body class="">
   <div class="wrapper ">
     
-    <div class="sidebar" data-color="purple" data-background-color="white" data-image="../assets/img/sidebar-1.jpg">
+   <div class="sidebar" data-color="purple" data-background-color="white" data-image="../assets/img/sidebar-1.jpg">
       <div class="logo"><a href="http://www.creative-tim.com" class="simple-text logo-normal">
-          Creative Tim
+          Attendance Online
         </a></div>
       <div class="sidebar-wrapper">
         <ul class="nav">
           <li class="nav-item  ">
-            <a class="nav-link" href="./dashboard.html">
-              <i class="material-icons">dashboard</i>
+            <a class="nav-link" href="./profile.php">
+              <i class="material-icons">Profile</i>
               <p>Dashboard</p>
             </a>
           </li>
           <li class="nav-item active ">
-            <a class="nav-link" href="./profile.php">
-              <i class="material-icons">person</i>
+            <a class="nav-link" href="./user_list.php">
+              <i class="material-icons">Allocations</i>
               <p>User Profile</p>
             </a>
           </li>
           <li class="nav-item ">
-            <a class="nav-link" href="./tables.html">
-              <i class="material-icons">content_paste</i>
-              <p>Table List</p>
+            <a class="nav-link" href="./report__student.html">
+              <i class="material-icons">Report</i>
+              <p>Report</p>
             </a>
           </li>
           <li class="nav-item ">
             <a class="nav-link" href="./typography.html">
-              <i class="material-icons">library_books</i>
-              <p>Typography</p>
-            </a>
-          </li>
-          <li class="nav-item ">
-            <a class="nav-link" href="./icons.html">
-              <i class="material-icons">bubble_chart</i>
-              <p>Icons</p>
-            </a>
-          </li>
-          <li class="nav-item ">
-            <a class="nav-link" href="./map.html">
-              <i class="material-icons">location_ons</i>
-              <p>Maps</p>
-            </a>
-          </li>
-          <li class="nav-item ">
-            <a class="nav-link" href="./notifications.html">
-              <i class="material-icons">notifications</i>
-              <p>Notifications</p>
-            </a>
-          </li>
-          <li class="nav-item ">
-            <a class="nav-link" href="./rtl.html">
-              <i class="material-icons">language</i>
-              <p>RTL Support</p>
-            </a>
-          </li>
-          <li class="nav-item active-pro ">
-            <a class="nav-link" href="./upgrade.html">
-              <i class="material-icons">unarchive</i>
-              <p>Upgrade to PRO</p>
+              <i class="material-icons">Attendance</i>
+              <p>Attendance</p>
             </a>
           </li>
         </ul>
@@ -106,7 +76,7 @@ The above copyright notice and this permission notice shall be included in all c
       <div class="content">
         <div class="container-fluid">
           <div class="row">
-            <div class="col-md-6">
+            <div class="col-md-4">
 			  <div class="dropdown">
 				  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 					Choose Class
@@ -120,23 +90,93 @@ The above copyright notice and this permission notice shall be included in all c
 				  </div>
 			  </div>
 			</div>
-            <div class="col-md-6">
+            <div class="col-md-8">
             <div class="row pull-right">
               <input type="text" class="form-control">
 			  <button type="button" class="btn btn-primary" onClick="window.location.href='./add_account.php';">+ Add Class</button>
+			  <button class="btn btn-primary" onClick="window.location.href='./edit_class.php';"><i class="fa fa-edit" style="font-size:36px"></i></button>
+			  
 			</div>
 			</div>
           </div>
-		  <div class="col-md-3">
+		  
+            <div class="col-md-12">
               <div class="card">
-                <div class="card-header">
-                  <h4 class="card-title ">Alvin Cheung</h4>
+                <div class="card-header card-header-primary">
+                  <h4 class="card-title ">Student List</h4>
+                  <p class="card-category"> Teacher: Johnson</p>
+
                 </div>
                 <div class="card-body">
-                  <input type="checkbox" />
-				</div>
-			</div>
-		</div>
+                  <div class="table-responsive">
+                    <table class="table">
+                      <thead class=" text-primary">
+                        <th>
+                          ID
+                        </th>
+                        <th>
+                          First Name
+                        </th>
+                        <th>
+                          Last Name
+                        </th>
+                        <th>
+                          Class
+                        </th>
+                        <th>
+                          Role
+                        </th>
+                        <th>
+                        </th>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td>
+                            1
+                          </td>
+                          <td>
+                            Rice
+                          </td>
+                          <td>
+                            Dakota
+                          </td>
+                          <td>
+                            1A
+                          </td>
+                          <td>
+                            Student
+                          </td>
+                          <td>
+							<button class="btn"><i class="fa fa-close"></i></button>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>
+                            2
+                          </td>
+                          <td>
+                            Hooper
+                          </td>
+                          <td>
+                            Minerva
+                          </td>
+                          <td>
+                            1A
+                          </td>
+                          <td>
+                            Teacher
+                          </td>
+                          <td>
+                            <button class="btn"><i class="fa fa-close"></i></button>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+						 <button type="button" style="width: 99%" class="btn btn-primary" onClick="window.location.href='./add_account.php';">+ Add New Student</button>
+                  </div>
+                </div>
+              </div>
+            </div>
         </div>
       </div>
 
@@ -189,6 +229,21 @@ The above copyright notice and this permission notice shall be included in all c
   <script src="../assets/js/material-dashboard.js?v=2.1.2" type="text/javascript"></script>
   <!-- Material Dashboard DEMO methods, don't include it in your project! -->
   <script src="../assets/demo/demo.js"></script>
+  <script>
+  $(document).ready(function(){
+	$.ajax("http://127.0.0.1/HCI%20backend/-ITP4506_backend/admin/viewInformation.php", {
+      dataType: "json", // type of response data
+      timeout: 500, // timeout milliseconds
+      success: function (data, status, xhr) {
+        console.log(data);
+      },
+      error: function (jqXhr, textStatus, errorMessage) {
+        $("body").replace("Error: " + errorMessage);
+      },
+    }); 
+  });
+
+  </script>
 </body>
 
 </html>

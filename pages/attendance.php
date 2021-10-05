@@ -36,32 +36,62 @@ The above copyright notice and this permission notice shall be included in all c
     
     <div class="sidebar" data-color="purple" data-background-color="white" data-image="../assets/img/sidebar-1.jpg">
       <div class="logo"><a href="http://www.creative-tim.com" class="simple-text logo-normal">
-          Attendance Online
+          Creative Tim
         </a></div>
       <div class="sidebar-wrapper">
         <ul class="nav">
           <li class="nav-item  ">
-            <a class="nav-link" href="./profile.php">
-              <i class="material-icons">Profile</i>
+            <a class="nav-link" href="./dashboard.html">
+              <i class="material-icons">dashboard</i>
               <p>Dashboard</p>
             </a>
           </li>
           <li class="nav-item active ">
-            <a class="nav-link" href="./user_list.php">
-              <i class="material-icons">Allocations</i>
+            <a class="nav-link" href="./profile.php">
+              <i class="material-icons">person</i>
               <p>User Profile</p>
             </a>
           </li>
           <li class="nav-item ">
-            <a class="nav-link" href="./report__student.html">
-              <i class="material-icons">Report</i>
-              <p>Report</p>
+            <a class="nav-link" href="./tables.html">
+              <i class="material-icons">content_paste</i>
+              <p>Table List</p>
             </a>
           </li>
           <li class="nav-item ">
             <a class="nav-link" href="./typography.html">
-              <i class="material-icons">Attendance</i>
-              <p>Attendance</p>
+              <i class="material-icons">library_books</i>
+              <p>Typography</p>
+            </a>
+          </li>
+          <li class="nav-item ">
+            <a class="nav-link" href="./icons.html">
+              <i class="material-icons">bubble_chart</i>
+              <p>Icons</p>
+            </a>
+          </li>
+          <li class="nav-item ">
+            <a class="nav-link" href="./map.html">
+              <i class="material-icons">location_ons</i>
+              <p>Maps</p>
+            </a>
+          </li>
+          <li class="nav-item ">
+            <a class="nav-link" href="./notifications.html">
+              <i class="material-icons">notifications</i>
+              <p>Notifications</p>
+            </a>
+          </li>
+          <li class="nav-item ">
+            <a class="nav-link" href="./rtl.html">
+              <i class="material-icons">language</i>
+              <p>RTL Support</p>
+            </a>
+          </li>
+          <li class="nav-item active-pro ">
+            <a class="nav-link" href="./upgrade.html">
+              <i class="material-icons">unarchive</i>
+              <p>Upgrade to PRO</p>
             </a>
           </li>
         </ul>
@@ -70,104 +100,43 @@ The above copyright notice and this permission notice shall be included in all c
     <div class="main-panel">
       <!-- Navbar -->
     <?php
-      //include "./upnavigationbar.html"
+      include "./upnavigationbar.html"
     ?>
       <!-- End Navbar -->
       <div class="content">
         <div class="container-fluid">
           <div class="row">
-			<div class="col-md-8">
-
+            <div class="col-md-6">
+			  <div class="dropdown">
+				  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+					Choose Class
+				  </button>
+				  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+					<a class="dropdown-item" href="#">1A</a>
+					<a class="dropdown-item" href="#">1B</a>
+					<a class="dropdown-item" href="#">1C</a>
+					<a class="dropdown-item" href="#">2A</a>
+					<a class="dropdown-item" href="#">2B</a>
+				  </div>
+			  </div>
 			</div>
-             <div class="col-md-4">
-              <div class="input-group no-border">
-                <input type="text" value="" class="form-control" placeholder="Search...">
-                <button type="submit" class="btn btn-white btn-round btn-just-icon">
-                  <i class="material-icons">search</i>
-                  <div class="ripple-container"></div>
-                </button>
-              </div>
-			  <div class="form-check">
-			 <input type="checkbox" value="student"/>  Student
-			 <input type="checkbox" value="teacher"/>  Teacher
-			 </div>
-			 </div>
-            <div class="col-md-12">
+            <div class="col-md-6">
+            <div class="row pull-right">
+              <input type="text" class="form-control">
+			  <button type="button" class="btn btn-primary" onClick="window.location.href='./add_account.php';">+ Add Class</button>
+			</div>
+			</div>
+          </div>
+		  <div class="col-md-3">
               <div class="card">
-                <div class="card-header card-header-primary">
-                  <h4 class="card-title ">User List</h4>
+                <div class="card-header">
+                  <h4 class="card-title ">Alvin Cheung</h4>
                 </div>
                 <div class="card-body">
-                  <div class="table-responsive">
-                    <table class="table">
-                      <thead class=" text-primary">
-                        <th>
-                          ID
-                        </th>
-                        <th>
-                          First Name
-                        </th>
-                        <th>
-                          Last Name
-                        </th>
-                        <th>
-                          Class
-                        </th>
-                        <th>
-                          Role
-                        </th>
-                        <th>
-                        </th>
-                      </thead>
-                      <tbody>
-                        <tr>
-                          <td>
-                            1
-                          </td>
-                          <td>
-                            Rice
-                          </td>
-                          <td>
-                            Dakota
-                          </td>
-                          <td>
-                            1A
-                          </td>
-                          <td>
-                            Student
-                          </td>
-                          <td>
-                            <button type="button" class="btn btn-primary" onClick="window.location.href='./profile.php';">Detail</button>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>
-                            2
-                          </td>
-                          <td>
-                            Hooper
-                          </td>
-                          <td>
-                            Minerva
-                          </td>
-                          <td>
-                            1A
-                          </td>
-                          <td>
-                            Teacher
-                          </td>
-                          <td>
-                            <button type="button" class="btn btn-primary">Detail</button>
-                          </td>
-                        </tr>
-                      </tbody>
-                    </table>
-						 <button type="button" style="width: 99%" class="btn btn-primary" onClick="window.location.href='./add_account.php';">+ Add New Account</button>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+                  <input type="checkbox" />
+				</div>
+			</div>
+		</div>
         </div>
       </div>
 
