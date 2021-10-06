@@ -1,16 +1,22 @@
 <?php
 require_once('conn.php');
 extract($_POST);
-$sql = "SELECT id, password FROM user";
+$sql = "SELECT * FROM user";
 $rs = mysqli_query($conn, $sql) or die(mysqli_error($conn));
 while($rc = mysqli_fetch_assoc($rs)){
     if($userID == $rc['id'] && $password == $rc['password']){
-        echo "<script>alert('提示内容')</script>";
         session_start();
         $_SESSION['userid'] = $userID;
-        $_SESSION['role'] = "user";
-        header('Location: pages/dashboard.php');
+        $_SESSION['role'] = $rc['role'];
+        if($_SESSION['role'] == "admin"){
+            header('Location: pages/home_a.php');
+        }elseif($_SESSION['role'] == "teacher"){
+            header('Location: pages/home_t.php');
+        }elseif($_SESSION['role'] == "student"){
+            header('Location: pages/home_s.php');
+        }
     }
+    
 }
 // if(isset($_SESSION['userid']))
 // {

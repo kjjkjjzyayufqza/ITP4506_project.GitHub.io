@@ -15285,18 +15285,16 @@ fieldset[disabled] .form-group.is-focused .togglebutton label {
 .sidebar .nav li .dropdown-menu a:focus,
 .sidebar .nav li.active>[data-toggle="collapse"] {
   background-color: rgba(200, 200, 200, 0.2);
-  color: #3C4858;
+  color: #2e4b70;
   box-shadow: none;
-  animation: navanim 2s ease-in-out;
+  border-radius: 50px;
+  animation: navanim 1s ease-in-out;
 }
 
 @keyframes navanim{
   0% { }
-  20%  { z-index:11;\transform: skewY(0deg) translateY(10%); }
-  40%   { transform: skewX(0deg) translateX(0);
- z-index:11; }
-  100%    { transform: skewX(0deg) translateX(0);
-    z-index:11; }
+  20%  { transform: skewY(0deg) translateY(10%); }
+
 }
 
 .sidebar .nav li.active>[data-toggle="collapse"] i {
