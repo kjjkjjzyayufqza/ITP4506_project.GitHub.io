@@ -15166,6 +15166,7 @@ fieldset[disabled] .form-group.is-focused .togglebutton label {
   width: 260px;
   background: #fff;
   box-shadow: 0 16px 38px -12px rgba(0, 0, 0, 0.56), 0 4px 25px 0px rgba(0, 0, 0, 0.12), 0 8px 10px -5px rgba(0, 0, 0, 0.2);
+  
 }
 
 .sidebar .caret {
@@ -15286,6 +15287,16 @@ fieldset[disabled] .form-group.is-focused .togglebutton label {
   background-color: rgba(200, 200, 200, 0.2);
   color: #3C4858;
   box-shadow: none;
+  animation: navanim 2s ease-in-out;
+}
+
+@keyframes navanim{
+  0% { }
+  20%  { z-index:11;\transform: skewY(0deg) translateY(10%); }
+  40%   { transform: skewX(0deg) translateX(0);
+ z-index:11; }
+  100%    { transform: skewX(0deg) translateX(0);
+    z-index:11; }
 }
 
 .sidebar .nav li.active>[data-toggle="collapse"] i {
@@ -15467,6 +15478,8 @@ fieldset[disabled] .form-group.is-focused .togglebutton label {
 .sidebar[data-color="azure"] li.active>a {
   background-color: #00bcd4;
   box-shadow: 0 4px 20px 0px rgba(0, 0, 0, 0.14), 0 7px 10px -5px rgba(0, 188, 212, 0.4);
+  border-radius: 50px;
+  border: solid 3px; 
 }
 
 .sidebar[data-color="green"] li.active>a {
