@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+
+
+<head>
+  <meta charset="utf-8" />
+  <title>
+    Class Allocation
+  </title>
+  <meta content='width=device-width, initial-scale=1.0, shrink-to-fit=no' name='viewport' />
+  <!--     Fonts and icons     -->
+  <link rel="stylesheet" type="text/css"
+    href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons" />
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
+  <!-- CSS Files -->
+  <link href="../../assets/css/material-dashboard.css?v=2.1.2" rel="stylesheet" />
+  <!-- CSS Just for demo purpose, don't include it in your project -->
+  <link href="../../assets/demo/demo.css" rel="stylesheet" />
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script>
+    $(document).ready(function () {
+
+      $.ajax("http://127.0.0.1/HCI/php/-ITP4506_backend/student/viewClass.php", {
+        dataType: "json", // type of response data
+        timeout: 500, // timeout milliseconds
+        success: function (data, status, xhr) {
+          console.log(data);
+        },
+        error: function (jqXhr, textStatus, errorMessage) {
+          $("body").replace("Error: " + errorMessage);
+        },
+      });
+
+      $("#top-navbar").load("../upnavigationbar.html", function () {
+        $(".navbar-brand").text("Class Allocation");
+      });
+      $("#navbar").load("../navigationbar.html", function () {
+        $("ul li:eq(1)").addClass("active");
+      });
+      $("#end-navbar").load("../endnavigationbar.html");
+    });
+  </script>
+</head>
+
+<body class="">
+  <div class="wrapper ">
+
+    <div id="navbar"></div>
+
+    <div class="main-panel">
+      <!-- Navbar -->
+      <div id="top-navbar"></div>
+      <!-- End Navbar -->
+      <div class="content">
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-md-4">
+              <div class="dropdown">
+                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
+                  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  Choose Class
+                </button>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                  <a class="dropdown-item" href="#">1A</a>
+                  <a class="dropdown-item" href="#">1B</a>
+                  <a class="dropdown-item" href="#">1C</a>
+                  <a class="dropdown-item" href="#">2A</a>
+                  <a class="dropdown-item" href="#">2B</a>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-8">
+              <div class="row pull-right">
+                <input type="text" class="form-control">
+                <button type="button" class="btn btn-primary" onClick="window.location.href='./add_account.php';">+ Add
+                  Class</button>
+                <button class="btn btn-primary" onClick="window.location.href='./edit_class.php';"><i class="fa fa-edit"
+                    style="font-size:36px"></i></button>
+
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-12">
+            <div class="card">
+              <div class="card-header card-header-primary">
+                <h4 class="card-title ">Student List</h4>
+                <p class="card-category"> Teacher: Johnson</p>
+
+              </div>
+              <div class="card-body">
+                <div class="table-responsive">
+                  <table class="table">
+                    <thead class=" text-primary">
+                      <th>
+                        ID
+                      </th>
+                      <th>
+                        First Name
+                      </th>
+                      <th>
+                        Last Name
+                      </th>
+                      <th>
+                        Class
+                      </th>
+                      <th>
+                        Role
+                      </th>
+                      <th>
+                      </th>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>
+                          1
+                        </td>
+                        <td>
+                          Rice
+                        </td>
+                        <td>
+                          Dakota
+                        </td>
+                        <td>
+                          1A
+                        </td>
+                        <td>
+                          Student
+                        </td>
+                        <td>
+                          <button class="btn"><i class="fa fa-close"></i></button>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>
+                          2
+                        </td>
+                        <td>
+                          Hooper
+                        </td>
+                        <td>
+                          Minerva
+                        </td>
+                        <td>
+                          1A
+                        </td>
+                        <td>
+                          Teacher
+                        </td>
+                        <td>
+                          <button class="btn"><i class="fa fa-close"></i></button>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                  <button type="button" style="width: 99%" class="btn btn-primary"
+                    onClick="window.location.href='./add_account.php';">+ Add New Student</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div id="end-navbar"></div>
+
+    </div>
+  </div>
+
+</body>
+
+</html>

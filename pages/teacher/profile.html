@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <title>
+    Profile
+  </title>
+  <!--     Fonts and icons     -->
+  <link rel="stylesheet" type="text/css"
+    href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons" />
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
+  <!-- CSS Files -->
+  <link href="../../assets/css/material-dashboard.css?v=2.1.2" rel="stylesheet" />
+  <!-- CSS Just for demo purpose, don't include it in your project -->
+  <link href="../../assets/demo/demo.css" rel="stylesheet" />
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script>
+    $(document).ready(function () {
+
+      $.ajax("../../php/-ITP4506_backend/teacher/viewPersonal.php", {
+        dataType: "json", // type of response data
+        timeout: 500, // timeout milliseconds
+        success: function (data, status, xhr) {
+          console.log(data);
+          $("#id").val(data[0]["id"]);
+          $("#fName").val(data[0]["firstName"]);
+          $("#lName").val(data[0]["lastName"]);
+          $("#mobile").val(data[0]["mobile"]);
+          $("#role").val(data[0]["role"]);
+        },
+        error: function (jqXhr, textStatus, errorMessage) {
+          $("body").replace("Error: " + errorMessage);
+        },
+      });
+
+      $("#top-navbar").load("../upnavigationbar.html", function () {
+        $(".navbar-brand").text("Profile");
+      });
+      $("#navbar").load("./navigationbar.html", function () {
+        $("ul li:eq(0)").addClass("active");
+      });
+      $("#end-navbar").load("../endnavigationbar.html");
+    });
+  </script>
+</head>
+
+<body class="">
+  <div class="wrapper ">
+
+    <div id="navbar"></div>
+
+    <div class="main-panel">
+      <!-- Navbar -->
+      <div id="top-navbar"></div>
+      <!-- End Navbar -->
+      <div class="content">
+        <div class="container-fluid">
+          <div class="row">
+
+            <div class="col-md-2"></div>
+            <div class="col-md-8">
+              <div class="card">
+                <div class="card-header card-header-primary">
+                  <h4 class="card-title">Profile</h4>
+                </div>
+                <div class="card-body">
+                  <form>
+                    <div class="row">
+                      <div class="col-md-12">
+                        <div class="form-group">
+                          <label class="bmd-label-floating">ID</label>
+                          <input type="text" id="id" value="1" class="form-control" disabled>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="row">
+                      <div class="col-md-12">
+                        <div class="form-group">
+                          <label class="bmd-label-floating">First Name</label>
+                          <input type="text" id="fName" class="form-control">
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="row">
+                      <div class="col-md-12">
+                        <div class="form-group">
+                          <label class="bmd-label-floating">Last Name</label>
+                          <input type="text" id="lName" class="form-control">
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="row">
+                      <div class="col-md-12">
+                        <div class="form-group">
+                          <label class="bmd-label-floating">Role</label>
+                          <input type="text" id="role" value="Student" class="form-control" disabled>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="row">
+                      <div class="col-md-12">
+                        <div class="form-group">
+                          <label class="bmd-label-floating">Mobile</label>
+                          <input type="text" id="mobile" value="Student" class="form-control">
+                        </div>
+                      </div>
+                    </div>
+
+                    <button type="button" class="btn btn-primary pull-right">Update Profile</button>
+                    <button type="button" class="btn btn-danger pull-right" style="background-color: green;"
+                      onClick="window.location.href='./change_password.php';">Change Password</button>
+                    <div class="clearfix"></div>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div id="end-navbar"></div>
+    </div>
+  </div>
+</body>
+
+</html>
