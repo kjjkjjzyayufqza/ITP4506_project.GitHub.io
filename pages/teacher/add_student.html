@@ -4,9 +4,11 @@
 
 <head>
   <meta charset="utf-8" />
+  <link rel="apple-touch-icon" sizes="76x76" href="../../assets/img/apple-icon.png">
+  <link rel="icon" type="image/png" href="../../assets/img/favicon.png">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
   <title>
-    Report
+    Add Student
   </title>
   <meta content='width=device-width, initial-scale=1.0, shrink-to-fit=no' name='viewport' />
   <!--     Fonts and icons     -->
@@ -17,6 +19,7 @@
   <link href="../../assets/css/material-dashboard.css?v=2.1.2" rel="stylesheet" />
   <!-- CSS Just for demo purpose, don't include it in your project -->
   <link href="../../assets/demo/demo.css" rel="stylesheet" />
+
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script>
     $(document).ready(function () {
@@ -28,26 +31,28 @@
           console.log(data);
           var stuClass = "";
           for (let i = 0; i < data.length; i++) {
-            stuClass += "<tr><td>" + data[i]["studentID"] + "</td><td>" + data[i]["firstName"] + "</td><td>" + data[i]["lastName"] + "</td><td>" + data[i]["classID"] + "</td><td><button type='button' class='btn btn-primary' onClick='window.location.href=./profile.html;'>Detail</button></td></tr>";
+            stuClass += "<tr><td>" + data[i]["studentID"] + "</td><td>" + data[i]["firstName"] + "</td><td>" + data[i]["lastName"] + "</td><td>" + data[i]["classID"] + "</td><td><button type='button' class='btn btn-primary'> <i class='material-icons'>add</i></button></td></tr>";
           }
           $("#student").html(stuClass);
+          $(".btn-primary").click(function () {
+            window.location.href = './profile_student.html';
+          });
+          $(".material-icons").click(function(){
+            $("tr").hide();
+            $("tr").filter(":contains('"+$("#searchText").val()+"')").show();
+          });
         },
         error: function (jqXhr, textStatus, errorMessage) {
           $("body").replace("Error: " + errorMessage);
         },
       });
 
-      $(".dropdown-item").click(function () {
-        $("#dropdownMenuButton").text($(this).text());
-        $("#tStudent tr").hide();
-        $("#tStudent tr").filter(":contains('" + $(this).text() + "')").show();
-      });
 
       $("#top-navbar").load("../upnavigationbar.html", function () {
-        $(".navbar-brand").text("Report");
+        $(".navbar-brand").text("Add Student");
       });
       $("#navbar").load("./navigationbar.html", function () {
-        $("ul li:eq(4)").addClass("active");
+        $("ul li:eq(2)").addClass("active");
       });
       $("#end-navbar").load("../endnavigationbar.html");
     });
@@ -57,6 +62,7 @@
 <body class="">
   <div class="wrapper ">
 
+
     <div id="navbar"></div>
     <div class="main-panel">
       <!-- Navbar -->
@@ -65,150 +71,44 @@
       <div class="content">
         <div class="container-fluid">
           <div class="row">
-            <div class="col-md-6">
-              <div class="dropdown">
-                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
-                  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  Choose Class
+            <div class="col-md-8">
+
+            </div>
+            <div class="col-md-4">
+              <div class="input-group no-border">
+                <input type="text" id="searchText" value="" class="form-control" placeholder="Search...">
+                <button type="submit" class="btn btn-white btn-round btn-just-icon">
+                  <i class="material-icons">search</i>
+                  <div class="ripple-container"></div>
                 </button>
-                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                  <a class="dropdown-item" href="#">1A</a>
-                  <a class="dropdown-item" href="#">1B</a>
-                  <a class="dropdown-item" href="#">1C</a>
-                  <a class="dropdown-item" href="#">2A</a>
-                  <a class="dropdown-item" href="#">2B</a>
-                </div>
               </div>
             </div>
-
             <div class="col-md-12">
               <div class="card">
                 <div class="card-header card-header-primary">
-                  <h4 class="card-title ">Attendace Record</h4>
+                  <h4 class="card-title ">User List</h4>
                 </div>
                 <div class="card-body">
                   <div class="table-responsive">
                     <table class="table">
                       <thead class=" text-primary">
                         <th>
-                          Name
+                          ID
+                        </th>
+                        <th>
+                          First Name
+                        </th>
+                        <th>
+                          Last Name
                         </th>
                         <th>
                           Class
                         </th>
                         <th>
-                          Present
-                        </th>
-                        <th>
-                          Late
-                        </th>
-                        <th>
-                          Early Leave
-                        </th>
-                        <th>
-                          Sick Leave
-                        </th>
-                        <th>
-                          Personal leave
-                        </th>
-                        <th>
-                          Absent Without Reason
-                        </th>
-                        <th>
                         </th>
                       </thead>
-                      <tbody id="tStudent">
-                        <tr>
-                          <td>
-                            Johnson
-                          </td>
-                          <td>
-                            2B
-                          </td>
-                          <td>
-                            1
-                          </td>
-                          <td>
-                            2
-                          </td>
-                          <td>
-                            3
-                          </td>
-                          <td>
-                            4
-                          </td>
-                          <td>
-                            5
-                          </td>
-                          <td>
-                            6
-                          </td>
-                          <td>
-                            <button type="button" class="btn btn-primary"
-                              onClick="window.location.href='./report_teacher.html';">Detail</button>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>
-                            Alvin
-                          </td>
-                          <td>
-                            2B
-                          </td>
-                          <td>
-                            1
-                          </td>
-                          <td>
-                            2
-                          </td>
-                          <td>
-                            3
-                          </td>
-                          <td>
-                            4
-                          </td>
-                          <td>
-                            5
-                          </td>
-                          <td>
-                            6
-                          </td>
-                          <td>
-                            <button type="button" class="btn btn-primary"
-                              onClick="window.location.href='./report_teacher.html';">Detail</button>
-                          </td>
-                        </tr>
-                      <tr>
-                        <td>
-                          Ken
-                        </td>
-                        <td>
-                          2B
-                        </td>
-                        <td>
-                          1
-                        </td>
-                        <td>
-                          2
-                        </td>
-                        <td>
-                          3
-                        </td>
-                        <td>
-                          4
-                        </td>
-                        <td>
-                          5
-                        </td>
-                        <td>
-                          6
-                        </td>
-                        <td>
-                          <button type="button" class="btn btn-primary"
-                            onClick="window.location.href='./report_teacher.html';">Detail</button>
-                        </td>
-                      </tr>
-                    </tbody>
+                      <tbody id="student">
+                      </tbody>
                     </table>
                   </div>
                 </div>
@@ -219,8 +119,6 @@
       </div>
 
       <div id="end-navbar"></div>
-
-
     </div>
   </div>
   <!--   Core JS Files   -->

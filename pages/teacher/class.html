@@ -28,7 +28,7 @@
           var stuClass = "";
           var subject = "";
           for (let i = 0; i < data.length; i++) {
-            stuClass += "<a class='dropdown-item stuClass' href='#'>" + data[i]["academicYear"] + "</a>";
+            stuClass += "<a class='dropdown-item stuClass' href='#'>" + data[i]["name"] + "</a>";
             subject += "<a class='dropdown-item subject' href='#'>" + data[i]["description"] + "</a>";
           }
           $("#class").html(stuClass);
@@ -36,10 +36,14 @@
 
           $(".stuClass").click(function () {
             $("#dropdownMenuButton1").text($(this).text());
+            $("#student tr").hide();
+            $("#student tr").filter(":contains('"+$(this).text()+"')").show();
           });
 
           $(".subject").click(function () {
             $("#dropdownMenuButton2").text($(this).text());
+            $("#student tr").hide();
+            $("#student tr").filter(":contains('"+$(this).text()+"')").show();
           });
         },
         error: function (jqXhr, textStatus, errorMessage) {
@@ -54,7 +58,7 @@
           console.log(data);
           var stuClass = "";
           for (let i = 0; i < data.length; i++) {
-            stuClass += "<tr><td>" + data[i]["studentID"] + "</td><td>" + data[i]["firstName"] + "</td><td>" + data[i]["lastName"] + "</td><td><button class='btn'><i class='fa fa-close'></i></button></td></tr>";
+            stuClass += "<tr><td>" + data[i]["studentID"] + "</td><td>2A</td><td>Higher Diploma in Software Engineering </td><td>" + data[i]["firstName"] + "</td><td>" + data[i]["lastName"] + "</td><td><button class='btn'><i class='fa fa-close'></i></button></td></tr>";
           }
           $("#student").html(stuClass);
         },
@@ -110,10 +114,10 @@
             <div class="col-md-8">
               <div class="row pull-right">
                 <input type="text" class="form-control">
-                <button type="button" class="btn btn-primary" onClick="window.location.href='./add_account.php';">+ Add
+                <button type="button" class="btn btn-primary" onClick="window.location.href='./add_account.html';">+ Add
                   Class</button>
-                <button class="btn btn-primary" onClick="window.location.href='./edit_class.php';"><i class="fa fa-edit"
-                    style="font-size:36px"></i></button>
+                <button class="btn btn-primary" onClick="window.location.href='./edit_class.html';"><i
+                    class="fa fa-edit" style="font-size:36px"></i></button>
 
               </div>
             </div>
@@ -133,6 +137,12 @@
                         ID
                       </th>
                       <th>
+                        Class
+                      </th>
+                      <th>
+                        Subject
+                      </th>
+                      <th>
                         First Name
                       </th>
                       <th>
@@ -145,7 +155,7 @@
                     </tbody>
                   </table>
                   <button type="button" style="width: 99%" class="btn btn-primary"
-                    onClick="window.location.href='./add_account.php';">+ Add New Student</button>
+                    onClick="window.location.href='./add_student.html';">+ Add New Student</button>
                 </div>
               </div>
             </div>

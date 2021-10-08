@@ -45,6 +45,13 @@
       $("#end-navbar").load("../endnavigationbar.html");
       $(".dropdown-item").click(function(){
         $("#dropdownMenuButton").text($(this).text());
+        if($(this).text()=="Previous"){
+          $("#class").text("Class: 1C");
+          $("#year").text("Academic Year: 2020");
+        }else{
+          $("#class").text("Class: 2A");
+          $("#year").text("Academic Year: 2021");
+        }
       })
     });
   </script>
