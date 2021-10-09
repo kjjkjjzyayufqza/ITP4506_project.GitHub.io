@@ -19,7 +19,7 @@
   <script>
     $(document).ready(function () {
 
-      $.ajax("../../php/-ITP4506_backend/teacher/viewPersonal.php", {
+      $.ajax("../../php/-ITP4506_backend/student/viewPersonal.php", {
         dataType: "json", // type of response data
         timeout: 500, // timeout milliseconds
         success: function (data, status, xhr) {
@@ -39,7 +39,7 @@
         $(".navbar-brand").text("Profile");
       });
       $("#navbar").load("./navigationbar.html", function () {
-        $("ul li:eq(0)").addClass("active");
+        $("ul li:eq(1)").addClass("active");
       });
       $("#end-navbar").load("../endnavigationbar.html");
     });
@@ -113,8 +113,6 @@
                     </div>
 
                     <button type="button" class="btn btn-primary pull-right">Update Profile</button>
-                    <button type="button" class="btn btn-danger pull-right" style="background-color: green;"
-                      onClick="window.location.href='./change_password.php';">Change Password</button>
                     <div class="clearfix"></div>
                   </form>
                 </div>

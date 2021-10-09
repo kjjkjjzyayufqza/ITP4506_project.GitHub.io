@@ -31,20 +31,28 @@
           console.log(data);
           var stuClass = "";
           for (let i = 0; i < data.length; i++) {
-            stuClass += "<tr><td>" + data[i]["studentID"] + "</td><td>" + data[i]["firstName"] + "</td><td>" + data[i]["lastName"] + "</td><td>" + data[i]["classID"] + "</td><td><button type='button' class='btn btn-primary' onClick='window.location.href=./profile.html;'>Detail</button></td></tr>";
+            stuClass += "<tr><td>" + data[i]["studentID"] + "</td><td>" + data[i]["firstName"] + "</td><td>" + data[i]["lastName"] + "</td><td>" + data[i]["classID"] + "</td><td><button type='button' class='btn btn-primary'>Detail</button></td></tr>";
           }
           $("#student").html(stuClass);
+          $(".btn-primary").click(function () {
+            window.location.href = './profile_student.html';
+          });
+          $(".material-icons").click(function(){
+            $("tr").hide();
+            $("tr").filter(":contains('"+$("#searchText").val()+"')").show();
+          });
         },
         error: function (jqXhr, textStatus, errorMessage) {
           $("body").replace("Error: " + errorMessage);
         },
       });
 
+
       $("#top-navbar").load("../upnavigationbar.html", function () {
         $(".navbar-brand").text("Profile");
       });
       $("#navbar").load("./navigationbar.html", function () {
-        $("ul li:eq(0)").addClass("active");
+        $("ul li:eq(1)").addClass("active");
       });
       $("#end-navbar").load("../endnavigationbar.html");
     });
@@ -68,7 +76,7 @@
             </div>
             <div class="col-md-4">
               <div class="input-group no-border">
-                <input type="text" value="" class="form-control" placeholder="Search...">
+                <input type="text" id="searchText" value="" class="form-control" placeholder="Search...">
                 <button type="submit" class="btn btn-white btn-round btn-just-icon">
                   <i class="material-icons">search</i>
                   <div class="ripple-container"></div>
