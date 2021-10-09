@@ -104,6 +104,21 @@
         $("ul li:eq(0)").addClass("active");
       });
       $("#end-navbar").load("../endnavigationbar.html");
+
+      var checked = true;
+      $(".calcheckbox").change(function () {
+        if (checked) {
+          $("#ebtn").removeClass("btn-default").addClass("btn-success")
+          $("#dbtn").removeClass("btn-default").addClass("btn-danger")
+          checked = false;
+        } else {
+          $("#ebtn").addClass("btn-default")
+          $("#dbtn").addClass("btn-default")
+          checked = true;
+        }
+
+
+      });
     });
   </script>
 </head>
@@ -124,6 +139,7 @@
 
             </div>
             <div class="col-md-4">
+
               <div class="input-group no-border">
                 <input type="text" id="searchText" value="" class="form-control" placeholder="Search...">
                 <button type="submit" class="btn btn-white btn-round btn-just-icon">
@@ -143,20 +159,26 @@
                   <h4 class="card-title ">User List</h4>
                 </div>
                 <div class="card-body">
+                  <div class="btn btn-default btn-round pull-left" id="ebtn">
+                    Set Enable
+                  </div>
+                  <div class="btn btn-default btn-round pull-left" id="dbtn">
+                    Set Disable
+                  </div>
                   <details>
+
                     <summary>
                       <div class="btn btn-primary btn-round pull-right">
                         + Add New Account
                       </div>
                       <div class="details-modal-overlay"></div>
                     </summary>
+
                     <div class="details-modal">
                       <div class="details-modal-close">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 14 14" fill="none">
-                          <path fill-rule="evenodd" clip-rule="evenodd"
-                            d="M13.7071 1.70711C14.0976 1.31658 14.0976 0.683417 13.7071 0.292893C13.3166 -0.0976311 12.6834 -0.0976311 12.2929 0.292893L7 5.58579L1.70711 0.292893C1.31658 -0.0976311 0.683417 -0.0976311 0.292893 0.292893C-0.0976311 0.683417 -0.0976311 1.31658 0.292893 1.70711L5.58579 7L0.292893 12.2929C-0.0976311 12.6834 -0.0976311 13.3166 0.292893 13.7071C0.683417 14.0976 1.31658 14.0976 1.70711 13.7071L7 8.41421L12.2929 13.7071C12.6834 14.0976 13.3166 14.0976 13.7071 13.7071C14.0976 13.3166 14.0976 12.6834 13.7071 12.2929L8.41421 7L13.7071 1.70711Z"
-                            fill="black" />
-                        </svg>
+                        <button type="button" rel="tooltip" class="btn-danger">
+                          <i class="material-icons">close</i>
+                        </button>
                       </div>
 
                       <div class="details-modal-title">
@@ -208,10 +230,14 @@
                   </details>
 
                   <div class="table-responsive" style="text-align:center;">
-                    <table id="table" data-toggle="table" data-height="600">
-                      <thead>
+                    <table id="table" data-toggle="table" data-height="600" data-toggle="table" data-locale="zh-CN"
+                      data-side-pagination="server" data-striped="true" data-click-to-select="true"
+                      data-pagination="true" data-pagination-first-text="First Page"
+                      data-pagination-pre-text="Back Page" data-pagination-next-text="Next Page"
+                      data-pagination-last-text="Last Page">
+                      <thead style="text-align: center;">
                         <tr>
-                          <th data-checkbox="true"></th>
+                          <th data-checkbox="true" id="calcheckbox" class="calcheckbox"></th>
 
                           <th data-field="id">
                             ID
@@ -233,6 +259,10 @@
                             Enable
 
                           </th>
+                          <th data-field="edit">
+                            Edit
+
+                          </th>
                         </tr>
                       </thead>
                       <tbody id="student">
@@ -244,6 +274,11 @@
                           <td>1234 5678</td>
                           <td><span class="badge bg-gradient-warning">admin</span></td>
                           <td><span class="badge bg-gradient-danger">Disable</span></td>
+                          <td class="td-actions ">
+                            <button type="button" rel="tooltip" class="btn">
+                              <i class="material-icons">edit</i>
+                            </button>
+                          </td>
                         </tr>
                         <tr>
                           <th scope="row"> </th>
@@ -253,6 +288,11 @@
                           <td>1234 5678</td>
                           <td><span class="badge bg-gradient-info">teacher</span></td>
                           <td><a href="#"><span class="badge bg-gradient-success">Enable</span></a></td>
+                          <td class="td-actions ">
+                            <button type="button" rel="tooltip" class="btn">
+                              <i class="material-icons">edit</i>
+                            </button>
+                          </td>
                         </tr>
                         <tr>
                           <th scope="row"> </th>
@@ -262,7 +302,13 @@
                           <td>1234 5678</td>
                           <td><span class="badge bg-gradient-light text-dark">student</span></td>
                           <td><span class="badge bg-gradient-success">Enable</span></td>
+                          <td class="td-actions ">
+                            <button type="button" rel="tooltip" class="btn">
+                              <i class="material-icons">edit</i>
+                            </button>
+                          </td>
                         </tr>
+
                       </tbody>
                     </table>
 

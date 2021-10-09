@@ -3060,6 +3060,7 @@ fieldset:disabled a.btn {
   background-color: #f44336;
   border-color: #f44336;
   box-shadow: none;
+  border-radius: 50px;
 }
 
 .btn-danger:hover {
@@ -15167,7 +15168,6 @@ fieldset[disabled] .form-group.is-focused .togglebutton label {
   width: 260px;
   background: #fff;
   box-shadow: 0 16px 38px -12px rgba(0, 0, 0, 0.56), 0 4px 25px 0px rgba(0, 0, 0, 0.12), 0 8px 10px -5px rgba(0, 0, 0, 0.2);
-  
 }
 
 .sidebar .caret {
@@ -15180,6 +15180,7 @@ fieldset[disabled] .form-group.is-focused .togglebutton label {
   border-top: 4px solid\9;
   border-right: 4px solid transparent;
   border-left: 4px solid transparent;
+
 }
 
 .sidebar[data-background-color="black"] {
@@ -15189,7 +15190,7 @@ fieldset[disabled] .form-group.is-focused .togglebutton label {
 .sidebar .sidebar-wrapper {
   position: relative;
   height: calc(100vh - 75px);
-  overflow: auto;
+  overflow: hidden;
   width: 260px;
   z-index: 4;
   padding-bottom: 30px;
@@ -20645,7 +20646,7 @@ input[type=radio] + label {
 .details-modal-overlay {
   transition: opacity 0.2s ease-out;
   pointer-events: none;
-  background: rgba(15, 23, 42, 0.8);
+
   position: fixed;
   opacity: 0;
   bottom: 0;
@@ -20717,12 +20718,12 @@ details summary::-webkit-details-marker {
   animation-delay: 0s;
   transform-origin: 50% 50%;
   transform: rotate(0deg);
-  
+
 }
 
 
 svg path{
-  positon:absolute;
+  position:absolute;
   fill:none;
   stroke-width:2;
   top:0;
@@ -20781,7 +20782,8 @@ svg path{
 }
 
 .div_logo_hide{
-  visibility: visible;
+  display: none;
+
 }
 
 [class*="ring"], .center {
@@ -20796,11 +20798,11 @@ svg path{
   animation: glow 3s linear infinite;
   border-radius: 50%;
   border: 0.6em solid rgb(105, 245, 255);
-  border-top: 1.5em solid rgb(27, 190, 255);
-  border-bottom: 1.5em solid rgb(4, 134, 255);
+  border-top: 1em solid rgb(27, 190, 255);
+  border-bottom: 1em solid rgb(4, 134, 255);
   box-shadow: 0 0 10px rgba(255, 255, 255, 0.3), inset 0 0 20px rgba(255, 255, 255, 0.3);
-  width: 200px;
-  height: 200px;
+  width: 150px;
+  height: 150px;
   transition: 1s transform ease-in-out;
   /* background-color: #000; */
 }
@@ -20828,29 +20830,39 @@ svg path{
   width: 3em;
 }
 
+.center {
+
+  background: rgb(8, 226, 255);
+  border-radius: 50%;
+  box-shadow: 0 0 5px rgba(255, 255, 255, 0.3);
+  height: 1em;
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.3), inset 0 0 20px rgba(255, 255, 255, 0.3);
+  transition: 1s transform ease-in-out;
+  width: 1em;
+}
+.center:before{
+  content: "EDE";
+  position: absolute;
+  color: #000000;
+  font-size: 50px;
+  font-family: "HEAVITAS", "Helvetica Rounded", Arial, sans-serif;
+  font-weight: bolder ;
+  top: 100px;
+  left: -43px;
+}
+
 .ring1 {
-  animation-duration: 6s;
-  animation-name: ring1anim;
-  /* transform: rotate(120deg) scale(0.333, 1); */
-  
+  transform: rotate(120deg) scale(0.333, 1); 
 }
 
-@keyframes ring1anim {
-  from {
-    transform: rotate(0deg) scale(0.333, 1);
-  }
 
-  to {
-    transform: rotate(360deg) scale(0.333, 1);
-  }
-}
 
 .ring1 div:after {
   background: #2ecc71;
   box-shadow: 0 0 20px #2ecc71;
 }
 section:hover .ring1 {
-  border: 0.6em solid rgba(255, 255, 255, 0.8);
+  border: 0.6em solid rgb(156, 248, 255);
   transform: rotate(0deg) scale(0.33333, 0.33333) perspective(600px) rotateX(60deg);
 }
 section:hover .ring1 div:after {
@@ -20867,7 +20879,7 @@ section:hover .ring1 div:after {
   box-shadow: 0 0 20px #3498db;
 }
 section:hover .ring2 {
-  border: 0.6em solid rgba(255, 255, 255, 0.8);
+  border: 0.6em solid rgba(105, 245, 255, 0.8);
   transform: rotate(0deg) scale(0.66667, 0.66667) perspective(600px) rotateX(60deg);
 }
 section:hover .ring2 div:after {
@@ -20884,7 +20896,7 @@ section:hover .ring2 div:after {
   box-shadow: 0 0 20px #e74c3c;
 }
 section:hover .ring3 {
-  border: 0.6em solid rgba(255, 255, 255, 0.8);
+  border: 0.6em solid rgb(77, 169, 255);
   transform: rotate(0deg) scale(1, 1) perspective(600px) rotateX(60deg);
 }
 section:hover .ring3 div:after {
@@ -20893,18 +20905,19 @@ section:hover .ring3 div:after {
   transform: scale(1, 1);
 }
 
-.center {
-  background: white;
-  border-radius: 50%;
-  box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
-  height: 3em;
-  box-shadow: 0 0 10px rgba(255, 255, 255, 0.3), inset 0 0 20px rgba(255, 255, 255, 0.3);
-  transition: 1s transform ease-in-out;
-  width: 3em;
-}
+
 section:hover .center {
-  transform: translate(0, 0.5em);
+  transform: translate(0, 0.2em);
 }
+
+section:hover .center:before {
+  transition: all 0.65s;
+  transform: scale(1.1);
+  color: #0099ff;
+  content: "EDE";
+  position: absolute;
+}
+
 
 @keyframes glow {
   0%, 100% {

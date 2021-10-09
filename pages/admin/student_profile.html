@@ -31,7 +31,7 @@
           $("#role").val(data[0]["role"]);
         },
         error: function (jqXhr, textStatus, errorMessage) {
-          $("body").replace("Error: " + errorMessage);
+          console.log("Error: " + errorMessage);
         },
       });
 
@@ -40,8 +40,13 @@
       });
       $("#navbar").load("./navigationbar.html", function () {
         $("ul li:eq(0)").addClass("active");
+        var sc = document.createElement("script");
+        sc.src = "../egg.js";
+        $("body").append(sc);
       });
       $("#end-navbar").load("../endnavigationbar.html");
+
+
     });
   </script>
 </head>
@@ -62,16 +67,34 @@
               <div class="card card-profile">
                 <div class="card-avatar">
                   <a href="javascript:;">
-                    <img class="img" src="../../assets/img/faces/marc.jpg" />
+                    <img class="img" src="../../assets/img/new_logo.png" />
                   </a>
                 </div>
                 <div class="card-body">
-                  <h6 class="card-category text-gray">CEO / Co-Founder</h6>
-                  <h4 class="card-title">Alec Thompson</h4>
+ 
+                  <h4 class="card-title">JO JO</h4>
                   <p class="card-description">
-                    Don't be scared of the truth because we need to restart the human foundation in truth And I love you like Kanye loves Kanye I love Rick Owens’ bed design but the back is...
+                    LWL SE
                   </p>
-                  <a href="javascript:;" class="btn btn-primary btn-round">Follow</a>
+                  <div class="form-check form-check-radio">
+                    <label class="form-check-label">
+                        <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="option1" >
+                        Enable
+                        <span class="circle">
+                            <span class="check"></span>
+                        </span>
+                    </label>
+                </div>
+                <div class="form-check form-check-radio">
+                    <label class="form-check-label">
+                        <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2" value="option2" checked>
+                        Disable
+                        <span class="circle">
+                            <span class="check"></span>
+                        </span>
+                    </label>
+                </div>
+                  <a href="javascript:;" class="btn btn-primary btn-round">Change photo</a>
                 </div>
               </div>
             </div>
@@ -79,29 +102,18 @@
               <div class="card">
                 <div class="card-header card-header-primary">
                   <h4 class="card-title">Edit Profile</h4>
-                  <p class="card-category">Complete your profile</p>
+                  <p class="card-category">Student Information</p>
                 </div>
                 <div class="card-body">
                   <form>
                     <div class="row">
                       <div class="col-md-5">
                         <div class="form-group">
-                          <label class="bmd-label-floating">Company (disabled)</label>
-                          <input type="text" class="form-control" disabled>
+                          <label class="bmd-label-floating">ID</label>
+                          <input type="text" class="form-control" value="1" disabled>
                         </div>
                       </div>
-                      <div class="col-md-3">
-                        <div class="form-group">
-                          <label class="bmd-label-floating">Username</label>
-                          <input type="text" class="form-control">
-                        </div>
-                      </div>
-                      <div class="col-md-4">
-                        <div class="form-group">
-                          <label class="bmd-label-floating">Email address</label>
-                          <input type="email" class="form-control">
-                        </div>
-                      </div>
+
                     </div>
                     <div class="row">
                       <div class="col-md-6">
@@ -120,42 +132,21 @@
                     <div class="row">
                       <div class="col-md-12">
                         <div class="form-group">
-                          <label class="bmd-label-floating">Adress</label>
-                          <input type="text" class="form-control">
+                          <label class="bmd-label-floating">Role</label>
+                          <span class="badge bg-gradient-light text-dark">student</span>
                         </div>
                       </div>
                     </div>
                     <div class="row">
                       <div class="col-md-4">
                         <div class="form-group">
-                          <label class="bmd-label-floating">City</label>
+                          <label class="bmd-label-floating">Mobile</label>
                           <input type="text" class="form-control">
                         </div>
                       </div>
-                      <div class="col-md-4">
-                        <div class="form-group">
-                          <label class="bmd-label-floating">Country</label>
-                          <input type="text" class="form-control">
-                        </div>
-                      </div>
-                      <div class="col-md-4">
-                        <div class="form-group">
-                          <label class="bmd-label-floating">Postal Code</label>
-                          <input type="text" class="form-control">
-                        </div>
-                      </div>
+
                     </div>
-                    <div class="row">
-                      <div class="col-md-12">
-                        <div class="form-group">
-                          <label>About Me</label>
-                          <div class="form-group">
-                            <label class="bmd-label-floating"> Lamborghini Mercy, Your chick she so thirsty, I'm in that two seat Lambo.</label>
-                            <textarea class="form-control" rows="5"></textarea>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
+
                     <button type="submit" class="btn btn-primary pull-right">Update Profile</button>
                     <div class="clearfix"></div>
                   </form>
