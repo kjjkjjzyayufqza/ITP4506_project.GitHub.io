@@ -19,42 +19,93 @@
   <link href="../../assets/css/material-dashboard.css?v=2.1.2" rel="stylesheet" />
   <!-- CSS Just for demo purpose, don't include it in your project -->
   <link href="../../assets/demo/demo.css" rel="stylesheet" />
-
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <link href="https://unpkg.com/bootstrap-table@1.18.3/dist/bootstrap-table.min.css" rel="stylesheet">
+
+  <script src="https://unpkg.com/bootstrap-table@1.18.3/dist/bootstrap-table.min.js"></script>
   <script>
     $(document).ready(function () {
 
-      $.ajax("../../php/-ITP4506_backend/teacher/viewStudent.php", {
+      $.ajax("../../php/-ITP4506_backend/admin/viewInformation.php", {
         dataType: "json", // type of response data
         timeout: 500, // timeout milliseconds
         success: function (data, status, xhr) {
+          alert("SUCCESS:");
           console.log(data);
           var stuClass = "";
           for (let i = 0; i < data.length; i++) {
-            stuClass += "<tr><td>" + data[i]["studentID"] + "</td><td>" + data[i]["firstName"] + "</td><td>" + data[i]["lastName"] + "</td><td>" + data[i]["classID"] + "</td><td><button type='button' class='btn btn-primary'>Detail</button></td></tr>";
+            stuClass += "<tr><td>" + data[i]["id"] + "</td><td>" + data[i]["firstName"] + "</td><td>" + data[i]["lastName"] + "</td><td>" + data[i]["mobile"] + "</td><td>" + data[i]["role"] + "</td><td><button type='button' class='btn btn-primary' onClick='window.location.href=./profile.html;'>Detail</button></td></tr>";
           }
           $("#student").html(stuClass);
-          $(".btn-primary").click(function () {
-            window.location.href = './profile_student.html';
-          });
-          $(".material-icons").click(function(){
-            $("tr").hide();
-            $("tr").filter(":contains('"+$("#searchText").val()+"')").show();
-          });
         },
         error: function (jqXhr, textStatus, errorMessage) {
-          $("body").replace("Error: " + errorMessage);
+          $("body").toString().replace("Error: " + errorMessage);
+          //alert(errorMessage)
         },
       });
+      $('.checkbox:eq(0)').change(function () {
+        if (this.checked) {
 
+          $("#student tr").filter(function () {
+            $(this).toggle($(this).text().toLowerCase().indexOf("student") > -1)
+          });
+        }
+        else {
+          $("#student tr").filter(function () {
+            $(this).toggle($(this).text().toLowerCase().indexOf("") > -1)
+          });
+        }
+      });
+      $('.checkbox:eq(1)').change(function () {
+        if (this.checked) {
+
+          $("#student tr").filter(function () {
+            $(this).toggle($(this).text().toLowerCase().indexOf("teacher") > -1)
+          });
+        }
+        else {
+          $("#student tr").filter(function () {
+            $(this).toggle($(this).text().toLowerCase().indexOf("") > -1)
+          });
+        }
+      });
+      $('.checkbox:eq(2)').change(function () {
+        if (this.checked) {
+
+          $("#student tr").filter(function () {
+            $(this).toggle($(this).text().toLowerCase().indexOf("admin") > -1)
+          });
+        }
+        else {
+          $("#student tr").filter(function () {
+            $(this).toggle($(this).text().toLowerCase().indexOf("") > -1)
+          });
+        }
+      });
+
+      $("#searchbtn").click(function () {
+        var value = $("#searchText").val().toLowerCase();
+        $("#student tr").filter(function () {
+          $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+        });
+      });
+
+      $("#searchText").on("keyup", function () {
+        var value = $(this).val().toLowerCase();
+        $("#student tr").filter(function () {
+          $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+        });
+      });
 
       $("#top-navbar").load("../upnavigationbar.html", function () {
         $(".navbar-brand").text("Profile");
       });
       $("#navbar").load("./navigationbar.html", function () {
-        $("ul li:eq(1)").addClass("active");
+        $("ul li:eq(0)").addClass("active");
       });
       $("#end-navbar").load("../endnavigationbar.html");
+
+
     });
   </script>
 </head>
@@ -75,41 +126,72 @@
 
             </div>
             <div class="col-md-4">
+
               <div class="input-group no-border">
                 <input type="text" id="searchText" value="" class="form-control" placeholder="Search...">
                 <button type="submit" class="btn btn-white btn-round btn-just-icon">
-                  <i class="material-icons">search</i>
+                  <i class="material-icons" id="searchbtn">search</i>
                   <div class="ripple-container"></div>
                 </button>
               </div>
+  
             </div>
             <div class="col-md-12">
               <div class="card">
-                <div class="card-header card-header-primary">
+                <div class="card-header-primary" style="border-radius: 20px;">
                   <h4 class="card-title ">User List</h4>
                 </div>
                 <div class="card-body">
-                  <div class="table-responsive">
-                    <table class="table">
-                      <thead class=" text-primary">
-                        <th>
-                          ID
-                        </th>
-                        <th>
-                          First Name
-                        </th>
-                        <th>
-                          Last Name
-                        </th>
-                        <th>
-                          Class
-                        </th>
-                        <th>
-                        </th>
+
+
+                  <div class="table-responsive" style="text-align:center;">
+                    <table id="table" data-toggle="table" data-height="600" data-toggle="table" data-locale="zh-CN"
+                      data-side-pagination="server" data-striped="true" data-click-to-select="true"
+                      >
+                      <thead style="text-align: center;">
+                        <tr>
+                          <th data-checkbox="true" id="calcheckbox" class="calcheckbox"></th>
+
+                          <th data-field="id">
+                            ID
+                          </th>
+                          <th data-field="firstName">
+                            First Name
+                          </th>
+                          <th data-field="lastName">
+                            Last Name
+                          </th>
+                          <th data-field="mobilephone">
+                            Mobile Phone
+                          </th>
+
+
+                          <th data-field="edit">
+                            Edit
+
+                          </th>
+                        </tr>
                       </thead>
                       <tbody id="student">
+
+                        <tr>
+                          <th scope="row"> </th>
+                          <td>200000002</td>
+                          <td>e</td>
+                          <td>f</td>
+                          <td>1234 5678</td>
+
+
+                          <td class="td-actions ">
+                            <button type="button" rel="tooltip" class="btn" onclick="location.href = 'student_profile.html'; ">
+                              <i class="material-icons">edit</i>
+                            </button>
+                          </td>
+                        </tr>
+
                       </tbody>
                     </table>
+
                   </div>
                 </div>
               </div>
@@ -119,9 +201,12 @@
       </div>
 
       <div id="end-navbar"></div>
+
+
     </div>
   </div>
   <!--   Core JS Files   -->
+
   <script src="../../assets/js/core/jquery.min.js"></script>
   <script src="../../assets/js/core/popper.min.js"></script>
   <script src="../../assets/js/core/bootstrap-material-design.min.js"></script>
@@ -164,6 +249,7 @@
   <script src="../../assets/js/material-dashboard.js?v=2.1.2" type="text/javascript"></script>
   <!-- Material Dashboard DEMO methods, don't include it in your project! -->
   <script src="../../assets/demo/demo.js"></script>
+
 </body>
 
 </html>

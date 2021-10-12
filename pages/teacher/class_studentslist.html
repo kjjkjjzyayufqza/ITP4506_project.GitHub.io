@@ -5,13 +5,14 @@
 <head>
   <meta charset="utf-8" />
   <title>
-    Class Allocation
+    Class studentslist
   </title>
   <meta content='width=device-width, initial-scale=1.0, shrink-to-fit=no' name='viewport' />
   <!--     Fonts and icons     -->
   <link rel="stylesheet" type="text/css"
     href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons" />
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <!-- CSS Files -->
   <link href="../../assets/css/material-dashboard.css?v=2.1.2" rel="stylesheet" />
   <!-- CSS Just for demo purpose, don't include it in your project -->
@@ -20,6 +21,7 @@
   <link href="https://unpkg.com/bootstrap-table@1.18.3/dist/bootstrap-table.min.css" rel="stylesheet">
 
   <script src="https://unpkg.com/bootstrap-table@1.18.3/dist/bootstrap-table.min.js"></script>
+
   <script>
     $(document).ready(function () {
 
@@ -71,7 +73,7 @@
       });
 
       $("#top-navbar").load("../upnavigationbar.html", function () {
-        $(".navbar-brand").text("Class Allocation");
+        $(".navbar-brand").text("Class studentslist");
       });
       $("#navbar").load("./navigationbar.html", function () {
         $("ul li:eq(1)").addClass("active");
@@ -93,34 +95,34 @@
       <!-- End Navbar -->
       <div class="content">
         <div class="container-fluid">
-
+          <a href="javascript:;" class="btn btn-primary btn-round">返回</a>
           <div class="row">
-            <div class="col-md-8">
 
-            </div>
             <div class="col-md-4">
 
-              <div class="input-group no-border">
-                <input type="text" id="searchText" value="" class="form-control" placeholder="Search...">
-                <button type="submit" class="btn btn-white btn-round btn-just-icon">
-                  <i class="material-icons" id="searchbtn">search</i>
-                  <div class="ripple-container"></div>
-                </button>
-              </div>
+              <div class="card card-profile">
 
-            </div>
-            <div class="col-md-12">
-
-              <div class="card">
-                <div class="card-header-primary" style="border-radius: 20px;">
-                  <h4 class="card-title ">Class List</h4>
-                </div>
                 <div class="card-body">
-                  <!-- Button trigger modal -->
-                  <button type="button" class="btn btn-primary btn-round pull-right" data-toggle="modal" data-target="#exampleModal">
-                    + Add New Class
+                  <h6 class="card-category text-gray">Class Information</h6>
+                 
+                  <div class="form-group">
+                    <label for="exampleInputEmail1">Name</label>
+                    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="">
+                    <small id="emailHelp" class="form-text text-muted">xxxxxxxxxxxe.</small>
+                  </div>
+                  <div class="form-group">
+                    <label for="exampleInputEmail1">Description</label>
+                    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="">
+                    <small id="emailHelp" class="form-text text-muted">xxxxxxxx.</small>
+                  </div>
+                  
+                  <p class="card-description">
+                    LWL SE
+                  </p>
+                  <button type="button" class="btn btn-primary btn-round" data-toggle="modal"
+                    data-target="#exampleModal">
+                    + Add New Student
                   </button>
-
                   <!-- Modal -->
                   <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
                     aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -135,128 +137,170 @@
                         <div class="modal-body">
                           <div class="">
                             <form>
-                              <div class="row">
-                                <div class="col-md-12">
-                                  <div class="form-group">
-                                    <label class="bmd-label-floating">ID</label>
-                                    <input type="text" class="form-control">
-                                  </div>
+                              <div class="table-responsive" style="text-align:center;">
+                                <div class="btn btn-default btn-round pull-left" id="ebtn">
+                                  Add select
                                 </div>
-                              </div>
-                              <div class="row">
-                                <div class="col-md-12">
-                                  <div class="form-group">
-                                    <label class="bmd-label-floating">class Name</label>
-                                    <input type="text" class="form-control">
-                                  </div>
-                                </div>
-                              </div>
-                              <div class="row">
-                                <div class="col-md-12">
-                                  <div class="form-group">
-                                    <label class="bmd-label-floating">Description</label>
-                                    <input type="text" class="form-control">
-                                  </div>
-                                </div>
-                              </div>
-                              <div class="row">
-                                <div class="col-md-12">
-                                  <div class="form-group">
-                                    <label class="bmd-label-floating">Description</label>
-                                    <input type="text" class="form-control">
-                                  </div>
-                                </div>
-                              </div>
-                              <div class="row">
-                                <div class="col-md-12">
-                                  <div class="form-group">
-                                    <label for="AcademicYear" class="bmd-label-floating">AcademicYear</label>
-                                    <select class="form-control" id="AcademicYear">
-                                      <option value="2021">2021</option>
-                                      <option value="2022">2022</option>
-                                    </select>
-                                  </div>
-                                </div>
+                                <table id="table" data-toggle="table" data-toggle="table" data-locale="zh-CN"
+                                  data-side-pagination="server" data-striped="true" data-click-to-select="true">
+                                  <thead style="text-align: center;">
+                                    <tr>
+                                      <th data-checkbox="true" id="calcheckbox" class="calcheckbox"></th>
+
+                                      <th data-field="id">
+                                        ID
+                                      </th>
+                                      <th data-field="firstName">
+                                        First Name
+                                      </th>
+                                      <th data-field="lastName">
+                                        Last Name
+                                      </th>
+                                      <th data-field="Add">
+                                        Add
+                                      </th>
+                                    </tr>
+                                  </thead>
+                                  <tbody id="student">
+                                    <tr>
+                                      <th scope="row"> </th>
+                                      <td>200000000</td>
+                                      <td>a</td>
+                                      <td>b</td>
+                                      <td> 
+                                        <button type="button" rel="tooltip" class="btn btn-success btn-round" ">
+                                          <span class="material-icons">add</span>
+                                        </button>
+                                      
+                                      </td>
+                                    </tr>
+                                    <tr>
+                                      <th scope="row"> </th>
+                                      <td>200000001</td>
+                                      <td>c</td>
+                                      <td>d</td>
+                                      <td> 
+                                        <button type="button" rel="tooltip" class="btn btn-success btn-round" ">
+                                          <span class="material-icons">add</span>
+                                        </button>
+                                      
+                                      </td>
+                                    </tr>
+                                    <tr>
+                                      <th scope="row"> </th>
+                                      <td>200000002</td>
+                                      <td>e</td>
+                                      <td>f</td>
+                                      <td> 
+                                        <button type="button" rel="tooltip" class="btn btn-success btn-round" ">
+                                          <span class="material-icons">add</span>
+                                        </button>
+                                      
+                                      </td>
+                                    </tr>
+
+                                  </tbody>
+                                </table>
+
                               </div>
                             </form>
                           </div>
                         </div>
                         <div class="modal-footer">
                           <button type="button" class="btn btn-secondary btn-round" data-dismiss="modal">Close</button>
-                          <button type="submit" class="btn btn-primary btn-round pull-right">Create Account</button>
+                          
                         </div>
                       </div>
                     </div>
-                    
-                  </div>
-                  <div class="table-responsive " style="text-align:center;" id="showtips" >
-                    <span class="badge bg-gradient-success" > </span> This year
-                    <span class="badge bg-gradient-info" >  </span> New year
-                    <span class="badge bg-gradient-light text-dark" >  </span> Old year
-                  </div>
-
-                  <div class="table-responsive" style="text-align:center;">
-
-
-                    <table id="table" data-toggle="table" data-height="600" data-toggle="table" data-locale="zh-CN"
-                      data-side-pagination="server" data-striped="true" data-click-to-select="true"
-                      >
-                      <thead style="text-align: center;">
-                        <tr>
-
-
-                          <th data-field="id">
-                            ID
-                          </th>
-                          <th data-field="Name">
-                            Name
-                          </th>
-                          <th data-field="Description">
-                            Description
-                          </th>
-                          <th data-field="TeacherID">
-                            TeacherID
-                          </th>
-                          <th data-field="AcademicYear">
-                            AcademicYear
-
-                          </th>
-                          <th data-field="Count">
-                            Count
-
-                          </th>
-                          <th data-field="edit">
-                            Edit
-
-                          </th>
-                        </tr>
-                      </thead>
-                      <tbody id="student">
-                        <tr>
-
-                          <td>123456789</td>
-                          <td>2A</td>
-
-                          <td>Higher Diploma in Software Engineering </td>
-                          <td>201116523</td>
-                          <td><span class="badge bg-gradient-success">2021</span></td>
-                          <td>80</td>
-                          <td class="td-actions ">
-                            <button type="button" rel="tooltip" class="btn"
-                              onclick="location.href='class_studentslist.html'">
-                              <i class="material-icons">edit</i>
-                            </button>
-                          </td>
-                        </tr>
-
-
-                      </tbody>
-                    </table>
 
                   </div>
                 </div>
+                <div class="col-md-4 ">
+
+                </div>
+              </div>
+
+            </div>
+
+
+            <div class="col-md-8">
+
+              <div class="card">
+
+                <div class="card-header card-header-primary">
+                  <h4 class="card-title">Class Student List</h4>
+                  <p class="card-category">Student Information</p>
+                </div>
+
+                <div class="card-body">
+                  <div class="btn btn-default btn-round pull-left" id="ebtn">
+                    Delete select
+                  </div>
+                  <div class="col-md-4 pull-right">
+
+                    <div class="input-group no-border">
+                      
+                      <input type="text" id="searchText" value="" class="form-control" placeholder="Search...">
+                      <button type="submit" class="btn btn-white btn-round btn-just-icon">
+                        <i class="material-icons" id="searchbtn">search</i>
+                        <div class="ripple-container"></div>
+                      </button>
+                    </div>
+
+                  </div>
+                  <table id="table" data-toggle="table" data-height="460" data-pagination="true"
+                    data-click-to-select="true" style="text-align: center;">
+                    <thead style="text-align: center;">
+                      <tr>
+                        <th data-checkbox="true" id="calcheckbox" class="calcheckbox"></th>
+
+                        <th data-field="id">
+                          ID
+                        </th>
+                        <th data-field="firstName">
+                          First Name
+                        </th>
+                        <th data-field="lastName">
+                          Last Name
+                        </th>
+                        <th data-field="mobilephone">
+                          Mobile Phone
+                        </th>
+                        <th data-field="role">
+                          Role
+
+                        </th>
+
+                        <th data-field="edit">
+                          Remove
+
+                        </th>
+                      </tr>
+                    </thead>
+                    <tbody id="student">
+
+                      <tr>
+                        <th scope="row"> </th>
+                        <td>200000002</td>
+                        <td>e</td>
+                        <td>f</td>
+                        <td>1234 5678</td>
+                        <td><span class="badge bg-gradient-light text-dark">student</span></td>
+
+                        <td class="td-actions ">
+                          <button type="button" rel="tooltip" class="btn btn-danger btn-round">
+                            <span class="material-icons">remove_circle</span>
+                          </button>
+                        </td>
+                      </tr>
+
+                    </tbody>
+                  </table>
+
+                </div>
               </div>
             </div>
+
           </div>
         </div>
       </div>
