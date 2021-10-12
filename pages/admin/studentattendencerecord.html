@@ -5,14 +5,13 @@
 <head>
   <meta charset="utf-8" />
   <title>
-    Class studentslist
+    Class Allocation
   </title>
   <meta content='width=device-width, initial-scale=1.0, shrink-to-fit=no' name='viewport' />
   <!--     Fonts and icons     -->
   <link rel="stylesheet" type="text/css"
     href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons" />
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <!-- CSS Files -->
   <link href="../../assets/css/material-dashboard.css?v=2.1.2" rel="stylesheet" />
   <!-- CSS Just for demo purpose, don't include it in your project -->
@@ -21,7 +20,9 @@
   <link href="https://unpkg.com/bootstrap-table@1.18.3/dist/bootstrap-table.min.css" rel="stylesheet">
 
   <script src="https://unpkg.com/bootstrap-table@1.18.3/dist/bootstrap-table.min.js"></script>
-
+  <script src="../../assets/js/bootstrap.js"></script>
+  <script src="../../assets/js/plugins/moment.min.js"></script>
+  <script src="../../assets/js/plugins/bootstrap-datetimepicker.min.js"></script>
   <script>
     $(document).ready(function () {
 
@@ -52,7 +53,7 @@
           });
         },
         error: function (jqXhr, textStatus, errorMessage) {
-          $("body").replace("Error: " + errorMessage);
+
         },
       });
 
@@ -68,12 +69,12 @@
           $("#student").html(stuClass);
         },
         error: function (jqXhr, textStatus, errorMessage) {
-          $("body").replace("Error: " + errorMessage);
+
         },
       });
 
       $("#top-navbar").load("../upnavigationbar.html", function () {
-        $(".navbar-brand").text("Class studentslist");
+        $(".navbar-brand").text("Class Allocation");
       });
       $("#navbar").load("./navigationbar.html", function () {
         $("ul li:eq(1)").addClass("active");
@@ -99,113 +100,20 @@
           <div class="row">
 
             <div class="col-md-4">
-
               <div class="card card-profile">
-
+                <div class="card-avatar">
+                  <a href="javascript:;">
+                    <img class="img" src="../../assets/img/new_logo.png" />
+                  </a>
+                </div>
                 <div class="card-body">
-                  <h6 class="card-category text-gray">Class Information</h6>
-                  <h4 class="card-title">HD</h4>
+
+                  <h4 class="card-title">JO JO</h4>
                   <p class="card-description">
                     LWL SE
                   </p>
-                  <button type="button" class="btn btn-primary btn-round" data-toggle="modal"
-                    data-target="#exampleModal">
-                    + Add New Student
-                  </button>
-                  <!-- Modal -->
-                  <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
-                    aria-labelledby="exampleModalLabel" aria-hidden="true">
-                    <div class="modal-dialog" role="document">
-                      <div class="modal-content">
-                        <div class="modal-header">
-                          <h5 class="modal-title" id="exampleModalLabel">Add New Class</h5>
-                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                          </button>
-                        </div>
-                        <div class="modal-body">
-                          <div class="">
-                            <form>
-                              <div class="table-responsive" style="text-align:center;">
-                                <div class="btn btn-default btn-round pull-left" id="ebtn">
-                                  Add select
-                                </div>
-                                <table id="table" data-toggle="table" data-toggle="table" data-locale="zh-CN"
-                                  data-side-pagination="server" data-striped="true" data-click-to-select="true">
-                                  <thead style="text-align: center;">
-                                    <tr>
-                                      <th data-checkbox="true" id="calcheckbox" class="calcheckbox"></th>
 
-                                      <th data-field="id">
-                                        ID
-                                      </th>
-                                      <th data-field="firstName">
-                                        First Name
-                                      </th>
-                                      <th data-field="lastName">
-                                        Last Name
-                                      </th>
-                                      <th data-field="Add">
-                                        Add
-                                      </th>
-                                    </tr>
-                                  </thead>
-                                  <tbody id="student">
-                                    <tr>
-                                      <th scope="row"> </th>
-                                      <td>200000000</td>
-                                      <td>a</td>
-                                      <td>b</td>
-                                      <td> 
-                                        <button type="button" rel="tooltip" class="btn btn-success btn-round" ">
-                                          <span class="material-icons">add</span>
-                                        </button>
-                                      
-                                      </td>
-                                    </tr>
-                                    <tr>
-                                      <th scope="row"> </th>
-                                      <td>200000001</td>
-                                      <td>c</td>
-                                      <td>d</td>
-                                      <td> 
-                                        <button type="button" rel="tooltip" class="btn btn-success btn-round" ">
-                                          <span class="material-icons">add</span>
-                                        </button>
-                                      
-                                      </td>
-                                    </tr>
-                                    <tr>
-                                      <th scope="row"> </th>
-                                      <td>200000002</td>
-                                      <td>e</td>
-                                      <td>f</td>
-                                      <td> 
-                                        <button type="button" rel="tooltip" class="btn btn-success btn-round" ">
-                                          <span class="material-icons">add</span>
-                                        </button>
-                                      
-                                      </td>
-                                    </tr>
-
-                                  </tbody>
-                                </table>
-
-                              </div>
-                            </form>
-                          </div>
-                        </div>
-                        <div class="modal-footer">
-                          <button type="button" class="btn btn-secondary btn-round" data-dismiss="modal">Close</button>
-                          
-                        </div>
-                      </div>
-                    </div>
-
-                  </div>
-                </div>
-                <div class="col-md-4 ">
-
+                  <a href="javascript:;" class="btn btn-primary btn-round">Change Student</a>
                 </div>
               </div>
 
@@ -220,28 +128,34 @@
                   <h4 class="card-title">Class Student List</h4>
                   <p class="card-category">Student Information</p>
                 </div>
-
+                
                 <div class="card-body">
-                  <div class="btn btn-default btn-round pull-left" id="ebtn">
-                    Delete select
-                  </div>
+
                   <div class="col-md-4 pull-right">
 
                     <div class="input-group no-border">
-                      
                       <input type="text" id="searchText" value="" class="form-control" placeholder="Search...">
                       <button type="submit" class="btn btn-white btn-round btn-just-icon">
                         <i class="material-icons" id="searchbtn">search</i>
                         <div class="ripple-container"></div>
                       </button>
                     </div>
-
+                    <div class="form-check">
+                      <input type="checkbox" class="checkbox" value="xxx" /> <label>xxx </label>
+                      <input type="checkbox" class="checkbox" value="xxx" /> <label>xxx </label>
+                      <input type="checkbox" class="checkbox" value="xxx" /> <label>xxx </label>
+                    </div>
+                    
+                  </div>
+                  <div class="col-md-4 "><input type="date">
+                  To
+                  <input type="date">
                   </div>
                   <table id="table" data-toggle="table" data-height="460" data-pagination="true"
-                    data-click-to-select="true" style="text-align: center;">
+                    style="text-align: center;">
                     <thead style="text-align: center;">
                       <tr>
-                        <th data-checkbox="true" id="calcheckbox" class="calcheckbox"></th>
+
 
                         <th data-field="id">
                           ID
@@ -271,7 +185,7 @@
                     </thead>
                     <tbody id="student">
                       <tr>
-                        <th scope="row"> </th>
+
                         <td>200000000</td>
                         <td>a</td>
                         <td>b</td>
@@ -285,7 +199,7 @@
                         </td>
                       </tr>
                       <tr>
-                        <th scope="row"> </th>
+
                         <td>200000001</td>
                         <td>c</td>
                         <td>d</td>
@@ -299,7 +213,7 @@
                         </td>
                       </tr>
                       <tr>
-                        <th scope="row"> </th>
+
                         <td>200000002</td>
                         <td>e</td>
                         <td>f</td>
