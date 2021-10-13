@@ -26,6 +26,7 @@
   <script src="https://unpkg.com/bootstrap-table@1.18.3/dist/bootstrap-table.min.js"></script>
 
   <script>
+
     $(document).ready(function () {
 
       $.ajax("../../php/-ITP4506_backend/student/searchAttendance.php", {
@@ -36,14 +37,40 @@
           var table = "";
           $("#class").text($("#class").text() + data[0]["classID"]);
           for (let i = 0; i < data.length; i++) {
-            table += "<tr><td>" + data[i]["date"] + "</td><td>" + data[i]["time"] + "</td><td>" + data[i]["status"] + "</td></tr >";
+            $("tbody").append("<tr><td>" + data[i]["date"] + "</td><td>" + data[i]["time"] + "</td><td>" + data[i]["status"] + "</td></tr>");
           }
-          $("#table").html(table);
-
+          // $("#table").html(table);
         },
         error: function (jqXhr, textStatus, errorMessage) {
           $("body").replace("Error: " + errorMessage);
         },
+      });
+
+      $("input").keyup(function() {
+        $("tr:gt(0)").hide()
+                    .filter(":contains('" + $(this).val() + "')")
+                    .show(); 
+      });
+
+      $('#search').click(function () {
+        var date = $("#datepicker").val();
+        $.ajax({
+          type: 'post',
+          url: "../../php/-ITP4506_backend/student/searchAttendanceByDate.php",
+          data: {
+            date: date,
+          },
+          success: function (data, status) {
+            console.log(data);
+            var table = "";
+            for (let i = 0; i < data.length; i++) {
+              table += "<tr><td>" + data[i]["date"] + "</td><td>" + data[i]["time"] + "</td><td>" + data[i]["status"] + "</td></tr >";
+            }
+          },
+          error: function (request, status, error) {
+            alert(request, status);
+          }
+        });
       });
 
       $("#top-navbar").load("../upnavigationbar.html", function () {
@@ -78,7 +105,7 @@
             <div class="col-md-4">
 
               <div class="input-group no-border">
-                <input type="text" id="searchText" value="" class="form-control" placeholder="Search...">
+                <input type="text" value="" class="form-control" placeholder="Search...">
                 <button type="submit" class="btn btn-white btn-round btn-just-icon">
                   <i class="material-icons" id="searchbtn">search</i>
                   <div class="ripple-container"></div>
@@ -102,7 +129,7 @@
                     <div class="modal-dialog" role="document">
                       <div class="modal-content">
                         <div class="modal-header">
-                          <h5 class="modal-title" id="exampleModalLabel">Add New Class</h5>
+                          <h5 class="modal-title" id="exampleModalLabel">Search Class Attendance</h5>
                           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                           </button>
@@ -110,16 +137,15 @@
                         <div class="modal-body">
                           <div class="">
                             <form>
-
-
                               <div class="row">
                                 <div class="col-md-12">
                                   <div class="form-group">
-                                    <label for="AcademicYear" class="bmd-label-floating">Class</label>
-                                    <select class="form-control" id="AcademicYear">
+                                    <label for="AcademicYear" class="bmd-label-floating">Date: </label>
+                                    <input type="date" id="datepicker" name="date" />
+                                    <!-- <select class="form-control" id="AcademicYear">
                                       <option value="2021">2021</option>
                                       <option value="2022">2022</option>
-                                    </select>
+                                    </select> -->
                                   </div>
                                 </div>
                               </div>
@@ -128,7 +154,7 @@
                         </div>
                         <div class="modal-footer">
                           <button type="button" class="btn btn-secondary btn-round" data-dismiss="modal">Close</button>
-                          <button type="submit" class="btn btn-primary btn-round pull-right">Search</button>
+                          <button type="button" id="search" class="btn btn-primary btn-round pull-right">Search</button>
                         </div>
                       </div>
                     </div>
@@ -145,56 +171,19 @@
 
                     <table id="table" data-toggle="table" data-height="1000" data-pagination="true"
                       data-click-to-select="true" style="text-align: center;">
-                      <thead style="text-align: center;">
-                        <tr>
-
-
-                          <th data-field="id">
-                            ID
-                          </th>
-                          <th data-field="Name">
-                            Name
-                          </th>
-
-                          <th data-field="AcademicYear">
-                            Class
-
-                          </th>
-                          <th data-field="edit">
-                            Present
-
-                          </th>
-                          <th data-field="edit">
-                            Late
-
-                          </th>
-                          <th data-field="edit">
-                            Early Leave
-
-                          </th>
-                          <th data-field="edit">
-                            Sick Leave
-
-                          </th>
-                          <th data-field="edit">
-                            Personal leave
-
-                          </th>
-                          <th data-field="edit">
-                            Absent Without Reason
-
-                          </th>
-                          <th data-field="Count">
-                            Attendence %
-
-                          </th>
-                          <th data-field="edit">
-                            Abs %
-
-                          </th>
-                        </tr>
-                      </thead>
-                      <tbody id="student">
+                      <tr>
+                        <th data-field="id">
+                          Date
+                        </th>
+                        <th data-field="time">
+                          Time
+                        </th>
+                        <th data-field="status">
+                          Status
+                        </th>
+                        </th>
+                      </tr>
+                      <!-- <tbody id="student">
                         <tr>
 
                           <td>123456789</td>
@@ -212,7 +201,7 @@
                         </tr>
 
 
-                      </tbody>
+                      </tbody> -->
                     </table>
 
                   </div>
