@@ -17,23 +17,27 @@
   <!-- CSS Files -->
   <link id="pagestyle" href="./assets/css/soft-ui-dashboard.css" rel="stylesheet" />
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-  <script>
+  <script type="text/javascript">
     $(document).ready(function () {
-
-     
-      $.ajax({
-        method: "POST",
-        url: "./php/-ITP4506_backend/login.php",
-        data: {
-          userID: "200000000",
-          password: "admin",
-        },
-        success: function (data) {
-          alert(data);
-        }
+      $('button').click(function () {
+        var userID = $('#text1').val();
+        var password = $('#text2').val();
+        $.ajax({
+          type: 'post',
+          url: "login.php",
+          data: {
+            userID: userID,
+            password: password
+          },
+          success: function (data, status) {
+            if(data==="success")
+              $("#response").html("<div class='alert alert-info'>"+ data +"</div>");
+          },
+          error: function (request, status, error) {
+            alert(request, status);
+          }
+        });
       });
-
-
     });
   </script>
 </head>
@@ -59,19 +63,17 @@
             <div class="collapse navbar-collapse" id="navigation">
               <ul class="navbar-nav mx-auto">
                 <li class="nav-item">
-                  <a class="nav-link d-flex align-items-center me-2 active" aria-current="page"
-                    href="">
+                  <a class="nav-link d-flex align-items-center me-2 active" aria-current="page" href="">
                     <i class="fa fa-chart-pie opacity-6 text-dark me-1"></i>
                     登录系统
                   </a>
                 </li>
-               
-                
+
+
               </ul>
               <ul class="navbar-nav d-lg-block d-none">
                 <li class="nav-item">
-                  <a href=""
-                    class="btn btn-sm btn-round mb-0 me-1 bg-gradient-dark">?</a>
+                  <a href="" class="btn btn-sm btn-round mb-0 me-1 bg-gradient-dark">?</a>
                 </li>
               </ul>
             </div>
@@ -93,15 +95,15 @@
                   <p class="mb-0">Enter your email and password to sign in</p>
                 </div>
                 <div class="card-body">
-                  <form role="form">
+                  <form class="more-padding" autocomplete="off" id="login" action="login.php" method="post">
                     <label>Email</label>
                     <div class="mb-3">
-                      <input type="email" class="form-control" placeholder="Email" aria-label="Email"
+                      <input type="text" id="text1" class="form-control" placeholder="Email" aria-label="Email"
                         aria-describedby="email-addon">
                     </div>
                     <label>Password</label>
                     <div class="mb-3">
-                      <input type="email" class="form-control" placeholder="Password" aria-label="Password"
+                      <input type="password" id="text2" class="form-control" placeholder="Password" aria-label="Password"
                         aria-describedby="password-addon">
                     </div>
                     <div class="form-check form-switch">
@@ -109,9 +111,9 @@
                       <label class="form-check-label" for="rememberMe">Remember me</label>
                     </div>
                     <div class="text-center">
-                      <a href="pages/teacher/profile_teacher.html"><button type="button"
-                          class="btn bg-gradient-info w-100 mt-4 mb-0">Sign in</button></a>
+                      <button type="button" name="login" class="btn bg-gradient-info w-100 mt-4 mb-0">Sign in</button></a>
                     </div>
+                    <span id="response"></span>
                   </form>
                 </div>
                 <div class="card-footer text-center pt-0 px-lg-2 px-1">

@@ -28,11 +28,57 @@
           $("#fName").val(data[0]["firstName"]);
           $("#lName").val(data[0]["lastName"]);
           $("#mobile").val(data[0]["mobile"]);
-          $("#role").val(data[0]["role"]);
+          $("#role").html(data[0]["role"]);
+          $("#card-title").text(data[0]["firstName"]);
+          $(".card-description").text(data[0]["school"]);
         },
         error: function (jqXhr, textStatus, errorMessage) {
           console.log("Error: " + errorMessage);
         },
+      });
+
+      $('#updateProfile').click(function () {
+        var id = $('#id').val();
+        var fName = $('#fName').val();
+        var lName = $('#lName').val();
+        var mobile = $('#mobile').val();
+        $.ajax({
+          type: 'post',
+          url: "../../php/-ITP4506_backend/student/editPersonal.php",
+          data: {
+            id: id,
+            firstName: fName,
+            lastName: lName,
+            mobile: mobile
+          },
+          success: function (data, status) {
+            console.log(data);
+          },
+          error: function (request, status, error) {
+            alert(request, status);
+          }
+        });
+      });
+
+      $('#updatePassword').click(function () {
+        var id = $('#id').val();
+        var password = $('#password').val();
+        var repeatPassword = $('#repeatPassword').val();
+        $.ajax({
+          type: 'post',
+          url: "../../php/-ITP4506_backend/student/editPassword.php",
+          data: {
+            id: id,
+            password: password,
+            repeatPassword: repeatPassword,
+          },
+          success: function (data, status) {
+            console.log(data);
+          },
+          error: function (request, status, error) {
+            alert(request, status);
+          }
+        });
       });
 
       $("#top-navbar").load("../upnavigationbar.html", function () {
@@ -72,7 +118,7 @@
                 </div>
                 <div class="card-body">
 
-                  <h4 class="card-title">JO JO</h4>
+                  <h4 class="card-title" id="card-title">JO JO</h4>
                   <p class="card-description">
                     LWL SE
                   </p>
@@ -80,17 +126,18 @@
                     <div class="col-md-6">
                       <div class="form-group">
                         <label class="bmd-label-floating">New Password</label>
-                        <input type="text" class="form-control">
+                        <input type="text" id="password" class="form-control">
                       </div>
                     </div>
                     <div class="col-md-6">
                       <div class="form-group">
                         <label class="bmd-label-floating">RE Password</label>
-                        <input type="text" class="form-control">
+                        <input type="text" id="repeatPassword" class="form-control">
                       </div>
                     </div>
                   </div>
-                  <a href="javascript:;" class="btn btn-primary btn-round">Change Password</a>
+                  <button id="updatePassword" type="button" class="btn btn-primary btn-round">Change Password</button>
+                  <!-- <a href="javascript:;" class="btn btn-primary btn-round">Change Password</a> -->
                 </div>
               </div>
 
@@ -107,7 +154,7 @@
                       <div class="col-md-5">
                         <div class="form-group">
                           <label class="bmd-label-floating">ID</label>
-                          <input type="text" class="form-control" value="1" disabled>
+                          <input type="text" id="id" class="form-control" value="1" disabled>
                         </div>
                       </div>
 
@@ -116,13 +163,13 @@
                       <div class="col-md-6">
                         <div class="form-group">
                           <label class="bmd-label-floating">Fist Name</label>
-                          <input type="text" class="form-control">
+                          <input type="text" id="fName" class="form-control">
                         </div>
                       </div>
                       <div class="col-md-6">
                         <div class="form-group">
                           <label class="bmd-label-floating">Last Name</label>
-                          <input type="text" class="form-control">
+                          <input type="text" id="lName" class="form-control">
                         </div>
                       </div>
                     </div>
@@ -130,7 +177,7 @@
                       <div class="col-md-12">
                         <div class="form-group">
                           <label class="bmd-label-floating">Role</label>
-                          <span class="badge bg-gradient-light text-dark">student</span>
+                          <span class="badge bg-gradient-light text-dark" id="role"></span>
                         </div>
                       </div>
                     </div>
@@ -138,13 +185,13 @@
                       <div class="col-md-4">
                         <div class="form-group">
                           <label class="bmd-label-floating">Mobile</label>
-                          <input type="text" class="form-control">
+                          <input type="text" id="mobile" class="form-control">
                         </div>
                       </div>
 
                     </div>
 
-                    <button type="submit" class="btn btn-primary pull-right">Update Profile</button>
+                    <button id="updateProfile" type="button" class="btn btn-primary pull-right">Update Profile</button>
                     <div class="clearfix"></div>
                   </form>
                 </div>
