@@ -31,7 +31,7 @@
           $("#role").val(data[0]["role"]);
         },
         error: function (jqXhr, textStatus, errorMessage) {
-          $("body").replace("Error: " + errorMessage);
+          console.log("Error: " + errorMessage);
         },
       });
 
@@ -40,8 +40,13 @@
       });
       $("#navbar").load("./navigationbar.html", function () {
         $("ul li:eq(0)").addClass("active");
+        var sc = document.createElement("script");
+        sc.src = "../egg.js";
+        $("body").append(sc);
       });
       $("#end-navbar").load("../endnavigationbar.html");
+
+
     });
   </script>
 </head>
@@ -58,68 +63,94 @@
       <div class="content">
         <div class="container-fluid">
           <div class="row">
+            <div class="col-md-4">
+              <div class="card card-profile">
+                <div class="card-avatar">
+                  <a href="javascript:;">
+                    <img class="img" src="../../assets/img/new_logo.png" />
+                  </a>
+                </div>
+                <div class="card-body">
 
-            <div class="col-md-2"></div>
+                  <h4 class="card-title">JO JO</h4>
+                  <p class="card-description">
+                    LWL SE
+                  </p>
+                  <div class="row">
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <label class="bmd-label-floating">New Password</label>
+                        <input type="text" class="form-control">
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <label class="bmd-label-floating">RE Password</label>
+                        <input type="text" class="form-control">
+                      </div>
+                    </div>
+                  </div>
+                  <a href="javascript:;" class="btn btn-primary btn-round">Change Password</a>
+                </div>
+              </div>
+
+            </div>
             <div class="col-md-8">
               <div class="card">
                 <div class="card-header card-header-primary">
-                  <h4 class="card-title">Profile</h4>
+                  <h4 class="card-title">Edit Profile</h4>
+                  <p class="card-category">Student Information</p>
                 </div>
                 <div class="card-body">
                   <form>
                     <div class="row">
-                      <div class="col-md-12">
+                      <div class="col-md-5">
                         <div class="form-group">
                           <label class="bmd-label-floating">ID</label>
-                          <input type="text" id="id" value="1" class="form-control" disabled>
+                          <input type="text" class="form-control" value="1" disabled>
                         </div>
                       </div>
-                    </div>
 
+                    </div>
                     <div class="row">
-                      <div class="col-md-12">
+                      <div class="col-md-6">
                         <div class="form-group">
-                          <label class="bmd-label-floating">First Name</label>
-                          <input type="text" id="fName" class="form-control">
+                          <label class="bmd-label-floating">Fist Name</label>
+                          <input type="text" class="form-control">
                         </div>
                       </div>
-                    </div>
-
-                    <div class="row">
-                      <div class="col-md-12">
+                      <div class="col-md-6">
                         <div class="form-group">
                           <label class="bmd-label-floating">Last Name</label>
-                          <input type="text" id="lName" class="form-control">
+                          <input type="text" class="form-control">
                         </div>
                       </div>
                     </div>
-
                     <div class="row">
                       <div class="col-md-12">
                         <div class="form-group">
                           <label class="bmd-label-floating">Role</label>
-                          <input type="text" id="role" value="Student" class="form-control" disabled>
+                          <span class="badge bg-gradient-light text-dark">student</span>
                         </div>
                       </div>
                     </div>
-
                     <div class="row">
-                      <div class="col-md-12">
+                      <div class="col-md-4">
                         <div class="form-group">
                           <label class="bmd-label-floating">Mobile</label>
-                          <input type="text" id="mobile" value="Student" class="form-control">
+                          <input type="text" class="form-control">
                         </div>
                       </div>
+
                     </div>
 
-                    <button type="button" class="btn btn-primary pull-right">Update Profile</button>
-                    <button type="button" class="btn btn-danger pull-right" style="background-color: green;"
-                      onClick="window.location.href='./change_password.html';">Change Password</button>
+                    <button type="submit" class="btn btn-primary pull-right">Update Profile</button>
                     <div class="clearfix"></div>
                   </form>
                 </div>
               </div>
             </div>
+
           </div>
         </div>
       </div>

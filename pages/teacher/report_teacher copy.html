@@ -4,23 +4,21 @@
 
 <head>
   <meta charset="utf-8" />
+  <link rel="apple-touch-icon" sizes="76x76" href="../../assets/img/apple-icon.png">
+  <link rel="icon" type="image/png" href="../../assets/img/favicon.png">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
   <title>
-    Report
+    Material Dashboard by Creative Tim
   </title>
   <meta content='width=device-width, initial-scale=1.0, shrink-to-fit=no' name='viewport' />
   <!--     Fonts and icons     -->
-  <link rel="stylesheet" type="text/css"
-    href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons" />
+  <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons" />
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
   <!-- CSS Files -->
   <link href="../../assets/css/material-dashboard.css?v=2.1.2" rel="stylesheet" />
   <!-- CSS Just for demo purpose, don't include it in your project -->
   <link href="../../assets/demo/demo.css" rel="stylesheet" />
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-  <link href="https://unpkg.com/bootstrap-table@1.18.3/dist/bootstrap-table.min.css" rel="stylesheet">
-
-  <script src="https://unpkg.com/bootstrap-table@1.18.3/dist/bootstrap-table.min.js"></script>
   <script>
     $(document).ready(function () {
 
@@ -40,14 +38,8 @@
         },
       });
 
-      $(".dropdown-item").click(function () {
-        $("#dropdownMenuButton").text($(this).text());
-        $("#tStudent tr").hide();
-        $("#tStudent tr").filter(":contains('" + $(this).text() + "')").show();
-      });
-
       $("#top-navbar").load("../upnavigationbar.html", function () {
-        $(".navbar-brand").text("Report");
+        $(".navbar-brand").text("Profile");
       });
       $("#navbar").load("./navigationbar.html", function () {
         $("ul li:eq(4)").addClass("active");
@@ -59,42 +51,37 @@
 
 <body class="">
   <div class="wrapper ">
-
+    
     <div id="navbar"></div>
     <div class="main-panel">
       <!-- Navbar -->
+    
       <div id="top-navbar"></div>
       <!-- End Navbar -->
       <div class="content">
         <div class="container-fluid">
           <div class="row">
-
-
+            <div class="col-md-6">
+			  <div class="dropdown">
+				  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+					Choose Coverage
+				  </button>
+				  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+					<a class="dropdown-item" href="#">Year</a>
+					<a class="dropdown-item" href="#">Month</a>
+				  </div>
+			  </div>
+			</div>
+			
             <div class="col-md-12">
               <div class="card">
                 <div class="card-header card-header-primary">
                   <h4 class="card-title ">Attendace Record</h4>
                 </div>
-                <div class="col-md-6">
-                  <div class="dropdown" >
-                    <button class="btn btn-info dropdown-toggle btn-round" type="button" id="dropdownMenuButton"
-                      data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >
-                      Choose Class
-                    </button>
-                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                      <a class="dropdown-item" href="#">1A</a>
-                      <a class="dropdown-item" href="#">1B</a>
-                      <a class="dropdown-item" href="#">1C</a>
-                      <a class="dropdown-item" href="#">2A</a>
-                      <a class="dropdown-item" href="#">2B</a>
-                    </div>
-                  </div>
-                </div>
                 <div class="card-body">
                   <div class="table-responsive">
-                    <table id="table" data-toggle="table" data-height="460" data-pagination="true"
-                    data-click-to-select="true" style="text-align: center;">
-                      <thead style="text-align: center;">
+                    <table class="table">
+                      <thead class=" text-primary">
                         <th>
                           Name
                         </th>
@@ -102,28 +89,19 @@
                           Class
                         </th>
                         <th>
-                          Present
+                          Date1 & Time1
                         </th>
                         <th>
-                          Late
+                          Date2 & Time2
                         </th>
                         <th>
-                          Early Leave
+                          Date3 & Time3
                         </th>
                         <th>
-                          Sick Leave
-                        </th>
-                        <th>
-                          Personal leave
-                        </th>
-                        <th>
-                          Absent Without Reason
-                        </th>
-                        <th>
-                          View
+                          Date4 & Time4
                         </th>
                       </thead>
-                      <tbody id="tStudent">
+                      <tbody>
                         <tr>
                           <td>
                             Johnson
@@ -132,26 +110,16 @@
                             2B
                           </td>
                           <td>
-                            1
+                            Present
                           </td>
                           <td>
-                            2
+                            Present
                           </td>
                           <td>
-                            3
+                            Present
                           </td>
                           <td>
-                            4
-                          </td>
-                          <td>
-                            5
-                          </td>
-                          <td>
-                            6
-                          </td>
-                          <td>
-                            <button type="button" class="btn btn-primary"
-                              onClick="window.location.href='./report_teacher.html';">Detail</button>
+                            Present
                           </td>
                         </tr>
                         <tr>
@@ -162,59 +130,39 @@
                             2B
                           </td>
                           <td>
-                            1
+                            Present
                           </td>
                           <td>
-                            2
+                            Present
                           </td>
                           <td>
-                            3
+                            Present
                           </td>
                           <td>
-                            4
-                          </td>
-                          <td>
-                            5
-                          </td>
-                          <td>
-                            6
-                          </td>
-                          <td>
-                            <button type="button" class="btn btn-primary"
-                              onClick="window.location.href='./report_teacher.html';">Detail</button>
+                            Present
                           </td>
                         </tr>
-                      <tr>
-                        <td>
-                          Ken
-                        </td>
-                        <td>
-                          2B
-                        </td>
-                        <td>
-                          1
-                        </td>
-                        <td>
-                          2
-                        </td>
-                        <td>
-                          3
-                        </td>
-                        <td>
-                          4
-                        </td>
-                        <td>
-                          5
-                        </td>
-                        <td>
-                          6
-                        </td>
-                        <td>
-                          <button type="button" class="btn btn-primary"
-                            onClick="window.location.href='./report_teacher.html';">Detail</button>
-                        </td>
-                      </tr>
-                    </tbody>
+                      </tbody>
+                        <tr>
+                          <td>
+                            Ken
+                          </td>
+                          <td>
+                            2B
+                          </td>
+                          <td>
+                            Present
+                          </td>
+                          <td>
+                            Sick Leave
+                          </td>
+                          <td>
+                            Present
+                          </td>
+                          <td>
+                            Present
+                          </td>
+                        </tr>
                     </table>
                   </div>
                 </div>
@@ -224,8 +172,8 @@
         </div>
       </div>
 
+     
       <div id="end-navbar"></div>
-
 
     </div>
   </div>

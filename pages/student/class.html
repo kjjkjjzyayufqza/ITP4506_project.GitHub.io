@@ -17,6 +17,9 @@
   <!-- CSS Just for demo purpose, don't include it in your project -->
   <link href="../../assets/demo/demo.css" rel="stylesheet" />
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <link href="https://unpkg.com/bootstrap-table@1.18.3/dist/bootstrap-table.min.css" rel="stylesheet">
+
+  <script src="https://unpkg.com/bootstrap-table@1.18.3/dist/bootstrap-table.min.js"></script>
   <script>
     $(document).ready(function () {
 
@@ -68,29 +71,32 @@
       <!-- End Navbar -->
       <div class="content">
         <div class="container-fluid">
-          <div class="row">
-            <div class="col-md-4">
-              <div class="dropdown">
-                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
-                  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  Choose Year
-                </button>
-                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                  <a class="dropdown-item" href="#">Current</a>
-                  <a class="dropdown-item" href="#">Previous</a>
-                </div>
-              </div>
-            </div>
-          </div>
+
 
           <div class="col-md-12">
             <div class="card">
-              <div class="card-header card-header-primary">
+              
+              <div class="card-header-primary" style="border-radius: 20px;">
                 <h4 class="card-title ">Class Detail</h4>
-                <p class="card-category">  </p>
+
 
               </div>
+              
               <div class="card-body">
+                <div class="row">
+                  <div class="col-md-4">
+                    <div class="dropdown">
+                      <button class="btn btn-info btn-round dropdown-toggle" type="button" id="dropdownMenuButton"
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Choose Year
+                      </button>
+                      <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                        <a class="dropdown-item" href="#">Current</a>
+                        <a class="dropdown-item" href="#">Previous</a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
                 <div class="row">
                   <div class="col-md-12">
                     <div class="form-group">

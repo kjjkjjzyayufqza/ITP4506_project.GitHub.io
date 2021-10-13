@@ -21,6 +21,10 @@
   <link href="../../assets/demo/demo.css" rel="stylesheet" />
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <link href="https://unpkg.com/bootstrap-table@1.18.3/dist/bootstrap-table.min.css" rel="stylesheet">
+
+  <script src="https://unpkg.com/bootstrap-table@1.18.3/dist/bootstrap-table.min.js"></script>
+
   <script>
     $(document).ready(function () {
 
@@ -32,7 +36,7 @@
           var table = "";
           $("#class").text($("#class").text() + data[0]["classID"]);
           for (let i = 0; i < data.length; i++) {
-            table += "<tr><td>"+data[i]["date"]+"</td><td>"+ data[i]["time"] +"</td><td>"+ data[i]["status"] +"</td></tr >";
+            table += "<tr><td>" + data[i]["date"] + "</td><td>" + data[i]["time"] + "</td><td>" + data[i]["status"] + "</td></tr >";
           }
           $("#table").html(table);
 
@@ -49,7 +53,7 @@
         $("ul li:eq(2)").addClass("active");
       });
       $("#end-navbar").load("../endnavigationbar.html");
-      $(".dropdown-item").click(function(){
+      $(".dropdown-item").click(function () {
         $("#dropdownMenuButton").text($(this).text());
       })
     });
@@ -66,44 +70,151 @@
       <!-- End Navbar -->
       <div class="content">
         <div class="container-fluid">
-          <div class="row">
-            <div class="col-md-6">
-              <div class="dropdown">
-                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
-                  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  Choose Coverage
-                </button>
-                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                  <a class="dropdown-item" href="#">Year</a>
-                  <a class="dropdown-item" href="#">Month</a>
-                </div>
-              </div>
-            </div>
 
+          <div class="row">
+            <div class="col-md-8">
+
+            </div>
+            <div class="col-md-4">
+
+              <div class="input-group no-border">
+                <input type="text" id="searchText" value="" class="form-control" placeholder="Search...">
+                <button type="submit" class="btn btn-white btn-round btn-just-icon">
+                  <i class="material-icons" id="searchbtn">search</i>
+                  <div class="ripple-container"></div>
+                </button>
+              </div>
+
+            </div>
             <div class="col-md-12">
+
               <div class="card">
-                <div class="card-header card-header-primary">
-                  <h4 class="card-title ">Attendace Record</h4>
-                  <p class="card-category" id="class">CLass: </p>
+                <div class="card-header-primary" style="border-radius: 20px;">
+                  <h4 class="card-title ">Attendence</h4>
                 </div>
                 <div class="card-body">
-                  <div class="table-responsive">
-                    <table class="table">
-                      <thead class=" text-primary">
-                        <th>
-                          Date
-                        </th>
-                        <th>
-                          Time
-                        </th>
-                        <th>
-                          Status
-                        </th>
+                  <!-- Button trigger modal -->
+
+
+                  <!-- Modal -->
+                  <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
+                    aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h5 class="modal-title" id="exampleModalLabel">Add New Class</h5>
+                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                          </button>
+                        </div>
+                        <div class="modal-body">
+                          <div class="">
+                            <form>
+
+
+                              <div class="row">
+                                <div class="col-md-12">
+                                  <div class="form-group">
+                                    <label for="AcademicYear" class="bmd-label-floating">Class</label>
+                                    <select class="form-control" id="AcademicYear">
+                                      <option value="2021">2021</option>
+                                      <option value="2022">2022</option>
+                                    </select>
+                                  </div>
+                                </div>
+                              </div>
+                            </form>
+                          </div>
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-secondary btn-round" data-dismiss="modal">Close</button>
+                          <button type="submit" class="btn btn-primary btn-round pull-right">Search</button>
+                        </div>
+                      </div>
+                    </div>
+
+                  </div>
+                  <div class="table-responsive " style="text-align:center;" id="showtips">
+                    <button type="button" class="btn btn-round " data-toggle="modal" data-target="#exampleModal">
+                      Select Option
+                    </button>
+                  </div>
+
+                  <div class="table-responsive" style="text-align:center;">
+
+
+                    <table id="table" data-toggle="table" data-height="1000" data-pagination="true"
+                      data-click-to-select="true" style="text-align: center;">
+                      <thead style="text-align: center;">
+                        <tr>
+
+
+                          <th data-field="id">
+                            ID
+                          </th>
+                          <th data-field="Name">
+                            Name
+                          </th>
+
+                          <th data-field="AcademicYear">
+                            Class
+
+                          </th>
+                          <th data-field="edit">
+                            Present
+
+                          </th>
+                          <th data-field="edit">
+                            Late
+
+                          </th>
+                          <th data-field="edit">
+                            Early Leave
+
+                          </th>
+                          <th data-field="edit">
+                            Sick Leave
+
+                          </th>
+                          <th data-field="edit">
+                            Personal leave
+
+                          </th>
+                          <th data-field="edit">
+                            Absent Without Reason
+
+                          </th>
+                          <th data-field="Count">
+                            Attendence %
+
+                          </th>
+                          <th data-field="edit">
+                            Abs %
+
+                          </th>
+                        </tr>
                       </thead>
-                      <tbody id="table">
+                      <tbody id="student">
+                        <tr>
+
+                          <td>123456789</td>
+                          <td>jojo</td>
+
+                          <td>LWL SE </td>
+                          <td>SE</td>
+                          <td>2A</td>
+                          <td>80%</td>
+                          <td>80%</td>
+                          <td>80%</td>
+                          <td>80%</td>
+                          <td>80%</td>
+
+                        </tr>
+
 
                       </tbody>
                     </table>
+
                   </div>
                 </div>
               </div>
