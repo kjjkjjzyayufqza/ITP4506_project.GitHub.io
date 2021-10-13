@@ -33,7 +33,7 @@
 
           var stuClass = "";
           for (let i = 0; i < data.length; i++) {
-            stuClass += "<tr> <th scope='row'> </th><td>" + data[i]["id"] + "</td><td>" + data[i]["firstName"] + "</td><td>" + data[i]["lastName"] + "</td><td>" + data[i]["mobile"]
+            stuClass += "<tr  '><th scope='row'> </th><td class='dataselect'>" + data[i]["id"] + "</td><td>" + data[i]["firstName"] + "</td><td>" + data[i]["lastName"] + "</td><td>" + data[i]["mobile"]
             if (data[i]["role"] == "admin") {
               stuClass += "</td><td><span class='badge bg-gradient-warning'>" + data[i]["role"] + "</td>";
             }
@@ -52,12 +52,17 @@
 
             }
 
-            stuClass += "<td class='td-actions '><button type='button' id='viewstudent_profile' rel='tooltip' class='btn' onclick='location.href='pageurl.html';'><i class='material-icons' > edit</i ></button ></td > </tr > "
+            stuClass += "<td class='td-actions '><button type='button' id='viewstudent_profile' rel='tooltip' class='btn viewstudent_profile' ><i class='material-icons' > edit</i ></button ></td > </tr > "
           }
           $("#student").html(stuClass);
-          $("#viewstudent_profile").click(function () {
-            window.location.href = "student_profile.html";
+          $(".viewstudent_profile").click(function () {
+           // window.location.href = "student_profile.html";
           })
+
+          $('.viewstudent_profile').on('click', function () {
+            var tem = $(this).parents("tr").find(".dataselect").text();
+            console.log(tem)
+          });
         },
         error: function (jqXhr, textStatus, errorMessage) {
           $("body").toString().replace("Error: " + errorMessage);
@@ -70,21 +75,25 @@
         if ($("#fname").val().length == 0 || $("#lname").val().length == 0) {
           alert("Please enter all")
         } else {
-          if (window.XMLHttpRequest) {
-            // IE7+, Firefox, Chrome, Opera, Safari 浏览器执行代码
-            xmlhttp = new XMLHttpRequest();
-          }
-          else {
-            // IE6, IE5 浏览器执行代码
-            xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
-          }
-          xmlhttp.onreadystatechange = function () {
-            if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
-              document.getElementById("myDiv").innerHTML = xmlhttp.responseText;
-            }
-          }
-          xmlhttp.open("POST", "../../php/-ITP4506_backend/admin/createAccount.php", true);
-          xmlhttp.send("fname=Henry&lname=Ford");
+          console.log("hi")
+          var fName = $('#fName').val();
+          var lName = $('#lName').val();
+          var role = $('#role').val();
+          $.ajax({
+            type: 'post',
+            url: "../../php/-ITP4506_backend/admin/createAccount.php",
+            data: {
+              firstName: fName,
+              lastName: lName,
+              role: role
+            },
+            success: function (data, status, xhr) {
+              console.log("h2i")
+            },
+            error: function (jqXhr, textStatus, errorMessage) {
+              console.log("Error: " + errorMessage);
+            },
+          });
         }
 
       })
@@ -239,45 +248,45 @@
                         <h1>Create accounts</h1>
                       </div>
                       <div class="details-modal-content">
-                        <form id="form">
-                          <div class="row">
-                            <div class="col-md-12">
-                              <div class="form-group">
-                                <label for="role" class="bmd-label-floating">Role</label>
-                                <select class="form-control" id="role">
-                                  <option value="teacher">Teacher</option>
-                                  <option value="student">Student</option>
-                                </select>
-                              </div>
-                            </div>
-                          </div>
-                          <div class="row">
-                            <div class="col-md-12">
-                              <div class="form-group">
-                                <label class="bmd-label-floating">First Name</label>
-                                <input type="text" id="fname" class="form-control">
-                              </div>
-                            </div>
-                          </div>
-                          <div class="row">
-                            <div class="col-md-12">
-                              <div class="form-group">
-                                <label class="bmd-label-floating">Last Name</label>
-                                <input type="text" id="lname" class="form-control">
-                              </div>
-                            </div>
-                          </div>
 
-                          <div class="row">
-                            <div class="col-md-12">
-                              <div class="form-group">
-                                <label class="bmd-label-floating">Class</label>
-                                <input type="text" id="sclass" class="form-control">
-                              </div>
+                        <div class="row">
+                          <div class="col-md-12">
+                            <div class="form-group">
+                              <label for="role" class="bmd-label-floating">Role</label>
+                              <select class="form-control" id="role">
+                                <option value="teacher">Teacher</option>
+                                <option value="student">Student</option>
+                              </select>
                             </div>
                           </div>
-                          <button id="createacc" class="btn btn-primary btn-round pull-right">Create Account</button>
-                        </form>
+                        </div>
+                        <div class="row">
+                          <div class="col-md-12">
+                            <div class="form-group">
+                              <label class="bmd-label-floating">First Name</label>
+                              <input type="text" id="fname" class="form-control">
+                            </div>
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="col-md-12">
+                            <div class="form-group">
+                              <label class="bmd-label-floating">Last Name</label>
+                              <input type="text" id="lname" class="form-control">
+                            </div>
+                          </div>
+                        </div>
+
+                        <div class="row">
+                          <div class="col-md-12">
+                            <div class="form-group">
+                              <label class="bmd-label-floating">Class</label>
+                              <input type="text" id="sclass" class="form-control">
+                            </div>
+                          </div>
+                        </div>
+                        <button id="createacc" class="btn btn-primary btn-round pull-right">Create Account</button>
+
 
                       </div>
                     </div>
