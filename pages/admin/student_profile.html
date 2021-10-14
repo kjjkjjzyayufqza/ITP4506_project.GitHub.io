@@ -19,22 +19,62 @@
   <script>
     $(document).ready(function () {
 
-      $.ajax("../../php/-ITP4506_backend/student/viewPersonal.php", {
-        dataType: "json", // type of response data
-        timeout: 500, // timeout milliseconds
+      $.ajax({
+        type: 'post',
+        url: "../../php/-ITP4506_backend/admin/view_student_allInformation.php",
+        data: {
+          id: localStorage["id"],
+        },
         success: function (data, status, xhr) {
-          console.log(data);
-          $("#id").val(data[0]["id"]);
-          $("#fName").val(data[0]["firstName"]);
-          $("#lName").val(data[0]["lastName"]);
-          $("#mobile").val(data[0]["mobile"]);
-          $("#role").val(data[0]["role"]);
+          var returnedData = JSON.parse(data);
+          $("#idinput").val(returnedData[0].id)
+          $("#fnameinput").val(returnedData[0].firstName)
+          $("#lnameinput").val(returnedData[0].lastname)
+          $("#mobileinput").val(returnedData[0].mobile)
+          
+          if (returnedData[0].role == "admin") {
+            $("#rolespan").html("<span id='rolespan' class='badge bg-gradient-warning '>admin</span>")
+          }
+          if (returnedData[0].role == "teacher") {
+            $("#rolespan").html("<span id='rolespan' class='badge bg-gradient-info '>teacher</span>")
+          }
+          if (returnedData[0].role == "student") {
+            $("#rolespan").html("<span id='rolespan' class='badge bg-gradient-light text-dark'>student</span>")
+          }
+
+          if(returnedData[0].suspended == "0"){
+            $(":radio[name='drawStatus'][value='0']").prop("checked", "checked");
+          }
+          if(returnedData[0].suspended == "1"){
+            $(":radio[name='drawStatus'][value='1']").prop("checked", "checked");
+          }
+
         },
         error: function (jqXhr, textStatus, errorMessage) {
           console.log("Error: " + errorMessage);
         },
       });
 
+
+
+      $('#updateProfile').click(function () {
+        var suspended = $('input:radio:checked').val()
+        console.log(suspended)
+        $.ajax({
+          type: 'post',
+          url: "../../php/-ITP4506_backend/admin/accountStatus.php",
+          data: {
+            id: localStorage["id"],
+            suspended: suspended,
+          },
+          success: function (data, status) {
+            console.log("yes");
+          },
+          error: function (request, status, error) {
+            alert(request, status);
+          }
+        });
+      });
       $("#top-navbar").load("../upnavigationbar.html", function () {
         $(".navbar-brand").text("Profile");
       });
@@ -78,28 +118,22 @@
                   </p>
                   <div class="form-check form-check-radio">
                     <label class="form-check-label">
-                      <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1"
-                        value="option1">
+                      <input type="radio" name="drawStatus" value="1" />
                       Enable
-                      <span class="circle">
-                        <span class="check"></span>
-                      </span>
+
                     </label>
                   </div>
                   <div class="form-check form-check-radio">
                     <label class="form-check-label">
-                      <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2"
-                        value="option2" checked>
+                      <input type="radio" name="drawStatus" value="0" />
                       Disable
-                      <span class="circle">
-                        <span class="check"></span>
-                      </span>
+
                     </label>
                   </div>
                   <a href="javascript:;" class="btn btn-primary btn-round">Change photo</a>
                 </div>
               </div>
-              <div class="card card-profile" >
+              <div class="card card-profile">
 
                 <div class="card-body">
 
@@ -121,7 +155,7 @@
                       <div class="col-md-5">
                         <div class="form-group">
                           <label class="bmd-label-floating">ID</label>
-                          <input type="text" class="form-control" value="1" disabled>
+                          <input type="text" id="idinput" class="form-control" value="1" disabled>
                         </div>
                       </div>
 
@@ -130,13 +164,13 @@
                       <div class="col-md-6">
                         <div class="form-group">
                           <label class="bmd-label-floating">Fist Name</label>
-                          <input type="text" class="form-control">
+                          <input type="text" id="fnameinput" class="form-control" disabled>
                         </div>
                       </div>
                       <div class="col-md-6">
                         <div class="form-group">
                           <label class="bmd-label-floating">Last Name</label>
-                          <input type="text" class="form-control">
+                          <input type="text" id="lnameinput" class="form-control" disabled>
                         </div>
                       </div>
                     </div>
@@ -144,7 +178,10 @@
                       <div class="col-md-12">
                         <div class="form-group">
                           <label class="bmd-label-floating">Role</label>
-                          <span class="badge bg-gradient-light text-dark">student</span>
+                          <div id="rolespan">
+                            <span class="badge bg-gradient-light text-dark">student</span>
+                          </div>
+
                         </div>
                       </div>
                     </div>
@@ -152,13 +189,13 @@
                       <div class="col-md-4">
                         <div class="form-group">
                           <label class="bmd-label-floating">Mobile</label>
-                          <input type="text" class="form-control">
+                          <input type="text" id="mobileinput" class="form-control" disabled>
                         </div>
                       </div>
 
                     </div>
 
-                    <button type="submit" class="btn btn-primary pull-right">Update Profile</button>
+                    <button type="submit" id="updateProfile" class="btn btn-primary pull-right">Update Profile</button>
                     <div class="clearfix"></div>
                   </form>
                 </div>

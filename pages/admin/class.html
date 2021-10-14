@@ -54,16 +54,23 @@
         },
       });
 
-      $.ajax("../../php/-ITP4506_backend/teacher/viewStudent.php", {
+      $.ajax("../../php/-ITP4506_backend/admin/viewallClass.php", {
         dataType: "json", // type of response data
         timeout: 500, // timeout milliseconds
         success: function (data, status, xhr) {
           console.log(data);
           var stuClass = "";
           for (let i = 0; i < data.length; i++) {
-            stuClass += "<tr><td>" + data[i]["studentID"] + "</td><td>2A</td><td>Higher Diploma in Software Engineering </td><td>" + data[i]["firstName"] + "</td><td>" + data[i]["lastName"] + "</td><td><button class='btn'><i class='fa fa-close'></i></button></td></tr>";
+            stuClass += "<tr><td class='dataselect'>" + data[i]["id"] + "</td><td>" +  data[i]["name"] + "</td><td> "+ data[i]["description"]  + " </td><td>" + data[i]["teacherID"] + "</td><td>" + data[i]["academicYear"] + "</td> "
+            stuClass +=   "<td class='td-actions '><button type='button' rel='tooltip' class='btn btn-round deletebtn' ><i class='material-icons'>edit</i></button></td></tr>";
           }
           $("#student").html(stuClass);
+          $(".deletebtn").click(function (){
+            var selectid = $(this).parents("tr").find(".dataselect").text();
+            localStorage.setItem("selectid",selectid);
+            console.log(localStorage['selectid'])
+            window.location.href = "class_studentslist.html";
+          })
         },
         error: function (jqXhr, textStatus, errorMessage) {
           $("body").replace("Error: " + errorMessage);
@@ -116,77 +123,7 @@
                   <h4 class="card-title ">Class List</h4>
                 </div>
                 <div class="card-body">
-                  <!-- Button trigger modal -->
-                  <button type="button" class="btn btn-primary btn-round pull-right" data-toggle="modal" data-target="#exampleModal">
-                    + Add New Class
-                  </button>
 
-                  <!-- Modal -->
-                  <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
-                    aria-labelledby="exampleModalLabel" aria-hidden="true">
-                    <div class="modal-dialog" role="document">
-                      <div class="modal-content">
-                        <div class="modal-header">
-                          <h5 class="modal-title" id="exampleModalLabel">Add New Class</h5>
-                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                          </button>
-                        </div>
-                        <div class="modal-body">
-                          <div class="">
-                            <form>
-                              <div class="row">
-                                <div class="col-md-12">
-                                  <div class="form-group">
-                                    <label class="bmd-label-floating">ID</label>
-                                    <input type="text" class="form-control">
-                                  </div>
-                                </div>
-                              </div>
-                              <div class="row">
-                                <div class="col-md-12">
-                                  <div class="form-group">
-                                    <label class="bmd-label-floating">class Name</label>
-                                    <input type="text" class="form-control">
-                                  </div>
-                                </div>
-                              </div>
-                              <div class="row">
-                                <div class="col-md-12">
-                                  <div class="form-group">
-                                    <label class="bmd-label-floating">Description</label>
-                                    <input type="text" class="form-control">
-                                  </div>
-                                </div>
-                              </div>
-                              <div class="row">
-                                <div class="col-md-12">
-                                  <div class="form-group">
-                                    <label class="bmd-label-floating">Description</label>
-                                    <input type="text" class="form-control">
-                                  </div>
-                                </div>
-                              </div>
-                              <div class="row">
-                                <div class="col-md-12">
-                                  <div class="form-group">
-                                    <label for="AcademicYear" class="bmd-label-floating">AcademicYear</label>
-                                    <select class="form-control" id="AcademicYear">
-                                      <option value="2021">2021</option>
-                                      <option value="2022">2022</option>
-                                    </select>
-                                  </div>
-                                </div>
-                              </div>
-                            </form>
-                          </div>
-                        </div>
-                        <div class="modal-footer">
-                          <button type="button" class="btn btn-secondary btn-round" data-dismiss="modal">Close</button>
-                          <button type="submit" class="btn btn-primary btn-round pull-right">Create Account</button>
-                        </div>
-                      </div>
-                    </div>
                     
                   </div>
                   <div class="table-responsive " style="text-align:center;" id="showtips" >
@@ -221,10 +158,7 @@
                             AcademicYear
 
                           </th>
-                          <th data-field="Count">
-                            Count
 
-                          </th>
                           <th data-field="edit">
                             Edit
 
@@ -240,7 +174,7 @@
                           <td>Higher Diploma in Software Engineering </td>
                           <td>201116523</td>
                           <td><span class="badge bg-gradient-success">2021</span></td>
-                          <td>80</td>
+ 
                           <td class="td-actions ">
                             <button type="button" rel="tooltip" class="btn"
                               onclick="location.href='class_studentslist.html'">
