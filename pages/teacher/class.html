@@ -30,11 +30,16 @@
           console.log(data);
           var stuClass = "";
           for (let i = 0; i < data.length; i++) {
-            $("tbody").append("<tr><td>" + data[i]["id"] + "</td><td>" + data[i]["name"] + "</td><td>" + data[i]["description"] + "</td><td>" + data[i]["academicYear"]);
+            $("tbody").append("<tr><td class='dataselect'>" + data[i]["id"] + "</td><td>" + data[i]["name"] + "</td><td>" + data[i]["description"] + "</td><td>" + data[i]["academicYear"] + 
+              "<td class='td-actions '><button type='button' rel='tooltip' class='btn btn-round openeidtclass' ><i class='material-icons'>edit</i></button></td></tr>");
           }
-          $("#class").html(stuClass);
-          $("#subject").html(subject);
 
+          $(".openeidtclass").click(function (){
+            var selectid = $(this).parents("tr").find(".dataselect").text();
+            localStorage.setItem("selectid",selectid);
+            console.log(localStorage['selectid'])
+            window.location.href = "class_studentslist.html";
+          })
           $(".stuClass").click(function () {
             $("#dropdownMenuButton1").text($(this).text());
             $("#student tr").hide();
@@ -48,7 +53,7 @@
           });
         },
         error: function (jqXhr, textStatus, errorMessage) {
-          $("body").replace("Error: " + errorMessage);
+          
         },
       });
 
@@ -192,24 +197,21 @@
                         <tr>
 
 
-                          <th data-field="id">
+                          <th >
                             ID
                           </th>
-                          <th data-field="Name">
+                          <th >
                             Name
                           </th>
-                          <th data-field="Description">
+                          <th >
                             Description
                           </th>
-                          <th data-field="AcademicYear">
+                          <th >
                             AcademicYear
 
                           </th>
-                          <th data-field="Count">
-                            Count
 
-                          </th>
-                          <th data-field="edit">
+                          <th>
                             Edit
                           </th>
                         </tr>

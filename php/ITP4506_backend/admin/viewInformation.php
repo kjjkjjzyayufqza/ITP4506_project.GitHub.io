@@ -14,7 +14,7 @@ while($rc = mysqli_fetch_assoc($rs))
   $data["suspended"] = $rc["suspended"];
   $myArr[] = $data;
  }
- echo json_encode($myArr);
+ echo json_encode($myArr,true);
  mysqli_free_result($rs);
  mysqli_close($conn);
 ?>
