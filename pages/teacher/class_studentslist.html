@@ -37,7 +37,7 @@
           var stuClass = "";
           for (let i = 0; i < data.length; i++) {
             stuClass += "<tr><td></td><td class='dataselect'>" + data[i]["studentID"] + "</td><td>" + data[i]["firstName"] + "</td><td>" + data[i]["lastName"] +
-              "</td><td>" + data[i]["mobile"] + "</td><td>" + data[i]["role"] + "</td><td class='td-actions'><button type='button' rel='tooltip' class='btn btn-danger btn-round' id='delete'><span class='material-icons'>remove_circle</span></button></td></tr>";
+              "</td><td>" + data[i]["role"] + "</td><td class='td-actions'><button type='button' rel='tooltip' class='btn btn-danger btn-round' id='delete'><span class='material-icons'>remove_circle</span></button></td></tr>";
           }
           $("#student").html(stuClass);
           $("#delete").click(function () {
@@ -238,9 +238,6 @@
                         </th>
                         <th data-field="lastName">
                           Last Name
-                        </th>
-                        <th data-field="mobilephone">
-                          Mobile Phone
                         </th>
                         <th data-field="role">
                           Role
