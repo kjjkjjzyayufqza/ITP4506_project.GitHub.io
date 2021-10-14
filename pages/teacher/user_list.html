@@ -30,71 +30,24 @@
         dataType: "json", // type of response data
         timeout: 500, // timeout milliseconds
         success: function (data, status, xhr) {
-          console.log(data);
+          //console.log(data);
           var stuClass = "";
           for (let i = 0; i < data.length; i++) {
-            $("tbody").append("<tr><td></td><td>" + data[i]["studentID"] + "</td><td>" + data[i]["firstName"] + "</td><td>" + data[i]["lastName"] + "</td><td>" + data[i]["mobile"] + "</td><td><button type='button' class='btn btn-primary' onClick='window.location.href=./profile.html;'>Detail</button></td></tr>");
+            $("tbody").append("<tr><td></td><td class='dataselect'>" + data[i]["studentID"] + "</td><td>" + data[i]["firstName"] + "</td><td>" + data[i]["lastName"] + "</td><td>" + data[i]["mobile"] + "</td><td><button type='button' class='btn btn-primary viewstudent_profile' '>Detail</button></td></tr>");
           }
+
+          $('.viewstudent_profile').on('click', function () {
+            var selectid = $(this).parents("tr").find(".dataselect").text();
+            localStorage.setItem("selectid", selectid);
+            console.log(localStorage['selectid'])
+            //window.location.href = "student_profile.html";
+          });
         },
         error: function (jqXhr, textStatus, errorMessage) {
           $("body").toString().replace("Error: " + errorMessage);
           //alert(errorMessage)
         },
       });
-      $('.checkbox:eq(0)').change(function () {
-        if (this.checked) {
-
-          $("#student tr").filter(function () {
-            $(this).toggle($(this).text().toLowerCase().indexOf("student") > -1)
-          });
-        }
-        else {
-          $("#student tr").filter(function () {
-            $(this).toggle($(this).text().toLowerCase().indexOf("") > -1)
-          });
-        }
-      });
-      $('.checkbox:eq(1)').change(function () {
-        if (this.checked) {
-
-          $("#student tr").filter(function () {
-            $(this).toggle($(this).text().toLowerCase().indexOf("teacher") > -1)
-          });
-        }
-        else {
-          $("#student tr").filter(function () {
-            $(this).toggle($(this).text().toLowerCase().indexOf("") > -1)
-          });
-        }
-      });
-      $('.checkbox:eq(2)').change(function () {
-        if (this.checked) {
-
-          $("#student tr").filter(function () {
-            $(this).toggle($(this).text().toLowerCase().indexOf("admin") > -1)
-          });
-        }
-        else {
-          $("#student tr").filter(function () {
-            $(this).toggle($(this).text().toLowerCase().indexOf("") > -1)
-          });
-        }
-      });
-
-      $("#searchbtn").click(function () {
-        var value = $("#searchText").val().toLowerCase();
-        $("#student tr").filter(function () {
-          $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
-        });
-      });
-
-      $("#searchText").on("keyup", function () {
-        var value = $(this).val().toLowerCase();
-        $("#student tr").filter(function () {
-          $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
-        });
-      });
-
       $("#top-navbar").load("../upnavigationbar.html", function () {
         $(".navbar-brand").text("Profile");
       });
@@ -132,7 +85,7 @@
                   <div class="ripple-container"></div>
                 </button>
               </div>
-  
+
             </div>
             <div class="col-md-12">
               <div class="card">
@@ -144,30 +97,29 @@
 
                   <div class="table-responsive" style="text-align:center;">
                     <table id="table" data-toggle="table" data-height="600" data-toggle="table" data-locale="zh-CN"
-                      data-side-pagination="server" data-striped="true" data-click-to-select="true"
-                      >
-                        <tr>
-                          <th data-checkbox="true" id="calcheckbox" class="calcheckbox"></th>
+                      data-side-pagination="server" data-striped="true" data-click-to-select="true">
+                      <tr>
+                        <th data-checkbox="true" id="calcheckbox" class="calcheckbox"></th>
 
-                          <th data-field="id">
-                            ID
-                          </th>
-                          <th data-field="firstName">
-                            First Name
-                          </th>
-                          <th data-field="lastName">
-                            Last Name
-                          </th>
-                          <th data-field="mobilephone">
-                            Mobile Phone
-                          </th>
+                        <th data-field="id">
+                          ID
+                        </th>
+                        <th data-field="firstName">
+                          First Name
+                        </th>
+                        <th data-field="lastName">
+                          Last Name
+                        </th>
+                        <th data-field="mobilephone">
+                          Mobile Phone
+                        </th>
 
 
-                          <th data-field="edit">
-                            Edit
+                        <th data-field="edit">
+                          Edit
 
-                          </th>
-                        </tr>
+                        </th>
+                      </tr>
                     </table>
 
                   </div>

@@ -23,7 +23,25 @@
   <script>
     $(document).ready(function () {
 
+      $.ajax({
+        type: 'get',
+        url: "../../php/-ITP4506_backend/admin/viewattendence.php",
+        success: function (data, status, xhr) {
+          var returnedData = JSON.parse(data);
+            var stuClass = "";
+            for (let i = 0; i < Object.keys(returnedData).length; i++) {
+              stuClass += "<tr  '> </th>" + "<td class='dataselect'>" + returnedData[i].id + "</td>" + "<td class='dataselect'>" + returnedData[i].studentID + "</td>" + "<td class='dataselect'>" + returnedData[i].present + "%</td><td class='dataselectname'>" + returnedData[i].late + "%</td><td class='dataselectname'>" + returnedData[i].earlyLeave + "</td><td>" + returnedData[0].sickLeave + "</td>"
+              stuClass += "<td>" + returnedData[i].personalLeave + "</td> <td>" + returnedData[i].absentWithoutReason + "</td>"
+            }
+            //console.log(data.length)
+            $("#student").html(stuClass);
+            console.log(Object.keys(returnedData).length)
 
+        },
+        error: function (jqXhr, textStatus, errorMessage) {
+          console.log("Error: " + errorMessage);
+        },
+      });
       $("#top-navbar").load("../upnavigationbar.html", function () {
         $(".navbar-brand").text("Attendence");
       });
@@ -109,9 +127,9 @@
                         </div>
                       </div>
                     </div>
-                    
+
                   </div>
-                  <div class="table-responsive " style="text-align:center;" id="showtips" >
+                  <div class="table-responsive " style="text-align:center;" id="showtips">
                     <button type="button" class="btn btn-round " data-toggle="modal" data-target="#exampleModal">
                       Select Option
                     </button>
@@ -121,70 +139,45 @@
 
 
                     <table id="table" data-toggle="table" data-height="1000" data-pagination="true"
-                    data-click-to-select="true" style="text-align: center;">
+                      data-click-to-select="true" style="text-align: center;">
                       <thead style="text-align: center;">
                         <tr>
 
-
                           <th data-field="id">
-                            ID
+                            AttendenceID
+                          </th>
+                          <th data-field="id">
+                            studentID
                           </th>
                           <th data-field="Name">
-                            Name
+                            present
                           </th>
 
                           <th data-field="AcademicYear">
-                            Class
+                            late
 
                           </th>
                           <th data-field="edit">
-                            Present
+                            earlyLeave
 
                           </th>
                           <th data-field="edit">
-                            Late
+                            sickLeave
 
                           </th>
                           <th data-field="edit">
-                            Early Leave
+                            personalLeave
 
                           </th>
                           <th data-field="edit">
-                            Sick Leave
+                            absentWithoutReason
 
                           </th>
-                          <th data-field="edit">
-                            Personal leave
 
-                          </th>
-                          <th data-field="edit">
-                            Absent Without Reason
-
-                          </th>
-                          <th data-field="Count">
-                            Attendence %
-
-                          </th>
-                          <th data-field="edit">
-                            Abs %
-
-                          </th>
                         </tr>
                       </thead>
                       <tbody id="student">
                         <tr>
-
-                          <td>123456789</td>
-                          <td>jojo</td>
-
-                          <td>LWL SE </td>
-                          <td>SE</td>
-                          <td>2A</td>
-                          <td>80%</td>
-                          <td>80%</td>
-                          <td>80%</td>
-                          <td>80%</td>
-                          <td>80%</td>
 
                         </tr>
 
