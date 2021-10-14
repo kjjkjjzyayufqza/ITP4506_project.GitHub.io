@@ -61,11 +61,11 @@
         timeout: 500, // timeout milliseconds
         success: function (data, status, xhr) {
           console.log(data);
-          var stuClass = "";
-          for (let i = 0; i < data.length; i++) {
-            stuClass += "<tr><td>" + data[i]["studentID"] + "</td><td>2A</td><td>Higher Diploma in Software Engineering </td><td>" + data[i]["firstName"] + "</td><td>" + data[i]["lastName"] + "</td><td><button class='btn'><i class='fa fa-close'></i></button></td></tr>";
-          }
-          $("#student").html(stuClass);
+          // var stuClass = "";
+          // for (let i = 0; i < data.length; i++) {
+          //   stuClass += "<tr><td>" + data[i]["studentID"] + "</td><td>2A</td><td>Higher Diploma in Software Engineering </td><td>" + data[i]["firstName"] + "</td><td>" + data[i]["lastName"] + "</td><td><button class='btn'><i class='fa fa-close'></i></button></td></tr>";
+          // }
+          // $("#student").html(stuClass);
         },
         error: function (jqXhr, textStatus, errorMessage) {
           $("body").replace("Error: " + errorMessage);

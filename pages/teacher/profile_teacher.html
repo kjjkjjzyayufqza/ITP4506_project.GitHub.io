@@ -35,6 +35,29 @@
         },
       });
 
+      $('#updateProfile').click(function () {
+        var id = $('#id').val();
+        var fName = $('#fName').val();
+        var lName = $('#lName').val();
+        var mobile = $('#mobile').val();
+        $.ajax({
+          type: 'post',
+          url: "../../php/-ITP4506_backend/student/editPersonal.php",
+          data: {
+            id: id,
+            firstName: fName,
+            lastName: lName,
+            mobile: mobile
+          },
+          success: function (data, status) {
+            console.log(data);
+          },
+          error: function (request, status, error) {
+            alert(request, status);
+          }
+        });
+      });
+
       $("#top-navbar").load("../upnavigationbar.html", function () {
         $(".navbar-brand").text("Profile");
       });
@@ -112,7 +135,7 @@
                       </div>
                     </div>
 
-                    <button type="button" class="btn btn-primary pull-right">Update Profile</button>
+                    <button type="button" id="updateProfile" class="btn btn-primary pull-right">Update Profile</button>
                     <button type="button" class="btn btn-danger pull-right" style="background-color: green;"
                       onClick="window.location.href='./change_password.html';">Change Password</button>
                     <div class="clearfix"></div>
