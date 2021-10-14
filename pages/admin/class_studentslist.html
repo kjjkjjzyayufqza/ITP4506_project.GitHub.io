@@ -25,52 +25,7 @@
   <script>
     $(document).ready(function () {
 
-      $.ajax("../../php/-ITP4506_backend/teacher/viewClass.php", {
-        dataType: "json", // type of response data
-        timeout: 500, // timeout milliseconds
-        success: function (data, status, xhr) {
-          console.log(data);
-          var stuClass = "";
-          var subject = "";
-          for (let i = 0; i < data.length; i++) {
-            stuClass += "<a class='dropdown-item stuClass' href='#'>" + data[i]["name"] + "</a>";
-            subject += "<a class='dropdown-item subject' href='#'>" + data[i]["description"] + "</a>";
-          }
-          $("#class").html(stuClass);
-          $("#subject").html(subject);
 
-          $(".stuClass").click(function () {
-            $("#dropdownMenuButton1").text($(this).text());
-            $("#student tr").hide();
-            $("#student tr").filter(":contains('" + $(this).text() + "')").show();
-          });
-
-          $(".subject").click(function () {
-            $("#dropdownMenuButton2").text($(this).text());
-            $("#student tr").hide();
-            $("#student tr").filter(":contains('" + $(this).text() + "')").show();
-          });
-        },
-        error: function (jqXhr, textStatus, errorMessage) {
-          $("body").replace("Error: " + errorMessage);
-        },
-      });
-
-      $.ajax("../../php/-ITP4506_backend/teacher/viewStudent.php", {
-        dataType: "json", // type of response data
-        timeout: 500, // timeout milliseconds
-        success: function (data, status, xhr) {
-          console.log(data);
-          var stuClass = "";
-          for (let i = 0; i < data.length; i++) {
-            stuClass += "<tr><td>" + data[i]["studentID"] + "</td><td>2A</td><td>Higher Diploma in Software Engineering </td><td>" + data[i]["firstName"] + "</td><td>" + data[i]["lastName"] + "</td><td><button class='btn'><i class='fa fa-close'></i></button></td></tr>";
-          }
-          $("#student").html(stuClass);
-        },
-        error: function (jqXhr, textStatus, errorMessage) {
-          $("body").replace("Error: " + errorMessage);
-        },
-      });
 
       $("#top-navbar").load("../upnavigationbar.html", function () {
         $(".navbar-brand").text("Class studentslist");
@@ -106,7 +61,11 @@
                 </div>
                 <div class="card-body">
            
-                 
+                  <div class="form-group">
+                    <label for="exampleInputEmail1">ID</label>
+                    <input type="text" class="form-control col-md-12" id="classid" aria-describedby=" " placeholder="" disabled value="">
+                    
+                  </div>
                   <div class="form-group">
                     <label for="exampleInputEmail1">Name</label>
                     <input type="text" class="form-control col-md-12" id="classname" aria-describedby=" " placeholder="">
@@ -114,17 +73,17 @@
                   </div>
                   <div class="form-group">
                     <label for="exampleInputEmail1">Description</label>
-                    <input type="text" class="form-control col-md-12" id="class" aria-describedby=" " placeholder="">
+                    <input type="text" class="form-control col-md-12" id="classDescription" aria-describedby=" " placeholder="">
 
                   </div>
                   <div class="form-group">
                     <label for="exampleInputEmail1">TeacherID</label>
-                    <input type="text" class="form-control col-md-12" id="class" aria-describedby=" " placeholder="">
+                    <input type="text" class="form-control col-md-12" id="classTeacherID" aria-describedby=" " placeholder="">
 
                   </div>
                   <div class="form-group">
                     <label for="exampleInputEmail1">AcademicYear</label>
-                    <input type="text" class="form-control col-md-12" id="class" aria-describedby=" " placeholder="">
+                    <input type="text" class="form-control col-md-12" id="classAcademicYear" aria-describedby=" " placeholder="">
 
                   </div>
                   <p class="card-description">
