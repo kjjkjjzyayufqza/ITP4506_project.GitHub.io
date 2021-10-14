@@ -15,11 +15,8 @@ require_once('conn.php');
 	if(mysqli_num_rows($rs) == 1){
         //header('Location: ./pages/admin/user_list.html');
         echo json_encode($myArr); 
-        return true;
     } else {
-        header('X-PHP-Response-Code: 404', true, 404);
-        echo "Invalid Student ID/Password";
-		return false;
+		echo "false";
     }
 
 ?>

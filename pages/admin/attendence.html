@@ -28,19 +28,37 @@
         url: "../../php/-ITP4506_backend/admin/viewattendence.php",
         success: function (data, status, xhr) {
           var returnedData = JSON.parse(data);
-            var stuClass = "";
-            for (let i = 0; i < Object.keys(returnedData).length; i++) {
-              stuClass += "<tr  '> </th>" + "<td class='dataselect'>" + returnedData[i].id + "</td>" + "<td class='dataselect'>" + returnedData[i].studentID + "</td>" + "<td class='dataselect'>" + returnedData[i].present + "%</td><td class='dataselectname'>" + returnedData[i].late + "%</td><td class='dataselectname'>" + returnedData[i].earlyLeave + "</td><td>" + returnedData[0].sickLeave + "</td>"
-              stuClass += "<td>" + returnedData[i].personalLeave + "</td> <td>" + returnedData[i].absentWithoutReason + "</td>"
+          var stuClass = "";
+          for (let i = 0; i < Object.keys(returnedData).length; i++) {
+            stuClass += "<tr  '> </th>" + "<td class='dataselect'>" + returnedData[i].name + "</td>" + "<td class='dataselect'>" + returnedData[i].className + "</td>" + "<td class='dataselect'>" + returnedData[i].school + "</td><td class='dataselectname'>" + returnedData[i].date + "</td><td class='dataselectname'>" + returnedData[i].time + "</td>"
+
+            if (returnedData[i].status == "present") {
+              stuClass += "<td><span class='badge bg-gradient-success'>" + returnedData[i].status + "</span></td>"
             }
-            //console.log(data.length)
-            $("#student").html(stuClass);
-            console.log(Object.keys(returnedData).length)
+            if (returnedData[i].status == "earlyLeave") {
+              stuClass += "<td><span class='badge bg-gradient-warning'>" + returnedData[i].status + "</span></td>"
+            }
+            if (returnedData[i].status == "late") {
+              stuClass += "<td><span class='badge bg-gradient-danger'>" + returnedData[i].status + "</span></td>"
+            }
+
+          }
+          //console.log(data.length)
+          $("#student").html(stuClass);
+          console.log(Object.keys(returnedData).length)
 
         },
         error: function (jqXhr, textStatus, errorMessage) {
           console.log("Error: " + errorMessage);
         },
+      });
+
+
+      $("#searchText").on("keyup", function () {
+        var value = $(this).val().toLowerCase();
+        $("#student tr").filter(function () {
+          $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+        });
       });
       $("#top-navbar").load("../upnavigationbar.html", function () {
         $(".navbar-brand").text("Attendence");
@@ -88,91 +106,39 @@
                   <h4 class="card-title ">Attendence</h4>
                 </div>
                 <div class="card-body">
-                  <!-- Button trigger modal -->
 
-
-                  <!-- Modal -->
-                  <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
-                    aria-labelledby="exampleModalLabel" aria-hidden="true">
-                    <div class="modal-dialog" role="document">
-                      <div class="modal-content">
-                        <div class="modal-header">
-                          <h5 class="modal-title" id="exampleModalLabel">Add New Class</h5>
-                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                          </button>
-                        </div>
-                        <div class="modal-body">
-                          <div class="">
-                            <form>
-
-
-                              <div class="row">
-                                <div class="col-md-12">
-                                  <div class="form-group">
-                                    <label for="AcademicYear" class="bmd-label-floating">Class</label>
-                                    <select class="form-control" id="AcademicYear">
-                                      <option value="2021">2021</option>
-                                      <option value="2022">2022</option>
-                                    </select>
-                                  </div>
-                                </div>
-                              </div>
-                            </form>
-                          </div>
-                        </div>
-                        <div class="modal-footer">
-                          <button type="button" class="btn btn-secondary btn-round" data-dismiss="modal">Close</button>
-                          <button type="submit" class="btn btn-primary btn-round pull-right">Search</button>
-                        </div>
-                      </div>
-                    </div>
-
-                  </div>
-                  <div class="table-responsive " style="text-align:center;" id="showtips">
-                    <button type="button" class="btn btn-round " data-toggle="modal" data-target="#exampleModal">
-                      Select Option
-                    </button>
-                  </div>
 
                   <div class="table-responsive" style="text-align:center;">
 
 
-                    <table id="table" data-toggle="table" data-height="1000" data-pagination="true"
-                      data-click-to-select="true" style="text-align: center;">
+                    <table id="table" data-toggle="table" data-pagination="true" data-click-to-select="true"
+                      style="text-align: center;">
                       <thead style="text-align: center;">
                         <tr>
 
                           <th data-field="id">
-                            AttendenceID
+                            Name
                           </th>
                           <th data-field="id">
-                            studentID
+                            className
                           </th>
                           <th data-field="Name">
-                            present
+                            school
                           </th>
 
                           <th data-field="AcademicYear">
-                            late
+                            date
 
                           </th>
                           <th data-field="edit">
-                            earlyLeave
+                            time
 
                           </th>
                           <th data-field="edit">
-                            sickLeave
+                            status
 
                           </th>
-                          <th data-field="edit">
-                            personalLeave
 
-                          </th>
-                          <th data-field="edit">
-                            absentWithoutReason
-
-                          </th>
 
                         </tr>
                       </thead>

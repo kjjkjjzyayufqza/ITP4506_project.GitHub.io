@@ -20,39 +20,86 @@
   <link href="https://unpkg.com/bootstrap-table@1.18.3/dist/bootstrap-table.min.css" rel="stylesheet">
 
   <script src="https://unpkg.com/bootstrap-table@1.18.3/dist/bootstrap-table.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.5.1/chart.min.js"
+    integrity="sha512-Wt1bJGtlnMtGP0dqNFH1xlkLBNpEodaiQ8ZN5JLA5wpc1sUlk/O5uuOMNgvzddzkpvZ9GLyYNa8w2s7rqiTk5Q=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
   <script>
-    $(document).ready(function () {
 
-      $.ajax("../../php/-ITP4506_backend/teacher/searchStdRecord.php", {
-        dataType: "json", // type of response data
-        timeout: 500, // timeout milliseconds
+    $(document).ready(function () {
+      var returnedData;
+
+      $.ajax({
+        type: 'get',
+        url: "../../php/-ITP4506_backend/admin/viewattendencereport.php",
         success: function (data, status, xhr) {
-          //console.log(data);
+          returnedData = JSON.parse(data);
+
           var stuClass = "";
-          for (let i = 0; i < data.length; i++) {
-            stuClass += ("<tr><td class='tbody'>" + data[i]["name"] + "</td><td>" + data[i]["className"] + "</td><td>" + data[i]["date"] + "</td><td>" + data[i]["time"] + "</td><td>" + data[i]["status"] + "</td></tr>");
+          for (let i = 0; i < Object.keys(returnedData).length; i++) {
+            stuClass += "<tr '> </th>" + "<td class='dataselect'>" + returnedData[i].id + "</td>" + "<td class='dataselect'>" + returnedData[i].name + "</td>" + "<td class='dataselect'>" + returnedData[i].className + "</td><td class='dataselectname'>" + returnedData[i].present + "%</td><td class='dataselectname'>" + returnedData[i].late + "%</td>"
+            stuClass += "<td> " + returnedData[i].earlyLeave + " %</td> " + "<td> " + returnedData[i].sickLeave + " %</td> + " + "<td> " + returnedData[i].personalLeave + " %</td> + ";
+            stuClass += "<td> " + returnedData[i].absentWithoutReason + "%</td > </tr > "
+
           }
-          $("tbody").html(stuClass)
+          $("#student").html(stuClass);
+          //console.log(Object.keys(returnedData).length)
+          var data = [returnedData[0].present, returnedData[0].late, returnedData[0].earlyLeave, returnedData[0].sickLeave, returnedData[0].personalLeave, returnedData[0].absentWithoutReason]
+          var ctx = document.getElementById("myChart");
+          var myChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+              labels: ["Present", "Late", "Early Leave", "Sick Leave", "Personal leave", "Absent Without Reason"],
+              datasets: [{
+                label: 'Data',
+                data: data,
+                backgroundColor: [
+                  'rgba(255, 99, 132, 0.2)',
+                  'rgba(54, 162, 235, 0.2)',
+                  'rgba(255, 206, 86, 0.2)',
+                  'rgba(75, 192, 192, 0.2)',
+                  'rgba(153, 102, 255, 0.2)',
+                  'rgba(255, 159, 64, 0.2)'
+                ],
+                borderColor: [
+                  'rgba(255,99,132,1)',
+                  'rgba(54, 162, 235, 1)',
+                  'rgba(255, 206, 86, 1)',
+                  'rgba(75, 192, 192, 1)',
+                  'rgba(153, 102, 255, 1)',
+                  'rgba(255, 159, 64, 1)'
+                ],
+                borderWidth: 1
+              }]
+            },
+            options: {
+              scales: {
+                yAxes: [{
+                  ticks: {
+                    beginAtZero: true
+                  }
+                }]
+              }
+            }
+          });
         },
         error: function (jqXhr, textStatus, errorMessage) {
-          $("body").toString().replace("Error: " + errorMessage);
-          //alert(errorMessage)
+          console.log("Error: " + errorMessage);
         },
       });
       $("#top-navbar").load("../upnavigationbar.html", function () {
         $(".navbar-brand").text("Attendence");
       });
       $("#navbar").load("./navigationbar.html", function () {
-        $("ul li:eq(2)").addClass("active");
+        $("ul li:eq(3)").addClass("active");
       });
       $("#end-navbar").load("../endnavigationbar.html");
-      $("#searchText").on("keyup", function () {
-        var value = $(this).val().toLowerCase();
-        $("#student tr").filter(function () {
-          $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
-        });
-      });
+
+
+
+
     });
+
+
   </script>
 </head>
 
@@ -74,13 +121,7 @@
             </div>
             <div class="col-md-4">
 
-              <div class="input-group no-border">
-                <input type="text" id="searchText" value="" class="form-control" placeholder="Search...">
-                <button type="submit" class="btn btn-white btn-round btn-just-icon">
-                  <i class="material-icons" id="searchbtn">search</i>
-                  <div class="ripple-container"></div>
-                </button>
-              </div>
+
 
             </div>
             <div class="col-md-12">
@@ -90,15 +131,24 @@
                   <h4 class="card-title ">Attendence</h4>
                 </div>
                 <div class="card-body">
+                  <!-- Button trigger modal -->
+
+
+
 
 
                   <div class="table-responsive" style="text-align:center;">
 
 
-                    <table id="table" data-toggle="table"  data-pagination="true"
-                    data-click-to-select="true" style="text-align: center;">
-                    <thead style="text-align: center;">
+                    <table id="table" data-toggle="table" data-pagination="true" data-click-to-select="true"
+                      style="text-align: center;">
+                      <thead style="text-align: center;">
                         <tr>
+
+
+                          <th data-field="id">
+                            ID
+                          </th>
                           <th data-field="Name">
                             Name
                           </th>
@@ -108,29 +158,47 @@
 
                           </th>
                           <th data-field="edit">
-                            Attendence Date
+                            Present
 
                           </th>
                           <th data-field="edit">
-                            Attendence Time
+                            Late
 
                           </th>
                           <th data-field="edit">
-                            Attendence Status
+                            Early Leave
 
                           </th>
+                          <th data-field="edit">
+                            Sick Leave
+
+                          </th>
+                          <th data-field="edit">
+                            Personal leave
+
+                          </th>
+                          <th data-field="edit">
+                            Absent Without Reason
+
+                          </th>
+
                         </tr>
                       </thead>
-                        <tbody id="student">
+                      <tbody id="student">
 
-                        </tbody>
+
+
+                      </tbody>
                     </table>
 
                   </div>
+                  <canvas id="myChart"></canvas>
+
                 </div>
               </div>
             </div>
           </div>
+
         </div>
       </div>
 
