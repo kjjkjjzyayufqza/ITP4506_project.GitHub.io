@@ -25,52 +25,86 @@
   <script>
     $(document).ready(function () {
 
-      $.ajax("../../php/-ITP4506_backend/teacher/viewClass.php", {
-        dataType: "json", // type of response data
-        timeout: 500, // timeout milliseconds
+      $.ajax({
+        dataType: "json",
+        type: 'post',
+        url: "../../php/-ITP4506_backend/teacher/viewStudentInClass.php",
+        data: {
+          id: localStorage['selectid']
+        },
         success: function (data, status, xhr) {
           console.log(data);
           var stuClass = "";
-          var subject = "";
           for (let i = 0; i < data.length; i++) {
-            stuClass += "<a class='dropdown-item stuClass' href='#'>" + data[i]["name"] + "</a>";
-            subject += "<a class='dropdown-item subject' href='#'>" + data[i]["description"] + "</a>";
+            stuClass += "<tr><td></td><td class='dataselect'>" + data[i]["studentID"] + "</td><td>" + data[i]["firstName"] + "</td><td>" + data[i]["lastName"] +
+              "</td><td>" + data[i]["mobile"] + "</td><td>" + data[i]["role"] + "</td><td class='td-actions'><button type='button' rel='tooltip' class='btn btn-danger btn-round'><span class='material-icons'>remove_circle</span></button></td></tr>";
           }
-          $("#class").html(stuClass);
-          $("#subject").html(subject);
-
-          $(".stuClass").click(function () {
-            $("#dropdownMenuButton1").text($(this).text());
-            $("#student tr").hide();
-            $("#student tr").filter(":contains('" + $(this).text() + "')").show();
-          });
-
-          $(".subject").click(function () {
-            $("#dropdownMenuButton2").text($(this).text());
-            $("#student tr").hide();
-            $("#student tr").filter(":contains('" + $(this).text() + "')").show();
-          });
-        },
-        error: function (jqXhr, textStatus, errorMessage) {
-          
-        },
-      });
-
-      $.ajax("../../php/-ITP4506_backend/teacher/viewStudent.php", {
-        dataType: "json", // type of response data
-        timeout: 500, // timeout milliseconds
-        success: function (data, status, xhr) {
-          console.log(data);
-          // var stuClass = "";
-          // for (let i = 0; i < data.length; i++) {
-          //   stuClass += "<tr><td>" + data[i]["studentID"] + "</td><td>2A</td><td>Higher Diploma in Software Engineering </td><td>" + data[i]["firstName"] + "</td><td>" + data[i]["lastName"] + "</td><td><button class='btn'><i class='fa fa-close'></i></button></td></tr>";
-          // }
-          // $("#student").html(stuClass);
+          $("#student").html(stuClass);
         },
         error: function (jqXhr, textStatus, errorMessage) {
           $("body").replace("Error: " + errorMessage);
         },
       });
+
+
+      $.ajax({
+        dataType: "json",
+        type: 'post',
+        url: "../../php/-ITP4506_backend/teacher/viewStudentInClass.php",
+        data: {
+          id: localStorage['selectid']
+        },
+        success: function (data, status, xhr) {
+          console.log(data);
+          var stuClass = "";
+          for (let i = 0; i < data.length; i++) {
+            stuClass += "<tr><td></td><td class='dataselect'>" + data[i]["studentID"] + "</td><td>" + data[i]["firstName"] + "</td><td>" + data[i]["lastName"] +
+              "</td><td>" + data[i]["mobile"] + "</td><td>" + data[i]["role"] + "</td><td class='td-actions'><button type='button' rel='tooltip' class='btn btn-danger btn-round' id='delete'><span class='material-icons'>remove_circle</span></button></td></tr>";
+          }
+          $("#student").html(stuClass);
+          $("#delete").click(function () {
+            var selectid = $(this).parents("tr").find(".dataselect").text();
+            localStorage.setItem("studentID", selectid);
+            console.log(localStorage['studentID'])
+            $.ajax({
+              dataType: "json",
+              type: 'post',
+              url: "../../php/-ITP4506_backend/teacher/DropStudent.php",
+              data: {
+                studentID: localStorage['studentID'],
+                id: localStorage['selectid'],
+              },
+              success: function (data, status, xhr) {
+                console.log(data);
+              },
+              error: function (jqXhr, textStatus, errorMessage) {
+                $("body").replace("Error: " + errorMessage);
+              },
+            });
+          })
+        },
+        error: function (jqXhr, textStatus, errorMessage) {
+          $("body").replace("Error: " + errorMessage);
+        },
+
+      });
++
+      // $.ajax("../../php/-ITP4506_backend/teacher/viewStudentInClass.php", {
+      //   dataType: "json", // type of response data
+      //   timeout: 500, // timeout milliseconds
+      //   success: function (data, status, xhr) {
+      //     console.log(data);
+      //     var stuClass = "";
+      //     for (let i = 0; i < data.length; i++) {
+      //       stuClass += "<tr><td></td><td>" + data[i]["studentID"] + "</td><td>" + data[i]["firstName"] + "</td><td>" + data[i]["lastName"] + 
+      //         "</td><td>" + data[i]["mobile"] + "</td><td>" + data[i]["role"] + "</td></tr>";
+      //     }
+      //     $("#student").html(stuClass);
+      //   },
+      //   error: function (jqXhr, textStatus, errorMessage) {
+      //     $("body").replace("Error: " + errorMessage);
+      //   },
+      // });
 
       $("#top-navbar").load("../upnavigationbar.html", function () {
         $(".navbar-brand").text("Class studentslist");
@@ -104,18 +138,20 @@
 
                 <div class="card-body">
                   <h6 class="card-category text-gray">Class Information</h6>
-                 
+
                   <div class="form-group">
                     <label for="exampleInputEmail1">Name</label>
-                    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="">
+                    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
+                      placeholder="">
                     <small id="emailHelp" class="form-text text-muted">xxxxxxxxxxxe.</small>
                   </div>
                   <div class="form-group">
                     <label for="exampleInputEmail1">Description</label>
-                    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="">
+                    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
+                      placeholder="">
                     <small id="emailHelp" class="form-text text-muted">xxxxxxxx.</small>
                   </div>
-                  
+
                   <p class="card-description">
                     LWL SE
                   </p>
@@ -143,22 +179,22 @@
                                 </div>
                                 <table id="table" data-toggle="table" data-toggle="table" data-locale="zh-CN"
                                   data-side-pagination="server" data-striped="true" data-click-to-select="true">
-                                    <tr>
-                                      <th data-checkbox="true" id="calcheckbox" class="calcheckbox"></th>
+                                  <tr>
+                                    <th data-checkbox="true" id="calcheckbox" class="calcheckbox"></th>
 
-                                      <th data-field="id">
-                                        ID
-                                      </th>
-                                      <th data-field="firstName">
-                                        First Name
-                                      </th>
-                                      <th data-field="lastName">
-                                        Last Name
-                                      </th>
-                                      <th data-field="Add">
-                                        Add
-                                      </th>
-                                    </tr>
+                                    <th data-field="id">
+                                      ID
+                                    </th>
+                                    <th data-field="firstName">
+                                      First Name
+                                    </th>
+                                    <th data-field="lastName">
+                                      Last Name
+                                    </th>
+                                    <th data-field="Add">
+                                      Add
+                                    </th>
+                                  </tr>
                                 </table>
 
                               </div>
@@ -167,7 +203,7 @@
                         </div>
                         <div class="modal-footer">
                           <button type="button" class="btn btn-secondary btn-round" data-dismiss="modal">Close</button>
-                          
+
                         </div>
                       </div>
                     </div>
@@ -192,13 +228,13 @@
                 </div>
 
                 <div class="card-body">
-                  <div class="btn btn-default btn-round pull-left" id="ebtn">
+                  <!-- <div class="btn btn-default btn-round pull-left" id="ebtn">
                     Delete select
-                  </div>
+                  </div> -->
                   <div class="col-md-4 pull-right">
 
                     <div class="input-group no-border">
-                      
+
                       <input type="text" id="searchText" value="" class="form-control" placeholder="Search...">
                       <button type="submit" class="btn btn-white btn-round btn-just-icon">
                         <i class="material-icons" id="searchbtn">search</i>
