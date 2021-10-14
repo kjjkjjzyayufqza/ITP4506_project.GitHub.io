@@ -37,28 +37,6 @@
           var stuClass = "";
           for (let i = 0; i < data.length; i++) {
             stuClass += "<tr><td></td><td class='dataselect'>" + data[i]["studentID"] + "</td><td>" + data[i]["firstName"] + "</td><td>" + data[i]["lastName"] +
-              "</td><td>" + data[i]["mobile"] + "</td><td>" + data[i]["role"] + "</td><td class='td-actions'><button type='button' rel='tooltip' class='btn btn-danger btn-round'><span class='material-icons'>remove_circle</span></button></td></tr>";
-          }
-          $("#student").html(stuClass);
-        },
-        error: function (jqXhr, textStatus, errorMessage) {
-          $("body").replace("Error: " + errorMessage);
-        },
-      });
-
-
-      $.ajax({
-        dataType: "json",
-        type: 'post',
-        url: "../../php/-ITP4506_backend/teacher/viewStudentInClass.php",
-        data: {
-          id: localStorage['selectid']
-        },
-        success: function (data, status, xhr) {
-          console.log(data);
-          var stuClass = "";
-          for (let i = 0; i < data.length; i++) {
-            stuClass += "<tr><td></td><td class='dataselect'>" + data[i]["studentID"] + "</td><td>" + data[i]["firstName"] + "</td><td>" + data[i]["lastName"] +
               "</td><td>" + data[i]["mobile"] + "</td><td>" + data[i]["role"] + "</td><td class='td-actions'><button type='button' rel='tooltip' class='btn btn-danger btn-round' id='delete'><span class='material-icons'>remove_circle</span></button></td></tr>";
           }
           $("#student").html(stuClass);
@@ -88,23 +66,26 @@
         },
 
       });
-+
-      // $.ajax("../../php/-ITP4506_backend/teacher/viewStudentInClass.php", {
-      //   dataType: "json", // type of response data
-      //   timeout: 500, // timeout milliseconds
-      //   success: function (data, status, xhr) {
-      //     console.log(data);
-      //     var stuClass = "";
-      //     for (let i = 0; i < data.length; i++) {
-      //       stuClass += "<tr><td></td><td>" + data[i]["studentID"] + "</td><td>" + data[i]["firstName"] + "</td><td>" + data[i]["lastName"] + 
-      //         "</td><td>" + data[i]["mobile"] + "</td><td>" + data[i]["role"] + "</td></tr>";
-      //     }
-      //     $("#student").html(stuClass);
-      //   },
-      //   error: function (jqXhr, textStatus, errorMessage) {
-      //     $("body").replace("Error: " + errorMessage);
-      //   },
-      // });
+
+      $('#update').click(function () {
+        var className = $('#className').val();
+        var description = $('#description').val();
+        $.ajax({
+          type: 'post',
+          url: "../../php/-ITP4506_backend/teacher/editClass.php",
+          data: {
+            id: localStorage['selectid'],
+            name: className,
+            description: description,
+          },
+          success: function (data, status) {
+            console.log(data);
+          },
+          error: function (request, status, error) {
+            alert(request, status);
+          }
+        });
+      });
 
       $("#top-navbar").load("../upnavigationbar.html", function () {
         $(".navbar-brand").text("Class studentslist");
@@ -140,23 +121,20 @@
                   <h6 class="card-category text-gray">Class Information</h6>
 
                   <div class="form-group">
-                    <label for="exampleInputEmail1">Name</label>
-                    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
+                    <label>Name</label>
+                    <input type="email" class="form-control" id="className" aria-describedby="emailHelp"
                       placeholder="">
-                    <small id="emailHelp" class="form-text text-muted">xxxxxxxxxxxe.</small>
                   </div>
                   <div class="form-group">
-                    <label for="exampleInputEmail1">Description</label>
-                    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
+                    <label>Description</label>
+                    <input type="email" class="form-control" id="description" aria-describedby="emailHelp"
                       placeholder="">
-                    <small id="emailHelp" class="form-text text-muted">xxxxxxxx.</small>
                   </div>
 
                   <p class="card-description">
                     LWL SE
                   </p>
-                  <button type="button" class="btn btn-primary btn-round" data-toggle="modal"
-                    >
+                  <button type="button" id="update" class="btn btn-primary btn-round" data-toggle="modal">
                     Updata Class
                   </button>
                   <!-- Modal -->
@@ -242,9 +220,9 @@
                       </button>
                     </div>
                     <button type="button" class="btn btn-primary btn-round" data-toggle="modal"
-                    data-target="#exampleModal">
-                    Add Student
-                  </button>
+                      data-target="#exampleModal">
+                      Add Student
+                    </button>
                   </div>
                   <table id="table" data-toggle="table" data-height="460" data-pagination="true"
                     data-click-to-select="true" style="text-align: center;">
