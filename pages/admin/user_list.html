@@ -33,7 +33,7 @@
 
           var stuClass = "";
           for (let i = 0; i < data.length; i++) {
-            stuClass += "<tr  '><th scope='row'> </th><td class='dataselect'>" + data[i]["id"] + "</td><td>" + data[i]["firstName"] + "</td><td>" + data[i]["lastName"] + "</td><td>" + data[i]["mobile"]
+            stuClass += "<tr  '><th scope='row'> </th><td class='dataselect'>" + data[i]["id"] + "</td><td class='dataselectname'>" + data[i]["firstName"] + "</td><td class='dataselectname'>" + data[i]["lastName"] + "</td><td>" + data[i]["mobile"]
             if (data[i]["role"] == "admin") {
               stuClass += "</td><td><span class='badge bg-gradient-warning'>" + data[i]["role"] + "</td>";
             }
@@ -59,10 +59,14 @@
 
           $('.viewstudent_profile').on('click', function () {
             var selectid = $(this).parents("tr").find(".dataselect").text();
-            localStorage.setItem("id",selectid);
-            //console.log(localStorage['id'])
+            var selectname = $(this).parents("tr").find(".dataselectname").text();
+            localStorage.setItem("selectid", selectid);
+            localStorage.setItem("selectname", selectname);
+            console.log(localStorage['selectid'])
             window.location.href = "student_profile.html";
           });
+
+
         },
         error: function (jqXhr, textStatus, errorMessage) {
           $("body").toString().replace("Error: " + errorMessage);
@@ -71,14 +75,18 @@
       });
 
 
+
+
+
       $("#createacc").click(function () {
-        if ($("#fname").val().length == 0 || $("#lname").val().length == 0) {
+        if ($("#fnameinput").val().length == 0 || $("#lnameinput").val().length == 0) {
           alert("Please enter all")
         } else {
 
-          var fName = $('#fName').val();
-          var lName = $('#lName').val();
+          var fName = $('#fnameinput').val();
+          var lName = $('#lnameinput').val();
           var role = $('#role').val();
+          
           $.ajax({
             type: 'post',
             url: "../../php/-ITP4506_backend/admin/createAccount.php",
@@ -88,7 +96,11 @@
               role: role
             },
             success: function (data, status, xhr) {
-              console.log("h2i")
+
+              var selectid = $(this).parents("tr").find(".dataselect").text();
+              localStorage.setItem("selectid", selectid);
+              console.log(localStorage['selectid'])
+              //window.location.href = "student_profile.html";
             },
             error: function (jqXhr, textStatus, errorMessage) {
               console.log("Error: " + errorMessage);
@@ -97,9 +109,6 @@
         }
 
       })
-
-
-
 
 
       $("#openstudent_profile").click(function () {
@@ -227,70 +236,37 @@
                   <div class="btn btn-default btn-round pull-left" id="dbtn">
                     Set Disable
                   </div> -->
-                  <details>
-
-                    <summary>
-                      <div class="btn btn-primary btn-round pull-right">
-                        + Add New Account
-                      </div>
-                      <div class="details-modal-overlay"></div>
-                    </summary>
+                  <div class="btn btn-primary btn-round pull-right" data-toggle="modal" data-target="#exampleModal">
+                    + Add New Account
+                  </div>
 
 
-                    <div class="details-modal">
-                      <div class="details-modal-close">
-                        <button type="button" rel="tooltip" class="btn-danger">
-                          <i class="material-icons">close</i>
-                        </button>
-                      </div>
-
-                      <div class="details-modal-title">
-                        <h1>Create accounts</h1>
-                      </div>
-                      <div class="details-modal-content">
-
-                        <div class="row">
-                          <div class="col-md-12">
-                            <div class="form-group">
-                              <label for="role" class="bmd-label-floating">Role</label>
-                              <select class="form-control" id="role">
-                                <option value="teacher">Teacher</option>
-                                <option value="student">Student</option>
-                              </select>
-                            </div>
-                          </div>
+                  <!-- Modal -->
+                  <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
+                    aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h5 class="modal-title" id="exampleModalLabel">Create Student</h5>
+                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                          </button>
                         </div>
-                        <div class="row">
-                          <div class="col-md-12">
-                            <div class="form-group">
-                              <label class="bmd-label-floating">First Name</label>
-                              <input type="text" id="fname" class="form-control">
-                            </div>
-                          </div>
+                        <div class="modal-body">
+                          <select class="form-control" id="role">
+                            <option value="teacher">Teacher</option>
+                            <option value="student">Student</option>
+                          </select>
+                          <input type="text" id="fnameinput" value="" class="form-control" placeholder="First Name...">
+                          <input type="text" id="lnameinput" value="" class="form-control" placeholder="Last Name...">
                         </div>
-                        <div class="row">
-                          <div class="col-md-12">
-                            <div class="form-group">
-                              <label class="bmd-label-floating">Last Name</label>
-                              <input type="text" id="lname" class="form-control">
-                            </div>
-                          </div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                          <button type="button" class="btn btn-primary" id="createacc">Create</button>
                         </div>
-
-                        <div class="row">
-                          <div class="col-md-12">
-                            <div class="form-group">
-                              <label class="bmd-label-floating">Class</label>
-                              <input type="text" id="sclass" class="form-control">
-                            </div>
-                          </div>
-                        </div>
-                        <button id="createacc" class="btn btn-primary btn-round pull-right">Create Account</button>
-
-
                       </div>
                     </div>
-                  </details>
+                  </div>
 
                   <div class="table-responsive" style="text-align:center;">
                     <table id="table" data-toggle="table" data-height="600" data-toggle="table" data-locale="zh-CN"
