@@ -30,19 +30,81 @@
         dataType: "json", // type of response data
         timeout: 500, // timeout milliseconds
         success: function (data, status, xhr) {
-          alert("SUCCESS:");
-          console.log(data);
+
           var stuClass = "";
           for (let i = 0; i < data.length; i++) {
-            stuClass += "<tr><td>" + data[i]["id"] + "</td><td>" + data[i]["firstName"] + "</td><td>" + data[i]["lastName"] + "</td><td>" + data[i]["mobile"] + "</td><td>" + data[i]["role"] + "</td><td><button type='button' class='btn btn-primary' onClick='window.location.href=./profile.html;'>Detail</button></td></tr>";
+            stuClass += "<tr  '><th scope='row'> </th><td class='dataselect'>" + data[i]["id"] + "</td><td>" + data[i]["firstName"] + "</td><td>" + data[i]["lastName"] + "</td><td>" + data[i]["mobile"]
+            if (data[i]["role"] == "admin") {
+              stuClass += "</td><td><span class='badge bg-gradient-warning'>" + data[i]["role"] + "</td>";
+            }
+            if (data[i]["role"] == "teacher") {
+              stuClass += "</td><td><span class='badge bg-gradient-info'>" + data[i]["role"] + "</td>";
+            }
+            if (data[i]["role"] == "student") {
+              stuClass += "</td><td><span class='badge bg-gradient-light text-dark'>" + data[i]["role"] + "</td>";
+            }
+
+            if (data[i]["suspended"] == "1") {
+              stuClass += "<td><span class='badge bg-gradient-success'>Disable</span></td> "
+            }
+            if (data[i]["suspended"] == "0") {
+              stuClass += "<td><span class='badge bg-gradient-danger'>Enable</span></td> "
+
+            }
+
+            stuClass += "<td class='td-actions '><button type='button' id='viewstudent_profile' rel='tooltip' class='btn viewstudent_profile' ><i class='material-icons' > edit</i ></button ></td > </tr > "
           }
           $("#student").html(stuClass);
+          $(".viewstudent_profile").click(function () {
+           // window.location.href = "student_profile.html";
+          })
+
+          $('.viewstudent_profile').on('click', function () {
+            var tem = $(this).parents("tr").find(".dataselect").text();
+            console.log(tem)
+          });
         },
         error: function (jqXhr, textStatus, errorMessage) {
           $("body").toString().replace("Error: " + errorMessage);
           //alert(errorMessage)
         },
       });
+
+
+      $("#createacc").click(function () {
+        if ($("#fname").val().length == 0 || $("#lname").val().length == 0) {
+          alert("Please enter all")
+        } else {
+          console.log("hi")
+          var fName = $('#fName').val();
+          var lName = $('#lName').val();
+          var role = $('#role').val();
+          $.ajax({
+            type: 'post',
+            url: "../../php/-ITP4506_backend/admin/createAccount.php",
+            data: {
+              firstName: fName,
+              lastName: lName,
+              role: role
+            },
+            success: function (data, status, xhr) {
+              console.log("h2i")
+            },
+            error: function (jqXhr, textStatus, errorMessage) {
+              console.log("Error: " + errorMessage);
+            },
+          });
+        }
+
+      })
+
+
+
+
+
+      $("#openstudent_profile").click(function () {
+        $(this).remove();
+      })
       $('.checkbox:eq(0)').change(function () {
         if (this.checked) {
 
@@ -159,12 +221,12 @@
                   <h4 class="card-title ">User List</h4>
                 </div>
                 <div class="card-body">
-                  <div class="btn btn-default btn-round pull-left" id="ebtn">
+                  <!-- <div class="btn btn-default btn-round pull-left" id="ebtn">
                     Set Enable
                   </div>
                   <div class="btn btn-default btn-round pull-left" id="dbtn">
                     Set Disable
-                  </div>
+                  </div> -->
                   <details>
 
                     <summary>
@@ -174,6 +236,7 @@
                       <div class="details-modal-overlay"></div>
                     </summary>
 
+
                     <div class="details-modal">
                       <div class="details-modal-close">
                         <button type="button" rel="tooltip" class="btn-danger">
@@ -182,57 +245,56 @@
                       </div>
 
                       <div class="details-modal-title">
-                        <h1>My details modal</h1>
+                        <h1>Create accounts</h1>
                       </div>
                       <div class="details-modal-content">
-                        <form>
-                          <div class="row">
-                            <div class="col-md-12">
-                              <div class="form-group">
-                                <label for="role" class="bmd-label-floating">Role</label>
-                                <select class="form-control" id="role">
-                                  <option value="teacher">Teacher</option>
-                                  <option value="student">Student</option>
-                                </select>
-                              </div>
-                            </div>
-                          </div>
-                          <div class="row">
-                            <div class="col-md-12">
-                              <div class="form-group">
-                                <label class="bmd-label-floating">First Name</label>
-                                <input type="text" class="form-control">
-                              </div>
-                            </div>
-                          </div>
-                          <div class="row">
-                            <div class="col-md-12">
-                              <div class="form-group">
-                                <label class="bmd-label-floating">Last Name</label>
-                                <input type="text" class="form-control">
-                              </div>
-                            </div>
-                          </div>
 
-                          <div class="row">
-                            <div class="col-md-12">
-                              <div class="form-group">
-                                <label class="bmd-label-floating">Class</label>
-                                <input type="text" class="form-control">
-                              </div>
+                        <div class="row">
+                          <div class="col-md-12">
+                            <div class="form-group">
+                              <label for="role" class="bmd-label-floating">Role</label>
+                              <select class="form-control" id="role">
+                                <option value="teacher">Teacher</option>
+                                <option value="student">Student</option>
+                              </select>
                             </div>
                           </div>
-                          <button type="submit" class="btn btn-primary btn-round pull-right">Create Account</button>
+                        </div>
+                        <div class="row">
+                          <div class="col-md-12">
+                            <div class="form-group">
+                              <label class="bmd-label-floating">First Name</label>
+                              <input type="text" id="fname" class="form-control">
+                            </div>
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="col-md-12">
+                            <div class="form-group">
+                              <label class="bmd-label-floating">Last Name</label>
+                              <input type="text" id="lname" class="form-control">
+                            </div>
+                          </div>
+                        </div>
 
-                        </form>
+                        <div class="row">
+                          <div class="col-md-12">
+                            <div class="form-group">
+                              <label class="bmd-label-floating">Class</label>
+                              <input type="text" id="sclass" class="form-control">
+                            </div>
+                          </div>
+                        </div>
+                        <button id="createacc" class="btn btn-primary btn-round pull-right">Create Account</button>
+
+
                       </div>
                     </div>
                   </details>
 
                   <div class="table-responsive" style="text-align:center;">
                     <table id="table" data-toggle="table" data-height="600" data-toggle="table" data-locale="zh-CN"
-                      data-side-pagination="server" data-striped="true" data-click-to-select="true"
-                      >
+                      data-side-pagination="server" data-striped="true" data-click-to-select="true">
                       <thead style="text-align: center;">
                         <tr>
                           <th data-checkbox="true" id="calcheckbox" class="calcheckbox"></th>
@@ -273,8 +335,9 @@
                           <td><span class="badge bg-gradient-warning">admin</span></td>
                           <td><span class="badge bg-gradient-danger">Disable</span></td>
                           <td class="td-actions ">
-                            <button type="button" rel="tooltip" class="btn" onclick="location.href = 'student_profile.html'; "">
-                              <i class="material-icons">edit</i>
+                            <button type="button" rel="tooltip" class="btn"
+                              onclick="location.href = 'student_profile.html'; "">
+                              <i class=" material-icons">edit</i>
                             </button>
                           </td>
                         </tr>
@@ -287,7 +350,8 @@
                           <td><span class="badge bg-gradient-info">teacher</span></td>
                           <td><a href="#"><span class="badge bg-gradient-success">Enable</span></a></td>
                           <td class="td-actions ">
-                            <button type="button" rel="tooltip" class="btn" onclick="location.href = 'student_profile.html'; ">
+                            <button type="button" rel="tooltip" class="btn"
+                              onclick="location.href = 'student_profile.html'; ">
                               <i class="material-icons">edit</i>
                             </button>
                           </td>
@@ -301,7 +365,8 @@
                           <td><span class="badge bg-gradient-light text-dark">student</span></td>
                           <td><span class="badge bg-gradient-success">Enable</span></td>
                           <td class="td-actions ">
-                            <button type="button" rel="tooltip" class="btn" onclick="location.href = 'student_profile.html'; ">
+                            <button type="button" rel="tooltip" class="btn"
+                              onclick="location.href = 'student_profile.html'; ">
                               <i class="material-icons">edit</i>
                             </button>
                           </td>
