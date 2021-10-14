@@ -61,15 +61,26 @@
           console.log(data);
           var stuClass = "";
           for (let i = 0; i < data.length; i++) {
-            stuClass += "<tr><td class='dataselect'>" + data[i]["id"] + "</td><td>" +  data[i]["name"] + "</td><td> "+ data[i]["description"]  + " </td><td>" + data[i]["teacherID"] + "</td><td>" + data[i]["academicYear"] + "</td> "
-            stuClass +=   "<td class='td-actions '><button type='button' rel='tooltip' class='btn btn-round deletebtn' ><i class='material-icons'>edit</i></button></td></tr>";
+            stuClass += "<tr><td class='dataselect'>" + data[i]["id"] + "</td><td>" + data[i]["name"] + "</td><td> " + data[i]["description"] + " </td><td>" + data[i]["teacherID"]
+
+            if (data[i]["academicYear"] > 2021) {
+              stuClass += "</td><td><span class='badge bg-gradient-info'>" + data[i]["academicYear"] + "</span></td> "
+            }
+            if (data[i]["academicYear"] == 2021) {
+              stuClass += "</td><td><span class='badge bg-gradient-success'>" + data[i]["academicYear"] + "</span></td> "
+            }
+            if (data[i]["academicYear"] < 2021) {
+              stuClass += "</td><td><span class='badge bg-gradient'>" + data[i]["academicYear"] + "</span></td> "
+            }
+
+            stuClass += "<td class='td-actions '><button type='button' rel='tooltip' class='btn btn-round deletebtn' ><i class='material-icons'>edit</i></button></td></tr>";
           }
           $("#student").html(stuClass);
-          $(".deletebtn").click(function (){
+          $(".deletebtn").click(function () {
             var selectid = $(this).parents("tr").find(".dataselect").text();
-            localStorage.setItem("selectid",selectid);
+            localStorage.setItem("selectid", selectid);
             console.log(localStorage['selectid'])
-            window.location.href = "class_studentslist.html";
+            window.location.href = "class_info.html";
           })
         },
         error: function (jqXhr, textStatus, errorMessage) {
@@ -77,6 +88,15 @@
         },
       });
 
+
+      
+      $("#searchText").on("keyup", function () {
+        var value = $(this).val().toLowerCase();
+        $("#student tr").filter(function () {
+          $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+        });
+      });
+      
       $("#top-navbar").load("../upnavigationbar.html", function () {
         $(".navbar-brand").text("Class Allocation");
       });
@@ -124,80 +144,79 @@
                 </div>
                 <div class="card-body">
 
-                    
-                  </div>
-                  <div class="table-responsive " style="text-align:center;" id="showtips" >
-                    <span class="badge bg-gradient-success" > </span> This year
-                    <span class="badge bg-gradient-info" >  </span> New year
-                    <span class="badge bg-gradient-light text-dark" >  </span> Old year
-                  </div>
 
-                  <div class="table-responsive" style="text-align:center;">
+                </div>
+                <div class="table-responsive " style="text-align:center;" id="showtips">
+                  <span class="badge bg-gradient-success"> </span> This year
+                  <span class="badge bg-gradient-info"> </span> New year
+                  <span class="badge bg-gradient-light text-dark"> </span> Old year
+                </div>
 
-
-                    <table id="table" data-toggle="table" data-height="600" data-toggle="table" data-locale="zh-CN"
-                      data-side-pagination="server" data-striped="true" data-click-to-select="true"
-                      >
-                      <thead style="text-align: center;">
-                        <tr>
+                <div class="table-responsive" style="text-align:center;">
 
 
-                          <th data-field="id">
-                            ID
-                          </th>
-                          <th data-field="Name">
-                            Name
-                          </th>
-                          <th data-field="Description">
-                            Description
-                          </th>
-                          <th data-field="TeacherID">
-                            TeacherID
-                          </th>
-                          <th data-field="AcademicYear">
-                            AcademicYear
-
-                          </th>
-
-                          <th data-field="edit">
-                            Edit
-
-                          </th>
-                        </tr>
-                      </thead>
-                      <tbody id="student">
-                        <tr>
-
-                          <td>123456789</td>
-                          <td>2A</td>
-
-                          <td>Higher Diploma in Software Engineering </td>
-                          <td>201116523</td>
-                          <td><span class="badge bg-gradient-success">2021</span></td>
- 
-                          <td class="td-actions ">
-                            <button type="button" rel="tooltip" class="btn"
-                              onclick="location.href='class_studentslist.html'">
-                              <i class="material-icons">edit</i>
-                            </button>
-                          </td>
-                        </tr>
+                  <table id="table" data-height="600" data-toggle="table" data-toggle="table" data-locale="zh-CN"
+                    data-side-pagination="server" data-striped="true" data-click-to-select="true">
+                    <thead style="text-align: center;">
+                      <tr>
 
 
-                      </tbody>
-                    </table>
+                        <th data-field="id">
+                          ID
+                        </th>
+                        <th data-field="Name">
+                          Name
+                        </th>
+                        <th data-field="Description">
+                          Description
+                        </th>
+                        <th data-field="TeacherID">
+                          TeacherID
+                        </th>
+                        <th data-field="AcademicYear">
+                          AcademicYear
 
-                  </div>
+                        </th>
+
+                        <th data-field="edit">
+                          Edit
+
+                        </th>
+                      </tr>
+                    </thead>
+                    <tbody id="student">
+                      <tr>
+
+                        <td>123456789</td>
+                        <td>2A</td>
+
+                        <td>Higher Diploma in Software Engineering </td>
+                        <td>201116523</td>
+                        <td><span class="badge bg-gradient-success">2021</span></td>
+
+                        <td class="td-actions ">
+                          <button type="button" rel="tooltip" class="btn"
+                            onclick="location.href='class_studentslist.html'">
+                            <i class="material-icons">edit</i>
+                          </button>
+                        </td>
+                      </tr>
+
+
+                    </tbody>
+                  </table>
+
                 </div>
               </div>
             </div>
           </div>
         </div>
       </div>
-
-      <div id="end-navbar"></div>
-
     </div>
+
+    <div id="end-navbar"></div>
+
+  </div>
   </div>
 
 </body>

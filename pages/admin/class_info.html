@@ -26,6 +26,53 @@
     $(document).ready(function () {
 
 
+      $.ajax({
+        type: 'post',
+        url: "../../php/-ITP4506_backend/admin/viewclassInformation.php",
+        data: {
+          id: localStorage['selectid'],
+        },
+        success: function (data, status, xhr) {
+          var returnedData = JSON.parse(data);
+          $("#classid").val(returnedData[0].id)
+          $("#classname").val(returnedData[0].name)
+          $("#classDescription").val(returnedData[0].description)
+          $("#classTeacherID").val(returnedData[0].teacherID)
+          $("#classAcademicYear").val(returnedData[0].academicYear)
+
+          $("#updatabtn").click(function () {
+            var classname = $('#classname').val();
+            var classDescription = $('#classDescription').val();
+            var classTeacherID = $('#classTeacherID').val();
+            var classAcademicYear = $('#classAcademicYear').val();
+            $.ajax({
+              type: 'post',
+              url: "../../php/-ITP4506_backend/admin/updataclassinfo.php",
+              data: {
+                id: localStorage['selectid'],
+                classname: classname,
+                classDescription: classDescription,
+                classTeacherID: classTeacherID,
+                classAcademicYear: classAcademicYear,
+              },
+              success: function (data, status) {
+                console.log(data)
+                console.log(localStorage['selectid']);
+              },
+              error: function (request, status, error) {
+                alert(request, status);
+              }
+            });
+          });
+        },
+        error: function (jqXhr, textStatus, errorMessage) {
+          console.log("Error: " + errorMessage);
+        },
+      });
+
+
+
+
 
       $("#top-navbar").load("../upnavigationbar.html", function () {
         $(".navbar-brand").text("Class studentslist");
@@ -60,62 +107,67 @@
                   <h4 class="card-title pull-left">Class Information</h4>
                 </div>
                 <div class="card-body">
-           
+
                   <div class="form-group">
                     <label for="exampleInputEmail1">ID</label>
-                    <input type="text" class="form-control col-md-12" id="classid" aria-describedby=" " placeholder="" disabled value="">
-                    
+                    <input type="text" class="form-control col-md-12" id="classid" aria-describedby=" " placeholder=""
+                      disabled value="">
+
                   </div>
                   <div class="form-group">
                     <label for="exampleInputEmail1">Name</label>
-                    <input type="text" class="form-control col-md-12" id="classname" aria-describedby=" " placeholder="">
-                    
+                    <input type="text" class="form-control col-md-12" id="classname" aria-describedby=" "
+                      placeholder="">
+
                   </div>
                   <div class="form-group">
                     <label for="exampleInputEmail1">Description</label>
-                    <input type="text" class="form-control col-md-12" id="classDescription" aria-describedby=" " placeholder="">
+                    <input type="text" class="form-control col-md-12" id="classDescription" aria-describedby=" "
+                      placeholder="">
 
                   </div>
                   <div class="form-group">
                     <label for="exampleInputEmail1">TeacherID</label>
-                    <input type="text" class="form-control col-md-12" id="classTeacherID" aria-describedby=" " placeholder="">
+                    <input type="text" class="form-control col-md-12" id="classTeacherID" aria-describedby=" "
+                      placeholder="">
 
                   </div>
                   <div class="form-group">
                     <label for="exampleInputEmail1">AcademicYear</label>
-                    <input type="text" class="form-control col-md-12" id="classAcademicYear" aria-describedby=" " placeholder="">
+                    <input type="text" class="form-control col-md-12" id="classAcademicYear" aria-describedby=" "
+                      placeholder="">
 
                   </div>
                   <p class="card-description">
                     LWL SE
                   </p>
                   <button type="button" class="btn btn-primary btn-round" data-toggle="modal"
-                    data-target="#exampleModal">
-                    Udata
+                    data-target="#exampleModal" id="updatabtn">
+                    Updata
                   </button>
-
-                      </div>
-                    </div>
-
-                  </div>
-                </div>
-                <div class="col-md-4 ">
 
                 </div>
               </div>
 
             </div>
-
-
+          </div>
+          <div class="col-md-4 ">
 
           </div>
         </div>
+
       </div>
 
 
-      <div id="end-navbar"></div>
 
     </div>
+  </div>
+  </div>
+
+
+  <div id="end-navbar"></div>
+
+  </div>
   </div>
 
 </body>

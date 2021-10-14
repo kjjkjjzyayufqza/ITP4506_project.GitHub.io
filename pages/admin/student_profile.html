@@ -18,12 +18,12 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script>
     $(document).ready(function () {
-
+      $(".studentname").text(localStorage['selectname'])
       $.ajax({
         type: 'post',
         url: "../../php/-ITP4506_backend/admin/view_student_allInformation.php",
         data: {
-          id: localStorage["id"],
+          id: localStorage["selectid"],
         },
         success: function (data, status, xhr) {
           var returnedData = JSON.parse(data);
@@ -31,7 +31,7 @@
           $("#fnameinput").val(returnedData[0].firstName)
           $("#lnameinput").val(returnedData[0].lastname)
           $("#mobileinput").val(returnedData[0].mobile)
-          
+
           if (returnedData[0].role == "admin") {
             $("#rolespan").html("<span id='rolespan' class='badge bg-gradient-warning '>admin</span>")
           }
@@ -42,10 +42,10 @@
             $("#rolespan").html("<span id='rolespan' class='badge bg-gradient-light text-dark'>student</span>")
           }
 
-          if(returnedData[0].suspended == "0"){
+          if (returnedData[0].suspended == "0") {
             $(":radio[name='drawStatus'][value='0']").prop("checked", "checked");
           }
-          if(returnedData[0].suspended == "1"){
+          if (returnedData[0].suspended == "1") {
             $(":radio[name='drawStatus'][value='1']").prop("checked", "checked");
           }
 
@@ -64,7 +64,7 @@
           type: 'post',
           url: "../../php/-ITP4506_backend/admin/accountStatus.php",
           data: {
-            id: localStorage["id"],
+            id: localStorage["selectid"],
             suspended: suspended,
           },
           success: function (data, status) {
@@ -112,7 +112,7 @@
                 </div>
                 <div class="card-body">
 
-                  <h4 class="card-title">JO JO</h4>
+                  <h4 class="card-title studentname">JO JO</h4>
                   <p class="card-description">
                     LWL SE
                   </p>
@@ -130,7 +130,7 @@
 
                     </label>
                   </div>
-                  <a href="javascript:;" class="btn btn-primary btn-round">Change photo</a>
+
                 </div>
               </div>
               <div class="card card-profile">
