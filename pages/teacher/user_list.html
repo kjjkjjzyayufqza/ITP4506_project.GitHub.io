@@ -33,14 +33,14 @@
           //console.log(data);
           var stuClass = "";
           for (let i = 0; i < data.length; i++) {
-            $("tbody").append("<tr><td></td><td class='dataselect'>" + data[i]["studentID"] + "</td><td>" + data[i]["firstName"] + "</td><td>" + data[i]["lastName"] + "</td><td>" + data[i]["mobile"] + "</td><td><button type='button' class='btn btn-primary viewstudent_profile' '>Detail</button></td></tr>");
+            $("tbody").append("<tr><td></td><td class='dataselect'>" + data[i]["id"] + "</td><td>" + data[i]["firstName"] + "</td><td>" + data[i]["lastName"] + "</td><td>" + data[i]["mobile"] + "</td><td><button type='button' class='btn btn-primary viewstudent_profile' '>Detail</button></td></tr>");
           }
 
           $('.viewstudent_profile').on('click', function () {
             var selectid = $(this).parents("tr").find(".dataselect").text();
             localStorage.setItem("selectid", selectid);
             console.log(localStorage['selectid'])
-            //window.location.href = "student_profile.html";
+            window.location.href = "student_profile.html";
           });
         },
         error: function (jqXhr, textStatus, errorMessage) {

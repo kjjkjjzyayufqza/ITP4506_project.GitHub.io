@@ -23,7 +23,21 @@
   <script>
     $(document).ready(function () {
 
-
+      $.ajax("../../php/-ITP4506_backend/teacher/searchStdRecord.php", {
+        dataType: "json", // type of response data
+        timeout: 500, // timeout milliseconds
+        success: function (data, status, xhr) {
+          //console.log(data);
+          var stuClass = "";
+          for (let i = 0; i < data.length; i++) {
+            $("tbody").append("<tr><td class='dataselect'>" + data[i]["name"] + "</td><td>" + data[i]["className"] + "</td><td>" + data[i]["date"] + "</td><td>" + data[i]["time"] + "</td><td>" + data[i]["status"] + "</td></tr>");
+          }
+        },
+        error: function (jqXhr, textStatus, errorMessage) {
+          $("body").toString().replace("Error: " + errorMessage);
+          //alert(errorMessage)
+        },
+      });
       $("#top-navbar").load("../upnavigationbar.html", function () {
         $(".navbar-brand").text("Attendence");
       });
@@ -122,13 +136,7 @@
 
                     <table id="table" data-toggle="table" data-height="1000" data-pagination="true"
                     data-click-to-select="true" style="text-align: center;">
-                      <thead style="text-align: center;">
                         <tr>
-
-
-                          <th data-field="id">
-                            ID
-                          </th>
                           <th data-field="Name">
                             Name
                           </th>
@@ -138,58 +146,18 @@
 
                           </th>
                           <th data-field="edit">
-                            Present
+                            Attendence Date
 
                           </th>
                           <th data-field="edit">
-                            Late
+                            Attendence Time
 
                           </th>
                           <th data-field="edit">
-                            Early Leave
-
-                          </th>
-                          <th data-field="edit">
-                            Sick Leave
-
-                          </th>
-                          <th data-field="edit">
-                            Personal leave
-
-                          </th>
-                          <th data-field="edit">
-                            Absent Without Reason
-
-                          </th>
-                          <th data-field="Count">
-                            Attendence %
-
-                          </th>
-                          <th data-field="edit">
-                            Abs %
+                            Attendence Status
 
                           </th>
                         </tr>
-                      </thead>
-                      <tbody id="student">
-                        <tr>
-
-                          <td>123456789</td>
-                          <td>jojo</td>
-
-                          <td>LWL SE </td>
-                          <td>SE</td>
-                          <td>2A</td>
-                          <td>80%</td>
-                          <td>80%</td>
-                          <td>80%</td>
-                          <td>80%</td>
-                          <td>80%</td>
-
-                        </tr>
-
-
-                      </tbody>
                     </table>
 
                   </div>

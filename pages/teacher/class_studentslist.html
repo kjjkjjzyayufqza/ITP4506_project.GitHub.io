@@ -67,6 +67,24 @@
 
       });
 
+      $('#ebtn').click(function () {
+        var searchText = $('#searchText').val();
+        $.ajax({
+          type: 'post',
+          url: "../../php/-ITP4506_backend/teacher/AddStudent.php",
+          data: {
+            studentID: searchText,
+            classID: localStorage['selectid'],
+          },
+          success: function (data, status) {
+            console.log(data);
+          },
+          error: function (request, status, error) {
+            alert(request, status);
+          }
+        });
+      });
+
       $('#update').click(function () {
         var className = $('#className').val();
         var description = $('#description').val();
@@ -152,9 +170,9 @@
                           <div class="">
                             <form>
                               <div class="table-responsive" style="text-align:center;">
-                                <input type="text" id="searchText" value="" class="form-control" placeholder="Search...">
+                                <input type="text" id="searchText" class="form-control" placeholder="Enter Student ID">
                                 <div class="btn btn-primary btn-round pull-left" id="ebtn">
-                                  Add select
+                                  Add Student
                                 </div>
                               </div>
                             </form>

@@ -19,20 +19,49 @@
   <script>
     $(document).ready(function () {
 
-      $.ajax("../../php/-ITP4506_backend/student/viewPersonal.php", {
-        dataType: "json", // type of response data
-        timeout: 500, // timeout milliseconds
-        success: function (data, status, xhr) {
-          console.log(data);
+      $.ajax({
+          type: 'post',
+          dataType: "json",
+          url: "../../php/-ITP4506_backend/teacher/viewStudentById.php",
+          data: {
+            id: localStorage['selectid'],
+          },
+          success: function (data, status) {
+            console.log(data);
           $("#id").val(data[0]["id"]);
           $("#fName").val(data[0]["firstName"]);
           $("#lName").val(data[0]["lastName"]);
           $("#mobile").val(data[0]["mobile"]);
-          $("#role").val(data[0]["role"]);
-        },
-        error: function (jqXhr, textStatus, errorMessage) {
-          console.log("Error: " + errorMessage);
-        },
+          $("#role").html(data[0]["role"]);
+          $("#card-title").text(data[0]["firstName"]);
+          $(".card-description").text(data[0]["school"]);            
+          },
+          error: function (request, status, error) {
+            alert(request, status);
+          }
+        });
+
+        $('#updateProfile').click(function () {
+        var id = $('#id').val();
+        var fName = $('#fName').val();
+        var lName = $('#lName').val();
+        var mobile = $('#mobile').val();
+        $.ajax({
+          type: 'post',
+          url: "../../php/-ITP4506_backend/student/editPersonal.php",
+          data: {
+            id: id,
+            firstName: fName,
+            lastName: lName,
+            mobile: mobile
+          },
+          success: function (data, status) {
+            console.log(data);
+          },
+          error: function (request, status, error) {
+            alert(request, status);
+          }
+        });
       });
 
       $("#top-navbar").load("../upnavigationbar.html", function () {
@@ -71,10 +100,8 @@
                   </a>
                 </div>
                 <div class="card-body">
-
-                  <h4 class="card-title">JO JO</h4>
+                  <h4 class="card-title" id="card-title"></h4>
                   <p class="card-description">
-                    LWL SE
                   </p>
                   <div class="row">
                     <div class="col-md-6">
@@ -93,7 +120,6 @@
                   <a href="javascript:;" class="btn btn-primary btn-round">Change Password</a>
                 </div>
               </div>
-
             </div>
             <div class="col-md-8">
               <div class="card">
@@ -107,22 +133,21 @@
                       <div class="col-md-5">
                         <div class="form-group">
                           <label class="bmd-label-floating">ID</label>
-                          <input type="text" class="form-control" value="1" disabled>
+                          <input type="text" class="form-control" id="id" disabled>
                         </div>
                       </div>
-
                     </div>
                     <div class="row">
                       <div class="col-md-6">
                         <div class="form-group">
                           <label class="bmd-label-floating">Fist Name</label>
-                          <input type="text" class="form-control">
+                          <input type="text" id="fName" class="form-control">
                         </div>
                       </div>
                       <div class="col-md-6">
                         <div class="form-group">
                           <label class="bmd-label-floating">Last Name</label>
-                          <input type="text" class="form-control">
+                          <input type="text" id="lName" class="form-control">
                         </div>
                       </div>
                     </div>
@@ -130,7 +155,7 @@
                       <div class="col-md-12">
                         <div class="form-group">
                           <label class="bmd-label-floating">Role</label>
-                          <span class="badge bg-gradient-light text-dark">student</span>
+                          <span class="badge bg-gradient-light text-dark" id="role"></span>
                         </div>
                       </div>
                     </div>
@@ -138,19 +163,16 @@
                       <div class="col-md-4">
                         <div class="form-group">
                           <label class="bmd-label-floating">Mobile</label>
-                          <input type="text" class="form-control">
+                          <input type="text" id="mobile" class="form-control">
                         </div>
                       </div>
-
                     </div>
-
-                    <button type="submit" class="btn btn-primary pull-right">Update Profile</button>
+                    <button type="submit" id="updateProfile" class="btn btn-primary pull-right">Update Profile</button>
                     <div class="clearfix"></div>
                   </form>
                 </div>
               </div>
             </div>
-
           </div>
         </div>
       </div>
