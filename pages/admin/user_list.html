@@ -44,24 +44,24 @@
               stuClass += "</td><td><span class='badge bg-gradient-light text-dark'>" + data[i]["role"] + "</td>";
             }
 
-            if (data[i]["suspended"] == "1") {
-              stuClass += "<td><span class='badge bg-gradient-success'>Disable</span></td> "
-            }
             if (data[i]["suspended"] == "0") {
-              stuClass += "<td><span class='badge bg-gradient-danger'>Enable</span></td> "
+              stuClass += "<td><span class='badge bg-gradient-danger'>Disable</span></td> "
+            }
+            if (data[i]["suspended"] == "1") {
+              stuClass += "<td><span class='badge bg-gradient-success'>Enable</span></td> "
 
             }
 
             stuClass += "<td class='td-actions '><button type='button' id='viewstudent_profile' rel='tooltip' class='btn viewstudent_profile' ><i class='material-icons' > edit</i ></button ></td > </tr > "
           }
           $("#student").html(stuClass);
-          $(".viewstudent_profile").click(function () {
-           // window.location.href = "student_profile.html";
-          })
+
 
           $('.viewstudent_profile').on('click', function () {
-            var tem = $(this).parents("tr").find(".dataselect").text();
-            console.log(tem)
+            var selectid = $(this).parents("tr").find(".dataselect").text();
+            localStorage.setItem("id",selectid);
+            //console.log(localStorage['id'])
+            window.location.href = "student_profile.html";
           });
         },
         error: function (jqXhr, textStatus, errorMessage) {
@@ -75,7 +75,7 @@
         if ($("#fname").val().length == 0 || $("#lname").val().length == 0) {
           alert("Please enter all")
         } else {
-          console.log("hi")
+
           var fName = $('#fName').val();
           var lName = $('#lName').val();
           var role = $('#role').val();
