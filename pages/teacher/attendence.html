@@ -30,9 +30,8 @@
           //console.log(data);
           var stuClass = "";
           for (let i = 0; i < data.length; i++) {
-            stuClass += ("<tr><td class='tbody'>" + data[i]["name"] + "</td><td>" + data[i]["className"] + "</td><td>" + data[i]["date"] + "</td><td>" + data[i]["time"] + "</td><td>" + data[i]["status"] + "</td></tr>");
+            $("tbody").append("<tr><td class='dataselect'>" + data[i]["name"] + "</td><td>" + data[i]["className"] + "</td><td>" + data[i]["date"] + "</td><td>" + data[i]["time"] + "</td><td>" + data[i]["status"] + "</td></tr>");
           }
-          $("tbody").html(stuClass)
         },
         error: function (jqXhr, textStatus, errorMessage) {
           $("body").toString().replace("Error: " + errorMessage);
@@ -46,12 +45,7 @@
         $("ul li:eq(2)").addClass("active");
       });
       $("#end-navbar").load("../endnavigationbar.html");
-      $("#searchText").on("keyup", function () {
-        var value = $(this).val().toLowerCase();
-        $("#student tr").filter(function () {
-          $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
-        });
-      });
+
     });
   </script>
 </head>
@@ -90,14 +84,58 @@
                   <h4 class="card-title ">Attendence</h4>
                 </div>
                 <div class="card-body">
+                  <!-- Button trigger modal -->
 
+
+                  <!-- Modal -->
+                  <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
+                    aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h5 class="modal-title" id="exampleModalLabel">Add New Class</h5>
+                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                          </button>
+                        </div>
+                        <div class="modal-body">
+                          <div class="">
+                            <form>
+
+
+                              <div class="row">
+                                <div class="col-md-12">
+                                  <div class="form-group">
+                                    <label for="AcademicYear" class="bmd-label-floating">Class</label>
+                                    <select class="form-control" id="AcademicYear">
+                                      <option value="2021">2021</option>
+                                      <option value="2022">2022</option>
+                                    </select>
+                                  </div>
+                                </div>
+                              </div>
+                            </form>
+                          </div>
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-secondary btn-round" data-dismiss="modal">Close</button>
+                          <button type="submit" class="btn btn-primary btn-round pull-right">Search</button>
+                        </div>
+                      </div>
+                    </div>
+                    
+                  </div>
+                  <div class="table-responsive " style="text-align:center;" id="showtips" >
+                    <button type="button" class="btn btn-round " data-toggle="modal" data-target="#exampleModal">
+                      Select Option
+                    </button>
+                  </div>
 
                   <div class="table-responsive" style="text-align:center;">
 
 
-                    <table id="table" data-toggle="table"  data-pagination="true"
+                    <table id="table" data-toggle="table" data-height="1000" data-pagination="true"
                     data-click-to-select="true" style="text-align: center;">
-                    <thead style="text-align: center;">
                         <tr>
                           <th data-field="Name">
                             Name
@@ -120,10 +158,6 @@
 
                           </th>
                         </tr>
-                      </thead>
-                        <tbody id="student">
-
-                        </tbody>
                     </table>
 
                   </div>
