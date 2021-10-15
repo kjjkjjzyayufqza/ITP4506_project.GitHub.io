@@ -1,0 +1,14 @@
+School Admin:
+
+id: 200000000
+password: admin
+
+Class Teacher:
+
+id: 201116523
+password: adayuen
+
+Student:
+
+id: 200413958
+password: alvincheung
