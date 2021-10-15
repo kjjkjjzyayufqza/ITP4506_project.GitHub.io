@@ -30,10 +30,9 @@
           console.log(data);
           var stuClass = "";
           for (let i = 0; i < data.length; i++) {
-            stuClass += ("<tr><td class='dataselect'>" + data[i]["id"] + "</td><td>" + data[i]["name"] + "</td><td>" + data[i]["description"] + "</td><td>" + data[i]["academicYear"] + 
+            $("tbody").append("<tr><td class='dataselect'>" + data[i]["id"] + "</td><td>" + data[i]["name"] + "</td><td>" + data[i]["description"] + "</td><td>" + data[i]["academicYear"] + 
               "<td class='td-actions '><button type='button' rel='tooltip' class='btn btn-round openeidtclass' ><i class='material-icons'>edit</i></button></td></tr>");
           }
-          $("#student").html(stuClass);
 
           $(".openeidtclass").click(function (){
             var selectid = $(this).parents("tr").find(".dataselect").text();
@@ -88,12 +87,7 @@
         $("ul li:eq(1)").addClass("active");
       });
       $("#end-navbar").load("../endnavigationbar.html");
-      $("#searchText").on("keyup", function () {
-        var value = $(this).val().toLowerCase();
-        $("#student tr").filter(function () {
-          $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
-        });
-      });
+
     });
   </script>
 </head>
@@ -198,10 +192,9 @@
                   <div class="table-responsive" style="text-align:center;">
 
 
-                    <table id="table" data-toggle="table"  data-toggle="table" data-locale="zh-CN"
+                    <table id="table" data-toggle="table" data-height="600" data-toggle="table" data-locale="zh-CN"
                       data-side-pagination="server" data-striped="true" data-click-to-select="true"
                       >
-                      <thead style="text-align: center;">
                         <tr>
 
 
@@ -223,10 +216,6 @@
                             Edit
                           </th>
                         </tr>
-                      </thead>
-                      <tbody id="student">
-
-                      </tbody>
                     </table>
 
                   </div>

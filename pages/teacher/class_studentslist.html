@@ -24,7 +24,7 @@
 
   <script>
     $(document).ready(function () {
-      
+
       $.ajax({
         dataType: "json",
         type: 'post',
@@ -37,15 +37,15 @@
           var stuClass = "";
           for (let i = 0; i < data.length; i++) {
             stuClass += "<tr><td></td><td class='dataselect'>" + data[i]["studentID"] + "</td><td>" + data[i]["firstName"] + "</td><td>" + data[i]["lastName"] +
-              "</td><td>" + data[i]["role"] + "</td><td class='td-actions'><button type='button' rel='tooltip' class='btn btn-danger btn-round delete' id='delete'><span class='material-icons'>remove_circle</span></button></td></tr>";
+              "</td><td>" + data[i]["role"] + "</td><td class='td-actions'><button type='button' rel='tooltip' class='btn btn-danger btn-round' id='delete'><span class='material-icons'>remove_circle</span></button></td></tr>";
           }
           $("#student").html(stuClass);
-          $(".delete").click(function () {
+          $("#delete").click(function () {
             var selectid = $(this).parents("tr").find(".dataselect").text();
             localStorage.setItem("studentID", selectid);
             console.log(localStorage['studentID'])
             $.ajax({
-              
+              dataType: "json",
               type: 'post',
               url: "../../php/-ITP4506_backend/teacher/DropStudent.php",
               data: {
@@ -53,16 +53,16 @@
                 id: localStorage['selectid'],
               },
               success: function (data, status, xhr) {
-                location.reload();
+                console.log(data);
               },
               error: function (jqXhr, textStatus, errorMessage) {
-                console.log("zzzzzzz" + errorMessage)
+                $("body").replace("Error: " + errorMessage);
               },
             });
           })
         },
         error: function (jqXhr, textStatus, errorMessage) {
-          
+          $("body").replace("Error: " + errorMessage);
         },
 
       });
@@ -128,7 +128,7 @@
       <!-- End Navbar -->
       <div class="content">
         <div class="container-fluid">
-          <a href="./class.html" class="btn btn-primary btn-round">Back</a>
+          <a href="javascript:;" class="btn btn-primary btn-round">返回</a>
           <div class="row">
 
             <div class="col-md-4">
@@ -251,6 +251,20 @@
                     </thead>
                     <tbody id="student">
 
+                      <tr>
+                        <th scope="row"> </th>
+                        <td>200000002</td>
+                        <td>e</td>
+                        <td>f</td>
+                        <td>1234 5678</td>
+                        <td><span class="badge bg-gradient-light text-dark">student</span></td>
+
+                        <td class="td-actions ">
+                          <button type="button" rel="tooltip" class="btn btn-danger btn-round">
+                            <span class="material-icons">remove_circle</span>
+                          </button>
+                        </td>
+                      </tr>
 
                     </tbody>
                   </table>
