@@ -79,6 +79,7 @@
           $(".deletebtn").click(function () {
             var selectid = $(this).parents("tr").find(".dataselect").text();
             localStorage.setItem("selectid", selectid);
+            localStorage.setItem("c", selectid);
             console.log(localStorage['selectid'])
             window.location.href = "class_info.html";
           })

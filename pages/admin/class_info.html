@@ -26,44 +26,29 @@
     $(document).ready(function () {
 
 
+
       $.ajax({
         type: 'post',
         url: "../../php/-ITP4506_backend/admin/viewclassInformation.php",
         data: {
-          id: localStorage['selectid'],
+          id: localStorage.selectid,
         },
         success: function (data, status, xhr) {
-          var returnedData = JSON.parse(data);
-          $("#classid").val(returnedData[0].id)
-          $("#classname").val(returnedData[0].name)
-          $("#classDescription").val(returnedData[0].description)
-          $("#classTeacherID").val(returnedData[0].teacherID)
-          $("#classAcademicYear").val(returnedData[0].academicYear)
+          try {
+            var returnedData = JSON.parse(data);
+            $("#classid").val(returnedData[0].id)
+            $("#classname").val(returnedData[0].name)
+            $("#classDescription").val(returnedData[0].description)
+            $("#classTeacherID").val(returnedData[0].teacherID)
+            $("#classAcademicYear").val(returnedData[0].academicYear)
+          }
+          catch
+          {
+            console.log("error")
+          }
 
-          $("#updatabtn").click(function () {
-            var classname = $('#classname').val();
-            var classDescription = $('#classDescription').val();
-            var classTeacherID = $('#classTeacherID').val();
-            var classAcademicYear = $('#classAcademicYear').val();
-            $.ajax({
-              type: 'post',
-              url: "../../php/-ITP4506_backend/admin/updataclassinfo.php",
-              data: {
-                id: localStorage['selectid'],
-                classname: classname,
-                classDescription: classDescription,
-                classTeacherID: classTeacherID,
-                classAcademicYear: classAcademicYear,
-              },
-              success: function (data, status) {
-                console.log(data)
-                console.log(localStorage['selectid']);
-              },
-              error: function (request, status, error) {
-                alert(request, status);
-              }
-            });
-          });
+
+
         },
         error: function (jqXhr, textStatus, errorMessage) {
           console.log("Error: " + errorMessage);
