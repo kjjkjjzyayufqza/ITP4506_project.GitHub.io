@@ -18,54 +18,176 @@
   <!-- CSS Just for demo purpose, don't include it in your project -->
   <link href="../../assets/demo/demo.css" rel="stylesheet" />
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-  <link href="https://unpkg.com/bootstrap-table@1.18.3/dist/bootstrap-table.min.css" rel="stylesheet">
+  <link href="https://unpkg.com/bootstrap-table@1.19.0/dist/bootstrap-table.min.css" rel="stylesheet">
 
-  <script src="https://unpkg.com/bootstrap-table@1.18.3/dist/bootstrap-table.min.js"></script>
+  <script src="https://unpkg.com/tableexport.jquery.plugin/tableExport.min.js"></script>
+  <script src="https://unpkg.com/bootstrap-table@1.19.0/dist/bootstrap-table.min.js"></script>
+  <script src="https://unpkg.com/bootstrap-table@1.19.0/dist/bootstrap-table-locale-all.min.js"></script>
+  <script src="https://unpkg.com/bootstrap-table@1.19.0/dist/extensions/export/bootstrap-table-export.min.js"></script>
+  <link rel="stylesheet" href="../../assets/css/font-awesome.min.css">
 
   <script>
+    function detailFormatter(index, row) {
+      var html
+      $.each(row, function (key, value) {
+        html = '<span id="rolespan" class="badge bg-gradient-warning ">Info</span>'
+      })
+      return html
+    }
     $(document).ready(function () {
-
+      var returndata;
+      console.log(localStorage['selectid'])
       $.ajax({
         dataType: "json",
         type: 'post',
-        url: "../../php/-ITP4506_backend/teacher/viewStudentInClass.php",
+        url: "../../php/ITP4506_backend/admin/viewStudentInClass.php",
+        async: false,
         data: {
           id: localStorage['selectid']
         },
         success: function (data, status, xhr) {
           console.log(data);
+          returndata = data;
           var stuClass = "";
           for (let i = 0; i < data.length; i++) {
             stuClass += "<tr><td></td><td class='dataselect'>" + data[i]["studentID"] + "</td><td>" + data[i]["firstName"] + "</td><td>" + data[i]["lastName"] +
               "</td><td>" + data[i]["role"] + "</td><td class='td-actions'><button type='button' rel='tooltip' class='btn btn-danger btn-round' id='delete'><span class='material-icons'>remove_circle</span></button></td></tr>";
           }
           $("#student").html(stuClass);
-          $("#delete").click(function () {
-            var selectid = $(this).parents("tr").find(".dataselect").text();
-            localStorage.setItem("studentID", selectid);
-            console.log(localStorage['studentID'])
-            $.ajax({
-              dataType: "json",
-              type: 'post',
-              url: "../../php/-ITP4506_backend/teacher/DropStudent.php",
-              data: {
-                studentID: localStorage['studentID'],
-                id: localStorage['selectid'],
-              },
-              success: function (data, status, xhr) {
-                console.log(data);
-              },
-              error: function (jqXhr, textStatus, errorMessage) {
-                $("body").replace("Error: " + errorMessage);
-              },
-            });
-          })
+
         },
         error: function (jqXhr, textStatus, errorMessage) {
-          $("body").replace("Error: " + errorMessage);
+
         },
 
       });
+
+      var $table = $('#table')
+      var $remove = $('#remove')
+      var selections = []
+      function getIdSelections() {
+        return $.map($table.bootstrapTable('getSelections'), function (row) {
+          return row.id
+        })
+      }
+      window.operateEvents = {
+
+        'click #deletebtn': function (e, value, row, index) {
+          localStorage.setItem("studentID", row["studentID"]);
+          console.log(localStorage['studentID'])
+          console.log(localStorage['selectid'])
+          $.ajax({
+            dataType: "json",
+            type: 'post',
+            url: "../../php/ITP4506_backend/admin/DropStudent.php",
+            async : false,
+            data: {
+              id: localStorage['selectid'],
+              studentID : localStorage['studentID'],
+            },
+            success: function (data, status, xhr) {
+              location.reload()
+            },
+            error: function (jqXhr, textStatus, errorMessage) {
+              console.log(errorMessage)
+            },
+          });
+        },
+      }
+      $table.on('check.bs.table uncheck.bs.table ' +
+        'check-all.bs.table uncheck-all.bs.table',
+        function () {
+          $remove.prop('disabled', !$table.bootstrapTable('getSelections').length)
+
+          // save your data, here just save the current page
+          selections = getIdSelections()
+          // push or splice the selections if you want to save all data selections
+        })
+
+      $remove.click(function () {
+        var ids = getIdSelections()
+        $table.bootstrapTable('remove', {
+          field: 'id',
+          values: ids
+        })
+        $remove.prop('disabled', true)
+      })
+      $('#table').bootstrapTable({
+        data: returndata,
+        locale: 'en-US',
+        search: true,
+        strictSearch: true,
+        columns: [
+          {
+
+          },
+          {
+            field: 'studentID',
+            title: 'Student ID'
+          }, {
+            field: 'firstName',
+            title: 'First Name'
+          }, {
+            field: 'lastName',
+            title: 'Last Name'
+          }, {
+            field: 'role',
+            title: 'Role',
+            formatter: createrole
+          }, {
+            field: 'remove',
+            title: 'Remove',
+            align: 'center',
+            clickToSelect: false,
+            events: window.operateEvents,
+            formatter: operateFormatter
+          }]
+      })
+
+      function createrole(value, row, index) {
+        if (value == "admin") {
+          return [
+            '<span id="rolespan" class="badge bg-gradient-warning ">admin</span>',
+          ].join('')
+        }
+        if (value == "teacher") {
+          return [
+            '<span id="rolespan" class="badge bg-gradient-info ">teacher</span>',
+          ].join('')
+        }
+        if (value == "student") {
+          return [
+            '<span id="rolespan" class="badge bg-gradient-light text-dark">student</span>',
+          ].join('')
+        }
+      }
+
+      function operateFormatter(value, row, index) {
+        return [
+          '<button type="button" rel="tooltip" class="btn btn-danger btn-round" id="deletebtn"><span class="material-icons">remove_circle</span></button>',
+        ].join('')
+      }
+
+      // $("#delete").click(function () {
+      //   var selectid = $(this).parents("tr").find(".dataselect").text();
+      //   localStorage.setItem("studentID", selectid);
+      //   console.log(localStorage['studentID'])
+      //   $.ajax({
+      //     dataType: "json",
+      //     type: 'post',
+      //     url: "../../php/-ITP4506_backend/teacher/DropStudent.php",
+      //     data: {
+      //       studentID: localStorage['studentID'],
+      //       id: localStorage['selectid'],
+      //     },
+      //     success: function (data, status, xhr) {
+      //       console.log(data);
+      //     },
+      //     error: function (jqXhr, textStatus, errorMessage) {
+
+      //     },
+      //   });
+      // })
 
       $('#ebtn').click(function () {
         var searchText = $('#searchText').val();
@@ -97,7 +219,8 @@
             description: description,
           },
           success: function (data, status) {
-            console.log(data);
+            Location.reload();
+            
           },
           error: function (request, status, error) {
             alert(request, status);
@@ -128,7 +251,7 @@
       <!-- End Navbar -->
       <div class="content">
         <div class="container-fluid">
-          <a href="javascript:;" class="btn btn-primary btn-round">返回</a>
+          <a href="javascript:;" class="btn btn-primary btn-round">Back</a>
           <div class="row">
 
             <div class="col-md-4">
@@ -140,8 +263,7 @@
 
                   <div class="form-group">
                     <label>Name</label>
-                    <input type="email" class="form-control" id="className" aria-describedby="emailHelp"
-                      placeholder="">
+                    <input type="email" class="form-control" id="className" aria-describedby="emailHelp" placeholder="">
                   </div>
                   <div class="form-group">
                     <label>Description</label>
@@ -210,63 +332,17 @@
                   </div> -->
                   <div class="col-md-4 pull-right">
 
-                    <div class="input-group no-border">
-
-                      <input type="text" id="searchText" value="" class="form-control" placeholder="Search...">
-                      <button type="submit" class="btn btn-white btn-round btn-just-icon">
-                        <i class="material-icons" id="searchbtn">search</i>
-                        <div class="ripple-container"></div>
-                      </button>
-                    </div>
                     <button type="button" class="btn btn-primary btn-round" data-toggle="modal"
                       data-target="#exampleModal">
                       Add Student
                     </button>
                   </div>
-                  <table id="table" data-toggle="table" data-height="460" data-pagination="true"
-                    data-click-to-select="true" style="text-align: center;">
-                    <thead style="text-align: center;">
-                      <tr>
-                        <th data-checkbox="true" id="calcheckbox" class="calcheckbox"></th>
-
-                        <th data-field="id">
-                          ID
-                        </th>
-                        <th data-field="firstName">
-                          First Name
-                        </th>
-                        <th data-field="lastName">
-                          Last Name
-                        </th>
-                        <th data-field="role">
-                          Role
-
-                        </th>
-
-                        <th data-field="edit">
-                          Remove
-
-                        </th>
-                      </tr>
-                    </thead>
-                    <tbody id="student">
-
-                      <tr>
-                        <th scope="row"> </th>
-                        <td>200000002</td>
-                        <td>e</td>
-                        <td>f</td>
-                        <td>1234 5678</td>
-                        <td><span class="badge bg-gradient-light text-dark">student</span></td>
-
-                        <td class="td-actions ">
-                          <button type="button" rel="tooltip" class="btn btn-danger btn-round">
-                            <span class="material-icons">remove_circle</span>
-                          </button>
-                        </td>
-                      </tr>
-
-                    </tbody>
+                  <table id="table" data- data-toolbar="#toolbar" data-search="true" data-show-toggle="true"
+                    data-show-fullscreen="true" data-show-columns="true" data-show-columns-toggle-all="true"
+                    data-detail-view="true" data-show-export="true" data-click-to-select="true"
+                    data-detail-formatter="detailFormatter" data-minimum-count-columns="2" data-pagination="true"
+                    data-id-field="id" data-page-list="[10, 25, 50, 100, all]" data-show-footer="true"
+                    data-side-pagination="server">
                   </table>
 
                 </div>
@@ -285,7 +361,7 @@
 </body>
 
 <!--   Core JS Files   -->
-<script src="../../assets/js/core/jquery.min.js"></script>
+
 <script src="../../assets/js/core/popper.min.js"></script>
 <script src="../../assets/js/core/bootstrap-material-design.min.js"></script>
 <script src="../../assets/js/plugins/perfect-scrollbar.jquery.min.js"></script>
