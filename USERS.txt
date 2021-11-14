@@ -12,3 +12,8 @@ Student:
 
 id: 200413958
 password: alvincheung
+
+********
+1. Open XAMPP first and start Apache and MySQL
+
+2. import SQL file
