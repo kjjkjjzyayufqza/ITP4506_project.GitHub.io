@@ -17,87 +17,142 @@
   <!-- CSS Just for demo purpose, don't include it in your project -->
   <link href="../../assets/demo/demo.css" rel="stylesheet" />
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-  <link href="https://unpkg.com/bootstrap-table@1.18.3/dist/bootstrap-table.min.css" rel="stylesheet">
+  <link href="https://unpkg.com/bootstrap-table@1.19.0/dist/bootstrap-table.min.css" rel="stylesheet">
 
-  <script src="https://unpkg.com/bootstrap-table@1.18.3/dist/bootstrap-table.min.js"></script>
+  <script src="https://unpkg.com/tableexport.jquery.plugin/tableExport.min.js"></script>
+  <script src="https://unpkg.com/bootstrap-table@1.19.0/dist/bootstrap-table.min.js"></script>
+  <script src="https://unpkg.com/bootstrap-table@1.19.0/dist/bootstrap-table-locale-all.min.js"></script>
+  <script src="https://unpkg.com/bootstrap-table@1.19.0/dist/extensions/export/bootstrap-table-export.min.js"></script>
+  <link rel="stylesheet" href="../../assets/css/font-awesome.min.css">
   <script>
+    function detailFormatter(index, row) {
+      var html
+      $.each(row, function (key, value) {
+        html = '<span id="rolespan" class="badge bg-gradient-warning ">Info</span>'
+      })
+      return html
+    }
     $(document).ready(function () {
+      var returndata;
 
-      $.ajax("../../php/-ITP4506_backend/teacher/viewClass.php", {
-        dataType: "json", // type of response data
-        timeout: 500, // timeout milliseconds
-        success: function (data, status, xhr) {
-          console.log(data);
-          var stuClass = "";
-          var subject = "";
-          for (let i = 0; i < data.length; i++) {
-            stuClass += "<a class='dropdown-item stuClass' href='#'>" + data[i]["name"] + "</a>";
-            subject += "<a class='dropdown-item subject' href='#'>" + data[i]["description"] + "</a>";
-          }
-          $("#class").html(stuClass);
-          $("#subject").html(subject);
-
-          $(".stuClass").click(function () {
-            $("#dropdownMenuButton1").text($(this).text());
-            $("#student tr").hide();
-            $("#student tr").filter(":contains('" + $(this).text() + "')").show();
-          });
-
-          $(".subject").click(function () {
-            $("#dropdownMenuButton2").text($(this).text());
-            $("#student tr").hide();
-            $("#student tr").filter(":contains('" + $(this).text() + "')").show();
-          });
-        },
-        error: function (jqXhr, textStatus, errorMessage) {
-          $("body").replace("Error: " + errorMessage);
-        },
-      });
 
       $.ajax("../../php/-ITP4506_backend/admin/viewallClass.php", {
         dataType: "json", // type of response data
         timeout: 500, // timeout milliseconds
+        async: false,
         success: function (data, status, xhr) {
-          console.log(data);
-          var stuClass = "";
-          for (let i = 0; i < data.length; i++) {
-            stuClass += "<tr><td class='dataselect'>" + data[i]["id"] + "</td><td>" + data[i]["name"] + "</td><td> " + data[i]["description"] + " </td><td>" + data[i]["teacherID"]
 
-            if (data[i]["academicYear"] > 2021) {
-              stuClass += "</td><td><span class='badge bg-gradient-info'>" + data[i]["academicYear"] + "</span></td> "
-            }
-            if (data[i]["academicYear"] == 2021) {
-              stuClass += "</td><td><span class='badge bg-gradient-success'>" + data[i]["academicYear"] + "</span></td> "
-            }
-            if (data[i]["academicYear"] < 2021) {
-              stuClass += "</td><td><span class='badge bg-gradient'>" + data[i]["academicYear"] + "</span></td> "
-            }
+          returndata = data;
 
-            stuClass += "<td class='td-actions '><button type='button' rel='tooltip' class='btn btn-round deletebtn' ><i class='material-icons'>edit</i></button></td></tr>";
-          }
-          $("#student").html(stuClass);
-          $(".deletebtn").click(function () {
-            var selectid = $(this).parents("tr").find(".dataselect").text();
-            localStorage.setItem("selectid", selectid);
-            localStorage.setItem("c", selectid);
-            console.log(localStorage['selectid'])
-            window.location.href = "class_info.html";
-          })
+
         },
         error: function (jqXhr, textStatus, errorMessage) {
-          $("body").replace("Error: " + errorMessage);
+          
         },
       });
 
+      var $table = $('#table')
+      var $remove = $('#remove')
+      var selections = []
+      function getIdSelections() {
+        return $.map($table.bootstrapTable('getSelections'), function (row) {
+          return row.id
+        })
+      }
+      window.operateEvents = {
 
-      
+        'click .class_studentslist': function (e, value, row, index) {
+          console.log('You click like action, row: ' + JSON.stringify(row))
+          localStorage.setItem("selectid", row["id"]);
+          window.location.href = "class_studentslist.html";
+        },
+      }
+      $table.on('check.bs.table uncheck.bs.table ' +
+        'check-all.bs.table uncheck-all.bs.table',
+        function () {
+          $remove.prop('disabled', !$table.bootstrapTable('getSelections').length)
+
+          // save your data, here just save the current page
+          selections = getIdSelections()
+          // push or splice the selections if you want to save all data selections
+        })
+      $table.on('all.bs.table', function (e, name, args) {
+        console.log(name, args)
+      })
+      $remove.click(function () {
+        var ids = getIdSelections()
+        $table.bootstrapTable('remove', {
+          field: 'id',
+          values: ids
+        })
+        $remove.prop('disabled', true)
+      })
+      $('#table').bootstrapTable({
+        data: returndata,
+        locale: 'en-US',
+        search: true,
+        strictSearch: true,
+        columns: [
+          {
+            
+          },
+          {
+            field: 'id',
+            title: 'ID'
+          }, {
+            field: 'name',
+            title: 'Name'
+          }, {
+            field: 'description',
+            title: 'Description'
+          }, {
+            field: 'academicYear',
+            title: 'Academicyear',
+            formatter: createyear
+          }, {
+            field: 'edit',
+            title: 'Edit',
+            align: 'center',
+            clickToSelect: false,
+            events: window.operateEvents,
+            formatter: operateFormatter
+          }]
+      })
+
+      function createyear(value, row, index) {
+        if (value > 2021) {
+          return [
+            '<span class="badge bg-gradient-info">  ', value ,  '   </span>',
+          ].join('')
+            }
+            if (value == 2021) {
+              return [
+            '<span class="badge bg-gradient-success">   ', value,  '   </span>',
+          ].join('')
+            }
+            if (value < 2021) {
+              return [
+            '<span class="badge bg-gradient-info">   ' , value  , '   </span>',
+          ].join('')
+            }
+
+      }
+
+      function operateFormatter(value, row, index) {
+        return [
+          '<button type="button" id="class_studentslist" rel="tooltip" class="btn btn-info class_studentslist" >',
+          '<i class="material-icons" > edit</i >',
+          '</button > ',
+        ].join('')
+      }
+
       $("#searchText").on("keyup", function () {
         var value = $(this).val().toLowerCase();
         $("#student tr").filter(function () {
           $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
         });
       });
-      
+
       $("#top-navbar").load("../upnavigationbar.html", function () {
         $(".navbar-brand").text("Class Allocation");
       });
@@ -128,13 +183,6 @@
             </div>
             <div class="col-md-4">
 
-              <div class="input-group no-border">
-                <input type="text" id="searchText" value="" class="form-control" placeholder="Search...">
-                <button type="submit" class="btn btn-white btn-round btn-just-icon">
-                  <i class="material-icons" id="searchbtn">search</i>
-                  <div class="ripple-container"></div>
-                </button>
-              </div>
 
             </div>
             <div class="col-md-12">
@@ -155,55 +203,12 @@
 
                 <div class="table-responsive" style="text-align:center;">
 
-                  <table id="table" data-toggle="table" data-pagination="true" data-click-to-select="true"
-                  style="text-align: center;">
-                    <thead style="text-align: center;">
-                      <tr>
-
-
-                        <th data-field="id">
-                          ID
-                        </th>
-                        <th data-field="Name">
-                          Name
-                        </th>
-                        <th data-field="Description">
-                          Description
-                        </th>
-                        <th data-field="TeacherID">
-                          TeacherID
-                        </th>
-                        <th data-field="AcademicYear">
-                          AcademicYear
-
-                        </th>
-
-                        <th data-field="edit">
-                          Edit
-
-                        </th>
-                      </tr>
-                    </thead>
-                    <tbody id="student">
-                      <tr>
-
-                        <td>123456789</td>
-                        <td>2A</td>
-
-                        <td>Higher Diploma in Software Engineering </td>
-                        <td>201116523</td>
-                        <td><span class="badge bg-gradient-success">2021</span></td>
-
-                        <td class="td-actions ">
-                          <button type="button" rel="tooltip" class="btn"
-                            onclick="location.href='class_studentslist.html'">
-                            <i class="material-icons">edit</i>
-                          </button>
-                        </td>
-                      </tr>
-
-
-                    </tbody>
+                  <table id="table" data- data-toolbar="#toolbar" data-search="true" data-show-toggle="true"
+                    data-show-fullscreen="true" data-show-columns="true" data-show-columns-toggle-all="true"
+                    data-detail-view="true" data-show-export="true" data-click-to-select="true"
+                    data-detail-formatter="detailFormatter" data-minimum-count-columns="2" data-pagination="true"
+                    data-id-field="id" data-page-list="[10, 25, 50, 100, all]" data-show-footer="true"
+                    data-side-pagination="server">
                   </table>
 
                 </div>
@@ -222,7 +227,7 @@
 </body>
 
 <!--   Core JS Files   -->
-<script src="../../assets/js/core/jquery.min.js"></script>
+
 <script src="../../assets/js/core/popper.min.js"></script>
 <script src="../../assets/js/core/bootstrap-material-design.min.js"></script>
 <script src="../../assets/js/plugins/perfect-scrollbar.jquery.min.js"></script>
