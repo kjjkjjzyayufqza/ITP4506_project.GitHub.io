@@ -283,9 +283,10 @@
         });
       });
 
-      $("#searchText").on("keyup", function () {
+      $(".search-input").on("keyup", function () {
+        
         var value = $(this).val().toLowerCase();
-        $("#student tr").filter(function () {
+        $("#table tr").filter(function () {
           $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
         });
       });

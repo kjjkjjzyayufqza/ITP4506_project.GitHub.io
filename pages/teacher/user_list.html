@@ -20,33 +20,127 @@
   <!-- CSS Just for demo purpose, don't include it in your project -->
   <link href="../../assets/demo/demo.css" rel="stylesheet" />
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-  <link href="https://unpkg.com/bootstrap-table@1.18.3/dist/bootstrap-table.min.css" rel="stylesheet">
+  <link href="https://unpkg.com/bootstrap-table@1.19.0/dist/bootstrap-table.min.css" rel="stylesheet">
 
-  <script src="https://unpkg.com/bootstrap-table@1.18.3/dist/bootstrap-table.min.js"></script>
+  <script src="https://unpkg.com/tableexport.jquery.plugin/tableExport.min.js"></script>
+  <script src="https://unpkg.com/bootstrap-table@1.19.0/dist/bootstrap-table.min.js"></script>
+  <script src="https://unpkg.com/bootstrap-table@1.19.0/dist/bootstrap-table-locale-all.min.js"></script>
+  <script src="https://unpkg.com/bootstrap-table@1.19.0/dist/extensions/export/bootstrap-table-export.min.js"></script>
+  <link rel="stylesheet" href="../../assets/css/font-awesome.min.css">
   <script>
+    function detailFormatter(index, row) {
+      var html
+      $.each(row, function (key, value) {
+        html = '<span id="rolespan" class="badge bg-gradient-warning ">Info</span>'
+      })
+      return html
+    }
     $(document).ready(function () {
+      var returndata;
 
       $.ajax("../../php/-ITP4506_backend/teacher/viewStudent.php", {
         dataType: "json", // type of response data
         timeout: 500, // timeout milliseconds
+        async: false,
         success: function (data, status, xhr) {
+          returndata = data;
           //console.log(data);
           var stuClass = "";
           for (let i = 0; i < data.length; i++) {
             $("tbody").append("<tr><td></td><td class='dataselect'>" + data[i]["id"] + "</td><td>" + data[i]["firstName"] + "</td><td>" + data[i]["lastName"] + "</td><td>" + data[i]["mobile"] + "</td><td><button type='button' class='btn btn-primary viewstudent_profile' '>Detail</button></td></tr>");
           }
 
-          $('.viewstudent_profile').on('click', function () {
-            var selectid = $(this).parents("tr").find(".dataselect").text();
-            localStorage.setItem("selectid", selectid);
-            console.log(localStorage['selectid'])
-            window.location.href = "student_profile.html";
-          });
+
         },
         error: function (jqXhr, textStatus, errorMessage) {
           $("body").toString().replace("Error: " + errorMessage);
           //alert(errorMessage)
         },
+
+
+      });
+
+
+      var $table = $('#table')
+      var $remove = $('#remove')
+      var selections = []
+      function getIdSelections() {
+        return $.map($table.bootstrapTable('getSelections'), function (row) {
+          return row.id
+        })
+      }
+      window.operateEvents = {
+
+        'click .viewstudent_profile': function (e, value, row, index) {
+          console.log('You click like action, row: ' + JSON.stringify(row))
+          localStorage.setItem("selectid", row["id"]);
+          window.location.href = "student_profile.html";
+
+        },
+      }
+      $table.on('check.bs.table uncheck.bs.table ' +
+        'check-all.bs.table uncheck-all.bs.table',
+        function () {
+          $remove.prop('disabled', !$table.bootstrapTable('getSelections').length)
+
+          // save your data, here just save the current page
+          selections = getIdSelections()
+          // push or splice the selections if you want to save all data selections
+        })
+      $table.on('all.bs.table', function (e, name, args) {
+        console.log(name, args)
+      })
+      $remove.click(function () {
+        var ids = getIdSelections()
+        $table.bootstrapTable('remove', {
+          field: 'id',
+          values: ids
+        })
+        $remove.prop('disabled', true)
+      })
+      $('#table').bootstrapTable({
+        data: returndata,
+        locale: 'en-US',
+        search: true,
+        strictSearch: true,
+        columns: [
+          {
+
+          },
+          {
+            field: 'id',
+            title: 'ID'
+          }, {
+            field: 'firstName',
+            title: 'Firs tName'
+          }, {
+            field: 'lastName',
+            title: 'Last Name'
+          }, {
+            field: 'mobile',
+            title: 'Mobile Phone',
+          }, {
+            field: 'edit',
+            title: 'Edit',
+            align: 'center',
+            clickToSelect: false,
+            events: window.operateEvents,
+            formatter: operateFormatter
+          }]
+      })
+
+      function operateFormatter(value, row, index) {
+        return [
+          '<button type="button" class="btn btn-primary viewstudent_profile" >Detail</button>',
+        ].join('')
+
+      }
+      $(".search-input").on("keyup", function () {
+        
+        var value = $(this).val().toLowerCase();
+        $("#table tr").filter(function () {
+          $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+        });
       });
       $("#top-navbar").load("../upnavigationbar.html", function () {
         $(".navbar-brand").text("Profile");
@@ -96,30 +190,12 @@
 
 
                   <div class="table-responsive" style="text-align:center;">
-                    <table id="table" data-toggle="table" data-height="600" data-toggle="table" data-locale="zh-CN"
-                      data-side-pagination="server" data-striped="true" data-click-to-select="true">
-                      <tr>
-                        <th data-checkbox="true" id="calcheckbox" class="calcheckbox"></th>
-
-                        <th data-field="id">
-                          ID
-                        </th>
-                        <th data-field="firstName">
-                          First Name
-                        </th>
-                        <th data-field="lastName">
-                          Last Name
-                        </th>
-                        <th data-field="mobilephone">
-                          Mobile Phone
-                        </th>
-
-
-                        <th data-field="edit">
-                          Edit
-
-                        </th>
-                      </tr>
+                    <table id="table" data- data-toolbar="#toolbar" data-search="true" data-show-toggle="true"
+                      data-show-fullscreen="true" data-show-columns="true" data-show-columns-toggle-all="true"
+                      data-detail-view="true" data-show-export="true" data-click-to-select="true"
+                      data-detail-formatter="detailFormatter" data-minimum-count-columns="2" data-pagination="true"
+                      data-id-field="id" data-page-list="[10, 25, 50, 100, all]" data-show-footer="true"
+                      data-side-pagination="server">
                     </table>
 
                   </div>
@@ -137,7 +213,7 @@
   </div>
   <!--   Core JS Files   -->
 
-  <script src="../../assets/js/core/jquery.min.js"></script>
+
   <script src="../../assets/js/core/popper.min.js"></script>
   <script src="../../assets/js/core/bootstrap-material-design.min.js"></script>
   <script src="../../assets/js/plugins/perfect-scrollbar.jquery.min.js"></script>

@@ -37,6 +37,29 @@
     $(document).ready(function () {
       var returndata;
       console.log(localStorage['selectid'])
+      //class info
+      $.ajax({
+        dataType: "json",
+        type: 'post',
+        url: "../../php/-ITP4506_backend/admin/viewclassInformation.php",
+        async: false,
+        data: {
+          id: localStorage['selectid']
+        },
+        success: function (data, status, xhr) {
+          console.log(data[0].name);
+          $("#className").val(data[0].name) ;
+          $("#description").val(data[0].description) ;
+        },
+        error: function (jqXhr, textStatus, errorMessage) {
+
+        },
+
+      });
+
+
+
+      //student
       $.ajax({
         dataType: "json",
         type: 'post',
@@ -191,7 +214,8 @@
 
       $('#ebtn').click(function () {
         var searchText = $('#searchText').val();
-        $.ajax({
+        if(searchText.length > 0){
+          $.ajax({
           type: 'post',
           url: "../../php/-ITP4506_backend/teacher/AddStudent.php",
           data: {
@@ -200,17 +224,23 @@
           },
           success: function (data, status) {
             console.log(data);
+            location.reload();
           },
           error: function (request, status, error) {
             alert(request, status);
           }
         });
-      });
+        }else{
+          alert("please input id")
+        }
+        
 
+      });
       $('#update').click(function () {
         var className = $('#className').val();
         var description = $('#description').val();
-        $.ajax({
+        if(className.length > 0 && description.length > 0){
+          $.ajax({
           type: 'post',
           url: "../../php/-ITP4506_backend/teacher/editClass.php",
           data: {
@@ -219,13 +249,17 @@
             description: description,
           },
           success: function (data, status) {
-            Location.reload();
+            location.reload();
             
           },
           error: function (request, status, error) {
             alert(request, status);
           }
         });
+        }else{
+          alert("pleare input value")
+        }
+
       });
 
       $("#top-navbar").load("../upnavigationbar.html", function () {
@@ -263,11 +297,11 @@
 
                   <div class="form-group">
                     <label>Name</label>
-                    <input type="email" class="form-control" id="className" aria-describedby="emailHelp" placeholder="">
+                    <input type="text" class="form-control" id="className"  placeholder="">
                   </div>
                   <div class="form-group">
                     <label>Description</label>
-                    <input type="email" class="form-control" id="description" aria-describedby="emailHelp"
+                    <input type="text" class="form-control" id="description" 
                       placeholder="">
                   </div>
 
@@ -283,7 +317,7 @@
                     <div class="modal-dialog" role="document">
                       <div class="modal-content">
                         <div class="modal-header">
-                          <h5 class="modal-title" id="exampleModalLabel">Add New Class</h5>
+                          <h5 class="modal-title" id="exampleModalLabel">Add New student</h5>
                           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                           </button>
