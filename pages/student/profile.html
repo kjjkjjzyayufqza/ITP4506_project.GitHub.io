@@ -18,25 +18,28 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script>
     $(document).ready(function () {
-
-      $.ajax("../../php/-ITP4506_backend/student/viewPersonal.php", {
-        dataType: "json", // type of response data
-        timeout: 500, // timeout milliseconds
-        success: function (data, status, xhr) {
-          console.log(data);
-          $("#id").val(data[0]["id"]);
-          $("#fName").val(data[0]["firstName"]);
-          $("#lName").val(data[0]["lastName"]);
-          $("#mobile").val(data[0]["mobile"]);
-          $("#role").html(data[0]["role"]);
-          $("#card-title").text(data[0]["firstName"]);
-          $(".card-description").text(data[0]["school"]);
-        },
-        error: function (jqXhr, textStatus, errorMessage) {
-          console.log("Error: " + errorMessage);
-        },
+      var id = localStorage.getItem('id'); 
+      $.ajax({
+        type: 'post',
+        dataType: "json",
+          url: "../../php/-ITP4506_backend/student/viewPersonal.php",
+          data: {
+            id: id,
+          },
+          success: function (data, status, xhr) {
+            $("#id").val(data[0]["id"]);
+            $("#fName").val(data[0]["firstName"]);
+            $("#lName").val(data[0]["lastName"]);
+            $("#mobile").val(data[0]["mobile"]);
+            $("#role").html(data[0]["role"]);
+            $("#card-title").text(data[0]["firstName"]);
+            $(".card-description").text(data[0]["school"]);
+          },
+          error: function (request, status, error) {
+            alert(request, status);
+        }
       });
-
+      
       $('#updateProfile').click(function () {
         var id = $('#id').val();
         var fName = $('#fName').val();

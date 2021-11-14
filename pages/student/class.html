@@ -22,21 +22,24 @@
   <script src="https://unpkg.com/bootstrap-table@1.18.3/dist/bootstrap-table.min.js"></script>
   <script>
     $(document).ready(function () {
-
-      $.ajax("../../php/-ITP4506_backend/student/viewClass.php", {
-        dataType: "json", // type of response data
-        timeout: 500, // timeout milliseconds
-        success: function (data, status, xhr) {
-          console.log(data);
-          $("#year").text($("#year").text() + " " +data[0]["academicYear"]);
-          $("#fName").text($("#fName").text() + " " +data[0]["firstName"]);
-          $("#lName").text($("#lName").text() + " " +data[0]["lastName"]);
-          $("#class").text($("#class").text() + " " +data[0]["name"]);
-          $("#degree").text($("#degree").text() + " " +data[0]["description"]);
-        },
-        error: function (jqXhr, textStatus, errorMessage) {
-          $("body").replace("Error: " + errorMessage);
-        },
+      var id = localStorage.getItem('id'); 
+      $.ajax({
+        type: 'post',
+        dataType: "json",
+          url: "../../php/-ITP4506_backend/student/viewClass.php",
+          data: {
+            id: id,
+          },
+          success: function (data, status, xhr) {
+            $("#year").text($("#year").text() + " " +data[0]["academicYear"]);
+            $("#fName").text($("#fName").text() + " " +data[0]["firstName"]);
+            $("#lName").text($("#lName").text() + " " +data[0]["lastName"]);
+            $("#class").text($("#class").text() + " " +data[0]["name"]);
+            $("#degree").text($("#degree").text() + " " +data[0]["description"]);
+          },
+          error: function (request, status, error) {
+            alert(request, status);
+        }
       });
 
       $("#top-navbar").load("../upnavigationbar.html", function () {

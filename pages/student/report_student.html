@@ -29,9 +29,14 @@
 
     $(document).ready(function () {
 
-      $.ajax("../../php/-ITP4506_backend/student/searchAttendance.php", {
-        dataType: "json", // type of response data
-        timeout: 500, // timeout milliseconds
+      var id = localStorage.getItem('id');
+      $.ajax({
+        type: 'post',
+        dataType: "json",
+        url: "../../php/-ITP4506_backend/student/searchAttendance.php",
+        data: {
+          id: id,
+        },
         success: function (data, status, xhr) {
           console.log(data);
           var table = "";
@@ -39,12 +44,29 @@
           for (let i = 0; i < data.length; i++) {
             $("tbody").append("<tr><td>" + data[i]["date"] + "</td><td>" + data[i]["time"] + "</td><td>" + data[i]["status"] + "</td></tr>");
           }
-          // $("#table").html(table);
+          $("#table").html(table);
         },
-        error: function (jqXhr, textStatus, errorMessage) {
-          $("body").replace("Error: " + errorMessage);
-        },
+        error: function (request, status, error) {
+          alert(request, status);
+        }
       });
+
+      // $.ajax("../../php/-ITP4506_backend/student/searchAttendance.php", {
+      //   dataType: "json", // type of response data
+      //   timeout: 500, // timeout milliseconds
+      //   success: function (data, status, xhr) {
+      //     console.log(data);
+      // var table = "";
+      // $("#class").text($("#class").text() + data[0]["classID"]);
+      // for (let i = 0; i < data.length; i++) {
+      //   $("tbody").append("<tr><td>" + data[i]["date"] + "</td><td>" + data[i]["time"] + "</td><td>" + data[i]["status"] + "</td></tr>");
+      // }
+      // $("#table").html(table);
+      //   },
+      //   error: function (jqXhr, textStatus, errorMessage) {
+      //     $("body").replace("Error: " + errorMessage);
+      //   },
+      // });
 
       $("input").keyup(function () {
         $("tr:gt(0)").hide()
