@@ -1,7 +1,7 @@
 <?php
 require_once('../conn.php');
 
-$sql = "SELECT * FROM class WHERE teacherID = '201116523' OR id = '123456788'";
+$sql = "SELECT * FROM class";
 $rs = mysqli_query($conn, $sql);
 $myArr = array();
 while($rc = mysqli_fetch_assoc($rs))

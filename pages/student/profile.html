@@ -64,20 +64,28 @@
         var id = $('#id').val();
         var password = $('#password').val();
         var repeatPassword = $('#repeatPassword').val();
-        $.ajax({
-          type: 'post',
-          url: "../../php/-ITP4506_backend/student/editPassword.php",
-          data: {
-            id: id,
-            password: password,
-          },
-          success: function (data, status) {
-            console.log(data);
-          },
-          error: function (request, status, error) {
-            alert(request, status);
-          }
-        });
+        if (password == repeatPassword) {
+          $.ajax({
+            type: 'post',
+            url: "../../php/-ITP4506_backend/student/editPassword.php",
+            data: {
+              id: id,
+              password: password,
+            },
+            success: function (data, status) {
+              console.log(data);
+              location.reload();
+            },
+            error: function (request, status, error) {
+              alert(request, status);
+            }
+          });
+        }else{
+          alert("pelase check your password")
+        }
+
+
+
       });
 
       $("#top-navbar").load("../upnavigationbar.html", function () {
@@ -124,13 +132,13 @@
                     <div class="col-md-6">
                       <div class="form-group">
                         <label class="bmd-label-floating">New Password</label>
-                        <input type="text" id="password" class="form-control">
+                        <input type="password" id="password" class="form-control">
                       </div>
                     </div>
                     <div class="col-md-6">
                       <div class="form-group">
                         <label class="bmd-label-floating">RE Password</label>
-                        <input type="text" id="repeatPassword" class="form-control">
+                        <input type="password" id="repeatPassword" class="form-control">
                       </div>
                     </div>
                   </div>

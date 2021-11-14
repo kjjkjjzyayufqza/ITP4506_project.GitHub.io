@@ -1,13 +1,13 @@
 <?php
 require_once('../conn.php');
 
-$sql = "SELECT * FROM attendance, class WHERE attendance.classID = '123456789' AND attendance.studentID='200413958' AND class.academicYear='2021'";
+$sql = "SELECT * FROM attendance, user, class WHERE attendance.studentID = user.id AND attendance.classID = class.id";
 $rs = mysqli_query($conn, $sql);
 $myArr = array();
 while($rc = mysqli_fetch_assoc($rs))
 {
-  $data["id"] = $rc["id"];
-  $data["classID"] = $rc["classID"];
+  $data["name"] = $rc["firstName"] . " " . $rc["lastName"];
+  $data["className"] = $rc["name"];
   $data["date"] = $rc["date"];
   $data["time"] = $rc["time"];
   $data["status"] = $rc["status"];
