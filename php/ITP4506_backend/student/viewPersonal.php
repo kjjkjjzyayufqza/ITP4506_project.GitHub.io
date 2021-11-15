@@ -1,7 +1,8 @@
 <?php
 require_once('../conn.php');
 
-$sql = "SELECT * FROM user WHERE id = '200413958'";
+if(isset($_POST['id'])) {
+$sql = "SELECT * FROM user WHERE id = '" . $_POST['id'] . "'";
 $rs = mysqli_query($conn, $sql);
 $myArr = array();
 while($rc = mysqli_fetch_assoc($rs))
@@ -15,6 +16,7 @@ while($rc = mysqli_fetch_assoc($rs))
   $data["role"] = $rc["role"];
   $myArr[] = $data;
  }
+}
  echo json_encode($myArr);
  mysqli_free_result($rs);
  mysqli_close($conn);

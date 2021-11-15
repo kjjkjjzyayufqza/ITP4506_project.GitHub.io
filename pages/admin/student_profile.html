@@ -21,7 +21,7 @@
       $(".studentname").text(localStorage['selectname'])
       $.ajax({
         type: 'post',
-        url: "../../php/-ITP4506_backend/admin/view_student_allInformation.php",
+        url: "../../php/ITP4506_backend/admin/view_student_allInformation.php",
         data: {
           id: localStorage["selectid"],
         },
@@ -62,7 +62,7 @@
         console.log(suspended)
         $.ajax({
           type: 'post',
-          url: "../../php/-ITP4506_backend/admin/accountStatus.php",
+          url: "../../php/ITP4506_backend/admin/accountStatus.php",
           data: {
             id: localStorage["selectid"],
             suspended: suspended,

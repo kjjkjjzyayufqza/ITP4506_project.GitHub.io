@@ -38,7 +38,7 @@
     $(document).ready(function () {
       var returndata;
 
-      $.ajax("../../php/-ITP4506_backend/admin/viewInformation.php", {
+      $.ajax("../../php/ITP4506_backend/admin/viewInformation.php", {
         dataType: "json", // type of response data
         timeout: 500, // timeout milliseconds
         async: false,
@@ -213,7 +213,7 @@
 
           $.ajax({
             type: 'post',
-            url: "../../php/-ITP4506_backend/admin/createAccount.php",
+            url: "../../php/ITP4506_backend/admin/createAccount.php",
             data: {
               firstName: fName,
               lastName: lName,
@@ -385,6 +385,7 @@
                         <i class="fa fa-trash"></i> Delete
                       </button>
                     </div>
+                    <div class="table-responsive" style="text-align:center;">
                     <table id="table" data- data-toolbar="#toolbar" data-search="true" data-show-toggle="true"
                       data-show-fullscreen="true" data-show-columns="true" data-show-columns-toggle-all="true"
                       data-detail-view="true" data-show-export="true" data-click-to-select="true"
@@ -392,7 +393,7 @@
                       data-id-field="id" data-page-list="[10, 25, 50, 100, all]" data-show-footer="true"
                       data-side-pagination="server">
                     </table>
-
+                  </div>
                   </div>
                 </div>
               </div>

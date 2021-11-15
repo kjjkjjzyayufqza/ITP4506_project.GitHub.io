@@ -5,7 +5,7 @@
 <head>
   <meta charset="utf-8" />
   <title>
-    Class Allocation
+    Class Allocation Archive
   </title>
   <meta content='width=device-width, initial-scale=1.0, shrink-to-fit=no' name='viewport' />
   <!--     Fonts and icons     -->
@@ -38,27 +38,14 @@
       var returndata_dis;
 
 
-      $.ajax("../../php/ITP4506_backend/admin/viewallClass.php", {
-        dataType: "json", // type of response data
-        timeout: 500, // timeout milliseconds
-        async: false,
-        success: function (data, status, xhr) {
 
-          returndata = data;
-
-
-        },
-        error: function (jqXhr, textStatus, errorMessage) {
-
-        },
-      });
       $.ajax("../../php/ITP4506_backend/admin/viewallClass_dis.php", {
         dataType: "json", // type of response data
         timeout: 500, // timeout milliseconds
         async: false,
         success: function (data, status, xhr) {
 
-          returndata_dis = data;
+          returndata = data;
 
 
         },
@@ -125,6 +112,10 @@
             field: 'academicYear',
             title: 'Academicyear',
             formatter: createyear
+          },  {
+            field: 'archive',
+            title: 'Archive',
+            formatter: Archivecheck
           },{
             field: 'edit',
             title: 'Edit',
@@ -134,7 +125,18 @@
             formatter: operateFormatter
           }]
       })
+      function Archivecheck(value, row, index) {
+        if(value == false){
+          return [
+            '<span class="badge bg-gradient-danger">  ', value, '   </span>',
+          ].join('')
+        }else{
+          return [
+            '<span class="badge bg-gradient-success">  ', value, '   </span>',
+          ].join('')
+        }
 
+      }
       function createyear(value, row, index) {
         if (value < 2021) {
           return [
@@ -161,53 +163,6 @@
           '</button > ',
         ].join('')
       }
-      $("#Archiveopen").click(function(){
-        window.location.href = "class_Archive.html";
-      })
-      //var data = [returnedData[0].present, returnedData[0].late, returnedData[0].earlyLeave, returnedData[0].sickLeave, returnedData[0].personalLeave, returnedData[0].absentWithoutReason]
-      var ctx = document.getElementById("myChart");
-
-      var myChart = new Chart(ctx, {
-        type: 'doughnut',
-
-        data: {
-          labels: ["Enable", "Disable"],
-          datasets: [{
-            label: 'Data',
-            data: [returndata[returndata.length-1]["count"], returndata_dis[returndata_dis.length-1]["discount"]],
-            backgroundColor: [
-              'rgba(255, 99, 132, 1)',
-              'rgba(54, 162, 235, 1)',
-
-            ],
-            borderColor: [
-              'rgba(255,99,132,1)',
-              'rgba(54, 162, 235, 1)',
-
-            ],
-            borderWidth: 1
-          }]
-        },
-        options: {
-          legend: {
-            position: "bottom",
-          },
-          responsive: true,
-          maintainAspectRatio: false,
-          layout: {
-            padding: {
-              // left: 50,
-              // right: 50,
-              // top: 50,
-              // bottom: 50,
-            },
-
-          },
-        },
-      });
-
-      myChart.canvas.parentNode.style.height = '150px';
-      myChart.canvas.parentNode.style.width = '150px';
 
       $(".search-input").on("keyup", function () {
 
@@ -218,7 +173,7 @@
       });
 
       $("#top-navbar").load("../upnavigationbar.html", function () {
-        $(".navbar-brand").text("Class Allocation");
+        $(".navbar-brand").text("Class Allocation / Class Allocation Archive");
       });
       $("#navbar").load("./navigationbar.html", function () {
         $("ul li:eq(1)").addClass("active");
@@ -258,7 +213,10 @@
                   <span class="badge bg-gradient-info"> </span> New year
                   <span class="badge bg-gradient-light text-dark"> </span> Old year
                 </div>
-
+                <label class="switch">
+                  <input type="checkbox">
+                  <span class="slider round"></span>
+                </label>
                 <div class="table-responsive" style="text-align:center;">
 
                   <table id="table" data- data-toolbar="#toolbar" data-search="true" data-show-toggle="true"
@@ -272,37 +230,7 @@
                 </div>
               </div>
             </div>
-            <div class="col-md-12">
 
-              <div class="card col-md-5">
-                <div class="card-header-primary" style="border-radius: 20px;">
-                  <h4 class="card-title ">Class Archive</h4>
-                </div>
-                <div class="card-body">
-                  <div class="card ">
-
-                    <div class="card-body">
-                      <div>
-                        <div style="float:left; padding-top: 3em; width: 250px;">
-                          <p class="card-title ">View/Set</p>
-                          <h4 class="card-title ">Class Archive</h4>
-                          <button id="Archiveopen" class="btn btn-danger">Setting</button>
-                        </div>
-
-                        <div style="float:left;">
-                          <canvas id="myChart"></canvas>
-                        </div>
-                      </div>
-
-                    </div>
-
-
-                  </div>
-
-                </div>
-
-              </div>
-            </div>
           </div>
         </div>
       </div>

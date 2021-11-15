@@ -41,7 +41,7 @@
       $.ajax({
         dataType: "json",
         type: 'post',
-        url: "../../php/-ITP4506_backend/admin/viewclassInformation.php",
+        url: "../../php/ITP4506_backend/admin/viewclassInformation.php",
         async: false,
         data: {
           id: localStorage['selectid']
@@ -198,7 +198,7 @@
       //   $.ajax({
       //     dataType: "json",
       //     type: 'post',
-      //     url: "../../php/-ITP4506_backend/teacher/DropStudent.php",
+      //     url: "../../php/ITP4506_backend/teacher/DropStudent.php",
       //     data: {
       //       studentID: localStorage['studentID'],
       //       id: localStorage['selectid'],
@@ -217,7 +217,7 @@
         if(searchText.length > 0){
           $.ajax({
           type: 'post',
-          url: "../../php/-ITP4506_backend/teacher/AddStudent.php",
+          url: "../../php/ITP4506_backend/teacher/AddStudent.php",
           data: {
             studentID: searchText,
             classID: localStorage['selectid'],
@@ -242,7 +242,7 @@
         if(className.length > 0 && description.length > 0){
           $.ajax({
           type: 'post',
-          url: "../../php/-ITP4506_backend/teacher/editClass.php",
+          url: "../../php/ITP4506_backend/teacher/editClass.php",
           data: {
             id: localStorage['selectid'],
             name: className,

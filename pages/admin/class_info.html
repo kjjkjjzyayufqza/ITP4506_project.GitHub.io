@@ -29,7 +29,7 @@
 
       $.ajax({
         type: 'post',
-        url: "../../php/-ITP4506_backend/admin/viewclassInformation.php",
+        url: "../../php/ITP4506_backend/admin/viewclassInformation.php",
         data: {
           id: localStorage.selectid,
         },
@@ -62,7 +62,7 @@
             var indescription = $("#inputdescription").val()
             $.ajax({
               type: 'post',
-              url: "../../php/-ITP4506_backend/admin/editClass.php",
+              url: "../../php/ITP4506_backend/admin/editClass.php",
               data: {
                 id: localStorage.selectid,
                 name: inname,

@@ -38,7 +38,7 @@
 
       $.ajax({
         type: 'get',
-        url: "../../php/-ITP4506_backend/admin/viewattendencereport.php",
+        url: "../../php/ITP4506_backend/admin/viewattendencereport.php",
         async: false,
         success: function (data, status, xhr) {
           returndata = JSON.parse(data);
@@ -102,22 +102,28 @@
             title: 'Class'
           }, {
             field: 'present',
-            title: 'Present'
+            title: 'Present',
+            formatter: per
           }, {
             field: 'late',
-            title: 'Late'
+            title: 'Late',
+            formatter: per
           }, {
             field: 'earlyLeave',
             title: 'Early Leave',
+            formatter: per
           }, {
             field: 'sickLeave',
             title: 'Sick Leave',
+            formatter: per
           }, {
             field: 'personalLeave',
             title: 'Personal leave',
+            formatter: per
           }, {
             field: 'absentWithoutReason',
             title: 'Absent Without Reason',
+            formatter: per
           }, {
             field: 'View',
             title: 'View',
@@ -126,6 +132,11 @@
           }]
       })
 
+      function per(value, row, index) {
+        return [
+          value + '%',
+        ].join('')
+      }
       function View(value, row, index) {
         console.log(value)
         return [
@@ -201,7 +212,7 @@
                   </div>
                 </div>
                 <div class="card-body">
-                  <div class="table-responsive">
+                  <div class="table-responsive" style="text-align:center;">
                     <table id="table" data- data-toolbar="#toolbar" data-search="true" data-show-toggle="true"
                       data-show-fullscreen="true" data-show-columns="true" data-show-columns-toggle-all="true"
                       data-detail-view="true" data-show-export="true" data-click-to-select="true"
