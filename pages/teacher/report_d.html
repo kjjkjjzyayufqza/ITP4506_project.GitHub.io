@@ -30,7 +30,7 @@
 
       $.ajax({
         type: 'get',
-        url: "../../php/-ITP4506_backend/admin/viewattendencereport.php",
+        url: "../../php/ITP4506_backend/admin/viewattendencereport.php",
         success: function (data, status, xhr) {
           returnedData = JSON.parse(data);
 
@@ -90,7 +90,7 @@
         $(".navbar-brand").text("Attendence");
       });
       $("#navbar").load("./navigationbar.html", function () {
-        $("ul li:eq(3)").addClass("active");
+        $("ul li:eq(4)").addClass("active");
       });
       $("#end-navbar").load("../endnavigationbar.html");
 

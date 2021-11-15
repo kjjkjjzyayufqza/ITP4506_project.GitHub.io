@@ -38,7 +38,7 @@
 
       $.ajax({
         type: 'get',
-        url: "../../php/-ITP4506_backend/admin/viewattendencereport.php",
+        url: "../../php/ITP4506_backend/admin/viewattendencereport.php",
         async: false,
         success: function (data, status, xhr) {
           returndata = JSON.parse(data);
@@ -165,7 +165,7 @@
         $(".navbar-brand").text("Report");
       });
       $("#navbar").load("./navigationbar.html", function () {
-        $("ul li:eq(3)").addClass("active");
+        $("ul li:eq(4)").addClass("active");
       });
       $("#end-navbar").load("../endnavigationbar.html");
     });

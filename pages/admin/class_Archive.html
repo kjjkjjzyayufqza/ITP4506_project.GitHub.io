@@ -56,6 +56,7 @@
 
       var $table = $('#table')
       var $remove = $('#remove')
+      var $enbale = $('#enbale')
       var selections = []
       function getIdSelections() {
         return $.map($table.bootstrapTable('getSelections'), function (row) {
@@ -74,14 +75,24 @@
         'check-all.bs.table uncheck-all.bs.table',
         function () {
           $remove.prop('disabled', !$table.bootstrapTable('getSelections').length)
-
+          $enbale.prop('disabled', !$table.bootstrapTable('getSelections').length)
           // save your data, here just save the current page
           selections = getIdSelections()
           // push or splice the selections if you want to save all data selections
         })
-      $table.on('all.bs.table', function (e, name, args) {
-        console.log(name, args)
+
+
+      $('#table').bootstrapTable('refresh');
+
+      $enbale.click(function () {
+        var ids = getIdSelections()
+        $table.bootstrapTable('remove', {
+          field: 'id',
+          values: ids
+        })
+        $enbale.prop('disabled', true)
       })
+
       $remove.click(function () {
         var ids = getIdSelections()
         $table.bootstrapTable('remove', {
@@ -97,7 +108,7 @@
         strictSearch: true,
         columns: [
           {
-
+            checkbox: true
           },
           {
             field: 'id',
@@ -112,11 +123,11 @@
             field: 'academicYear',
             title: 'Academicyear',
             formatter: createyear
-          },  {
+          }, {
             field: 'archive',
             title: 'Archive',
             formatter: Archivecheck
-          },{
+          }, {
             field: 'edit',
             title: 'Edit',
             align: 'center',
@@ -126,11 +137,11 @@
           }]
       })
       function Archivecheck(value, row, index) {
-        if(value == false){
+        if (value == false) {
           return [
             '<span class="badge bg-gradient-danger">  ', value, '   </span>',
           ].join('')
-        }else{
+        } else {
           return [
             '<span class="badge bg-gradient-success">  ', value, '   </span>',
           ].join('')
@@ -158,11 +169,28 @@
 
       function operateFormatter(value, row, index) {
         return [
-          '<button type="button" id="class_studentslist" rel="tooltip" class="btn btn-info class_studentslist" >',
-          '<i class="material-icons" > edit</i >',
-          '</button > ',
+          'Disable <label name="changeval" class="toggle-control">',
+          '<input type="checkbox" >',
+          '<span class="control"></span>',
+          '</label>Enable',
         ].join('')
       }
+      $('[name="changeval"]').find('input:checkbox').change(function(){
+        console.log($(this).is(':checked'))
+      })
+      $('[name="changeval"]').find('input:checkbox').each(function () {
+
+        console.log($(this).val())
+
+      });
+
+
+      $table.on('all.bs.table', function (e, name, args) {
+        //console.log(name, args)
+
+
+
+      })
 
       $(".search-input").on("keyup", function () {
 
@@ -213,10 +241,17 @@
                   <span class="badge bg-gradient-info"> </span> New year
                   <span class="badge bg-gradient-light text-dark"> </span> Old year
                 </div>
-                <label class="switch">
-                  <input type="checkbox">
-                  <span class="slider round"></span>
-                </label>
+
+
+
+                <div id="toolbar">
+                  <button id="remove" class="btn btn-danger " disabled>
+                    <i class="fa fa-lock"></i> Set Disable
+                  </button>
+                  <button id="enbale" class="btn btn-success " disabled>
+                    <i class="fa fa-unlock"></i> Set Enable
+                  </button>
+                </div>
                 <div class="table-responsive" style="text-align:center;">
 
                   <table id="table" data- data-toolbar="#toolbar" data-search="true" data-show-toggle="true"

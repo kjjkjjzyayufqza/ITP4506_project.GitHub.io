@@ -35,7 +35,7 @@
     $(document).ready(function () {
       var returndata;
 
-      $.ajax("../../php/-ITP4506_backend/teacher/searchStdRecord.php", {
+      $.ajax("../../php/ITP4506_backend/teacher/searchStdRecord.php", {
         dataType: "json", // type of response data
         timeout: 500, // timeout milliseconds
         async: false,
@@ -73,7 +73,7 @@
             $.ajax({
               dataType: "json",
               type: 'post',
-              url: "../../php/-ITP4506_backend/teacher/DropStudent.php",
+              url: "../../php/ITP4506_backend/teacher/DropStudent.php",
               async:false,
               data: {
                 studentID: localStorage['studentID'],
@@ -162,7 +162,7 @@
         $(".navbar-brand").text("Attendence");
       });
       $("#navbar").load("./navigationbar.html", function () {
-        $("ul li:eq(2)").addClass("active");
+        $("ul li:eq(3)").addClass("active");
       });
       $("#end-navbar").load("../endnavigationbar.html");
 

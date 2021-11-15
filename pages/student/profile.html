@@ -22,7 +22,7 @@
       $.ajax({
         type: 'post',
         dataType: "json",
-          url: "../../php/-ITP4506_backend/student/viewPersonal.php",
+          url: "../../php/ITP4506_backend/student/viewPersonal.php",
           data: {
             id: id,
           },
@@ -47,7 +47,7 @@
         var mobile = $('#mobile').val();
         $.ajax({
           type: 'post',
-          url: "../../php/-ITP4506_backend/student/editPersonal.php",
+          url: "../../php/ITP4506_backend/student/editPersonal.php",
           data: {
             id: id,
             firstName: fName,
@@ -70,7 +70,7 @@
         if (password == repeatPassword) {
           $.ajax({
             type: 'post',
-            url: "../../php/-ITP4506_backend/student/editPassword.php",
+            url: "../../php/ITP4506_backend/student/editPassword.php",
             data: {
               id: id,
               password: password,
