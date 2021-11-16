@@ -45,8 +45,8 @@
         },
         success: function (data, status, xhr) {
           console.log(data[0].name);
-          $("#className").val(data[0].name) ;
-          $("#description").val(data[0].description) ;
+          $("#className").val(data[0].name);
+          $("#description").val(data[0].description);
         },
         error: function (jqXhr, textStatus, errorMessage) {
 
@@ -74,7 +74,7 @@
 
         },
         error: function (jqXhr, textStatus, errorMessage) {
-          
+
         },
 
       });
@@ -93,26 +93,26 @@
           console.log('You click like action, row: ' + JSON.stringify(row))
           localStorage.setItem("selectid", row["classID"]);
           localStorage['studentID'] = row["studentID"]
-            console.log(localStorage['selectid'])
-            location.reload();
-            $.ajax({
-              dataType: "json",
-              type: 'post',
-              url: "../../php/ITP4506_backend/teacher/DropStudent.php",
-              async:false,
-              data: {
-                studentID: localStorage['studentID'],
-                id: localStorage['selectid'],
-              },
-              success: function (data, status, xhr) {
+          console.log(localStorage['selectid'])
+          location.reload();
+          $.ajax({
+            dataType: "json",
+            type: 'post',
+            url: "../../php/ITP4506_backend/teacher/DropStudent.php",
+            async: false,
+            data: {
+              studentID: localStorage['studentID'],
+              id: localStorage['selectid'],
+            },
+            success: function (data, status, xhr) {
 
-                console.log(data);
-                location.reload();
-              },
-              error: function (jqXhr, textStatus, errorMessage) {
-                
-              },
-            });
+              console.log(data);
+              location.reload();
+            },
+            error: function (jqXhr, textStatus, errorMessage) {
+
+            },
+          });
 
         },
       }
@@ -146,38 +146,40 @@
           {
             field: 'Present',
             title: 'P',
-            formatter : Presentcheck
-          }, {
-            field: 'Late',
-            title: 'L',
-            formatter : Latecheck
-          }, {
-            field: 'Early leave',
-            title: 'E',
-            formatter : Earlycheck
-          }, {
-            field: 'Personal leave',
-            title: 'Pl',
-            formatter : Personalcheck
-          }, {
-            field: 'Absent without reason',
-            title: 'Abs',
-            formatter : Absentcheck
-          },  {
+            formatter: Presentcheck
+          },
+          // }, {
+          //   field: 'Late',
+          //   title: 'L',
+          //   formatter : Latecheck
+          // }, {
+          //   field: 'Early leave',
+          //   title: 'E',
+          //   formatter : Earlycheck
+          // }, {
+          //   field: 'Personal leave',
+          //   title: 'Pl',
+          //   formatter : Personalcheck
+          // }, {
+          //   field: 'Absent without reason',
+          //   title: 'Abs',
+          //   formatter : Absentcheck
+          // },  {
+          {
             field: 'firstName',
             title: 'Name'
           }, {
             field: 'lastName',
             title: 'Description'
-          }, 
+          },
           {
             field: 'In',
             title: 'In'
-          }, 
+          },
           {
             field: 'R',
             title: 'R'
-          }, 
+          },
           // {
           //   field: 'remove',
           //   title: 'Remove',
@@ -190,51 +192,103 @@
       })
       function Presentcheck(value, row, index) {
         return [
-          '<label class="container" name="Presentcheck">',
-            '<input type="checkbox" checked="checked">',
-            '<span class="checkmark"></span>',
-            '</label>'
-        ].join('')
-      }
-      function Latecheck(value, row, index) {
-        return [
-        '<label class="container" name="Latecheck">',
-            '<input type="checkbox" checked="checked">',
-            '<span class="checkmark"></span>',
-            '</label>'
-        ].join('')
-      }
-      function Earlycheck(value, row, index) {
-        return [
-        '<label class="container" name="Earlycheck">',
-            '<input type="checkbox" checked="checked">',
-            '<span class="checkmark"></span>',
-            '</label>'
-        ].join('')
-      }
-      function Personalcheck(value, row, index) {
-        return [
-        '<label class="container" name="Personalcheck">',
-            '<input type="checkbox" checked="checked">',
-            '<span class="checkmark"></span>',
-            '</label>'
-        ].join('')
-      }
-      function Absentcheck(value, row, index) {
-        return [
-        '<label class="container" name="Absentcheck">',
-            '<input type="checkbox" checked="checked">',
-            '<span class="checkmark"></span>',
-            '</label>'
+          '<div class="dropdown">',
+          '<button class="btn btn-secondary dropdown-toggle dropdownbtncount" style="border: 1px solid #00B5EA;" type="button" name="dropdownMenuButtonname" id="dropdownMenuButton', index, '" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">',
+          'Setting status',
+          '</button>',
+          '<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">',
+          '<a class="dropdown-item"  >Present</a>',
+          '<a class="dropdown-item"  >Late</a>',
+          '<a class="dropdown-item"  >Early leave</a>',
+          '<a class="dropdown-item"  >Personal leave</a>',
+          '<a class="dropdown-item"  >Absent without reason</a>',
+          '</div>',
+          '</div>',
         ].join('')
       }
 
-      function operateFormatter(value, row, index) {
-        return [
-          '<button type="button" rel="tooltip" class="btn btn-danger btn-round classdelete" id="delete"><span class="material-icons">remove_circle</span></button>',
-        ].join('')
+      var allstatusbtn = $("#dropdownMenuButton0")
 
-      }
+      var btntext;
+
+      var data = [];
+      var datainput = [];
+      var selectbtnanddrop = [];
+      var selectbtn = "", selectdropdown = ""
+      var temp = []
+      var index;
+      data["class"] = localStorage['selectid'];
+      allstatusbtn.add($(".dropdownbtncount")).click(function () {
+        console.log(this.id)
+        btntext = this.id;
+        index = this.id.replace(/[^0-9]/ig, "");
+
+        if (selectbtn != returndata[index].studentID) {
+          selectbtn = returndata[index].studentID
+        }
+
+        data["studentdata"] = localStorage['selectid'];
+      })
+
+      $(".dropdown-item").click(function () {
+        console.log($(this).text())
+        $("#" + btntext).text($(this).text())
+
+        selectdropdown = $(this).text()
+        temp = [selectbtn, selectdropdown]
+
+
+
+      })
+
+      $("#updatabtn").click(function () {
+        console.log(allstatusbtn.add($(".dropdownbtncount"))[1].id)
+        for(i = 0; i < allstatusbtn.add($(".dropdownbtncount")).length; i ++){
+          var index = allstatusbtn.add($(".dropdownbtncount"))[i].id.replace(/[^0-9]/ig, "");
+          var studetnid = returndata[index].studentID
+          var status = allstatusbtn.add($(".dropdownbtncount"))[i].text()
+          console.log(studetnid)
+        }
+      })
+      // function Latecheck(value, row, index) {
+      //   return [
+      //     '<label class="container" name="Latecheck">',
+      //     '<input type="checkbox" name="Latecheckcheck">',
+      //     '<span class="checkmark"></span>',
+      //     '</label>'
+      //   ].join('')
+      // }
+      // function Earlycheck(value, row, index) {
+      //   return [
+      //     '<label class="container" name="Earlycheck">',
+      //     '<input type="checkbox" name="Earlycheckcheck">',
+      //     '<span class="checkmark"></span>',
+      //     '</label>'
+      //   ].join('')
+      // }
+      // function Personalcheck(value, row, index) {
+      //   return [
+      //     '<label class="container" name="Personalcheck">',
+      //     '<input type="checkbox" name="Personalcheckcheck">',
+      //     '<span class="checkmark"></span>',
+      //     '</label>'
+      //   ].join('')
+      // }
+      // function Absentcheck(value, row, index) {
+      //   return [
+      //     '<label class="container" name="Absentcheck">',
+      //     '<input type="checkbox" name="Absentcheckcheck" value="Absentcheckbox">',
+      //     '<span class="checkmark"></span>',
+      //     '</label>'
+      //   ].join('')
+      // }
+
+      // function operateFormatter(value, row, index) {
+      //   return [
+      //     '<button type="button" rel="tooltip" class="btn btn-danger btn-round classdelete" id="delete"><span class="material-icons">remove_circle</span></button>',
+      //   ].join('')
+
+      // }
       $(".search-input").on("keyup", function () {
 
         var value = $(this).val().toLowerCase();
@@ -243,26 +297,28 @@
         });
       });
 
+
+
       $("#delete").click(function () {
-            // var selectid = $(this).parents("tr").find(".dataselect").text();
-            // localStorage.setItem("studentID", selectid);
-            // console.log(localStorage['studentID'])
-            // $.ajax({
-            //   dataType: "json",
-            //   type: 'post',
-            //   url: "../../php/ITP4506_backend/teacher/DropStudent.php",
-            //   data: {
-            //     studentID: localStorage['studentID'],
-            //     id: localStorage['selectid'],
-            //   },
-            //   success: function (data, status, xhr) {
-            //     console.log(data);
-            //   },
-            //   error: function (jqXhr, textStatus, errorMessage) {
-                
-            //   },
-            // });
-          })
+        // var selectid = $(this).parents("tr").find(".dataselect").text();
+        // localStorage.setItem("studentID", selectid);
+        // console.log(localStorage['studentID'])
+        // $.ajax({
+        //   dataType: "json",
+        //   type: 'post',
+        //   url: "../../php/ITP4506_backend/teacher/DropStudent.php",
+        //   data: {
+        //     studentID: localStorage['studentID'],
+        //     id: localStorage['selectid'],
+        //   },
+        //   success: function (data, status, xhr) {
+        //     console.log(data);
+        //   },
+        //   error: function (jqXhr, textStatus, errorMessage) {
+
+        //   },
+        // });
+      })
       $('#ebtn').click(function () {
         var searchText = $('#searchText').val();
         $.ajax({
@@ -327,8 +383,6 @@
           <a href="Attendance_Management.html" class="btn btn-primary btn-round">Back</a>
           <div class="row">
 
-
-
             <div class="col-md-12">
 
               <div class="card">
@@ -356,17 +410,19 @@
                       <i class="fa fa-trash"></i> Delete
                     </button>
                   </div>
+                  <button id="updatabtn" class="btn bg-gradient-warning btn-round">
+                    <i class="fa fa-trash"></i> Updata
+                  </button>
                   <div class="table-responsive" style="text-align:center;">
-                  <table id="table" data- data-toolbar="#toolbar" data-search="true" data-show-toggle="true"
+                    <table id="table" data- data-toolbar="#toolbar" data-search="true" data-show-toggle="true"
                       data-show-fullscreen="true" data-show-columns="true" data-show-columns-toggle-all="true"
-                      data-detail-view="true" data-show-export="true" data-click-to-select="true"
-                      data-detail-formatter="detailFormatter" data-minimum-count-columns="2" data-pagination="true"
-                      data-id-field="id" data-page-list="[10, 25, 50, 100, all]" data-show-footer="true"
-                      data-side-pagination="server">
+                      data-detail-view="true" data-show-export="true" data-detail-formatter="detailFormatter"
+                      data-minimum-count-columns="2" data-pagination="true" data-id-field="id"
+                      data-page-list="[10, 25, 50, 100, all]" data-show-footer="true" data-side-pagination="server">
                     </table>
 
+                  </div>
                 </div>
-              </div>
               </div>
             </div>
 
