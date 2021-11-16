@@ -211,13 +211,12 @@
 
       var btntext;
 
-      var data = [];
-      var datainput = [];
+      var inputdata = [];
+
       var selectbtnanddrop = [];
       var selectbtn = "", selectdropdown = ""
       var temp = []
       var index;
-      data["class"] = localStorage['selectid'];
       allstatusbtn.add($(".dropdownbtncount")).click(function () {
         console.log(this.id)
         btntext = this.id;
@@ -225,9 +224,8 @@
 
         if (selectbtn != returndata[index].studentID) {
           selectbtn = returndata[index].studentID
-        }
 
-        data["studentdata"] = localStorage['selectid'];
+        }
       })
 
       $(".dropdown-item").click(function () {
@@ -235,20 +233,37 @@
         $("#" + btntext).text($(this).text())
 
         selectdropdown = $(this).text()
-        temp = [selectbtn, selectdropdown]
-
-
+        temp = { "studentID": selectbtn, "studentstatus": selectdropdown }
+        inputdata.push(temp)
+        console.log(inputdata)
 
       })
-
+      var myJsonString;
       $("#updatabtn").click(function () {
-        console.log(allstatusbtn.add($(".dropdownbtncount"))[1].id)
-        for(i = 0; i < allstatusbtn.add($(".dropdownbtncount")).length; i ++){
-          var index = allstatusbtn.add($(".dropdownbtncount"))[i].id.replace(/[^0-9]/ig, "");
-          var studetnid = returndata[index].studentID
-          var status = allstatusbtn.add($(".dropdownbtncount"))[i].text()
-          console.log(studetnid)
-        }
+        //console.log(allstatusbtn.add($(".dropdownbtncount"))[1].id)
+        myJsonString = JSON.stringify({
+          "classid": localStorage['selectid'],
+          "status": inputdata
+        });
+        console.log(myJsonString)
+        $.ajax({
+          dataType: "json",
+          type: 'post',
+          url: "../../php/ITP4506_backend/teacher/updataStudentstatus.php",
+          async: true,
+          data: {
+            'data': myJsonString,
+            
+          },
+          success: function (data, status, xhr) {
+            console.log("i done")
+            console.log(data);
+
+          },
+          error: function (jqXhr, textStatus, errorMessage) {
+            console.log("i fail " + jqXhr, textStatus, errorMessage)
+          },
+        });
       })
       // function Latecheck(value, row, index) {
       //   return [
