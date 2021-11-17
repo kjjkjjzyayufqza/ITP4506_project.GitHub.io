@@ -21089,3 +21089,67 @@ section:hover .center:before {
   -ms-transform: rotate(45deg);
   transform: rotate(45deg);
 }
+
+.clock-day:before {
+  content: var(--timer-day);
+}
+.clock-hours:before {
+  content: var(--timer-hours);
+}
+.clock-minutes:before {
+  content: var(--timer-minutes);
+}
+.clock-seconds:before {
+  content: var(--timer-seconds);
+}
+
+
+.clock-container {
+  margin-top: 330px;
+  margin-left: 20px;
+  background-color: #00B5EA;
+  border-radius: 5px;
+  padding: 10px 10px;
+  box-shadow: 1px 1px 5px rgba(255, 255, 255, 0.15), 0 0px 90px 10px rgba(9, 187, 189, 0.3);
+  display: flex;
+  width: 220px;
+  height: 80px;
+  left: 100px;
+  border: solid 2px #fff
+}
+.clock-col {
+  text-align: center;
+  margin-right: 10px;
+  margin-left: 10px;
+  min-width: 10px;
+  position: relative;
+}
+
+.clock-timer:before {
+  color: #fff;
+  font-size: 20px;
+  text-transform: uppercase;
+  font-weight: 500;
+}
+.clock-label {
+  color: rgba(255, 255, 255, 0.35);
+  text-transform: uppercase;
+  font-size: 0.7rem;
+  margin-top: 10px;
+  color: #fff;
+}
+
+@media (max-width: 825px) {
+  .clock-container {
+    flex-direction: column;
+    padding-top: 40px;
+    padding-bottom: 40px;
+  }
+
+  .clock-col + .clock-col {
+    margin-top: 20px;
+  }
+  .clock-col:before, .clock-col:after {
+    display: none !important;
+  }
+}

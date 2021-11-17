@@ -39,12 +39,12 @@
 
 
 
-      $.ajax("../../php/ITP4506_backend/admin/viewallClass_dis.php", {
+      $.ajax("../../php/ITP4506_backend/admin/viewallClass_all.php", {
         dataType: "json", // type of response data
         timeout: 500, // timeout milliseconds
         async: false,
         success: function (data, status, xhr) {
-
+          console.log(data)
           returndata = data;
 
 
@@ -86,20 +86,12 @@
 
       $enbale.click(function () {
         var ids = getIdSelections()
-        $table.bootstrapTable('remove', {
-          field: 'id',
-          values: ids
-        })
-        $enbale.prop('disabled', true)
+        $('.ce').prop('checked', true);
       })
 
       $remove.click(function () {
         var ids = getIdSelections()
-        $table.bootstrapTable('remove', {
-          field: 'id',
-          values: ids
-        })
-        $remove.prop('disabled', true)
+        $('.ce').prop('checked', false);
       })
       $('#table').bootstrapTable({
         data: returndata,
@@ -168,21 +160,30 @@
       }
 
       function operateFormatter(value, row, index) {
-        return [
-          'Disable <label name="changeval" class="toggle-control">',
-          '<input type="checkbox" >',
-          '<span class="control"></span>',
-          '</label>Enable',
-        ].join('')
+        if (returndata[index]["archive"]) {
+          return [
+
+            'Disable <label name="changeval" class="toggle-control">',
+            '<input type="checkbox" class="ce" checked>',
+            '<span class="control"></span>',
+            '</label>Enable',
+          ].join('')
+        } else {
+          return [
+
+            'Disable <label name="changeval" class="toggle-control">',
+            '<input type="checkbox" class="ce">',
+            '<span class="control"></span>',
+            '</label>Enable',
+          ].join('')
+        }
+
       }
-      $('[name="changeval"]').find('input:checkbox').change(function(){
+      $('[name="changeval"]').find('input:checkbox').change(function () {
         console.log($(this).is(':checked'))
+
       })
-      $('[name="changeval"]').find('input:checkbox').each(function () {
 
-        console.log($(this).val())
-
-      });
 
 
       $table.on('all.bs.table', function (e, name, args) {
@@ -246,10 +247,10 @@
 
                 <div id="toolbar">
                   <button id="remove" class="btn btn-danger " disabled>
-                    <i class="fa fa-lock"></i> Set Disable
+                    <i class="fa fa-window-close-o" aria-hidden="true"></i> Set Disable
                   </button>
                   <button id="enbale" class="btn btn-success " disabled>
-                    <i class="fa fa-unlock"></i> Set Enable
+                    <i class="fa fa-external-link-square" aria-hidden="true"></i> Set Enable
                   </button>
                 </div>
                 <div class="table-responsive" style="text-align:center;">

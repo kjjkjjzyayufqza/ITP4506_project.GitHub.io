@@ -1,33 +1,46 @@
 <footer class="footer">
-        <div class="container-fluid">
-          <nav class="float-left">
-            <ul>
-              <li>
-                <a href=" ">
-                   
-                </a>
-              </li>
-              <li>
-                <a href=" ">
-                  About Us
-                </a>
-              </li>
-              <li>
-                <a href=" ">
-                  Blog
-                </a>
-              </li>
-              <li>
-                <a href=" ">
-                  Licenses
-                </a>
-              </li>
-            </ul>
-          </nav>
-          <div class="copyright float-right">
-            &copy;
-            2021 , made with <i class="material-icons">favorite</i> by
-            <a href="" target="_blank">Johnson</a>.
-          </div>
-        </div>
-      </footer>
+  <div class="container-fluid">
+    <nav class="float-left">
+      <ul>
+        <li>
+          <a href=" ">
+
+          </a>
+        </li>
+        <li>
+          <a href="#" id="showname">
+            About Us
+          </a>
+        </li>
+        <li>
+          <a href="#" id="showblog">
+            Blog
+          </a>
+        </li>
+        <li>
+          <a href="#">
+            <div id="linkweb">
+              TIME
+            </div>
+          </a>
+
+        </li>
+      </ul>
+    </nav>
+    <div class="copyright float-right">
+      &copy;
+      2021 , made with <i class="material-icons">favorite</i> by
+      <a href="#" >Johnson</a>.
+    </div>
+  </div>
+</footer>
+<script>
+  setInterval("linkweb.innerHTML=new Date().toLocaleString('en')+''.charAt(new Date().getDay());", 1000);
+  $("#showname").click(function () {
+    alert("Thank you Johnson")
+  })
+
+  $("#showblog").click(function () {
+    alert("now not have this")
+  })
+</script>
