@@ -21105,7 +21105,7 @@ section:hover .center:before {
 
 
 .clock-container {
-  margin-top: 330px;
+  margin-top: 360px;
   margin-left: 20px;
   background-color: #00B5EA;
   border-radius: 5px;
@@ -21152,4 +21152,30 @@ section:hover .center:before {
   .clock-col:before, .clock-col:after {
     display: none !important;
   }
+}
+@media (max-height: 1200px) {
+  .clock-container {
+    margin-top: 100px;
+  }
+
+}
+
+@Keyframes donut-spin {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.donut {
+  display: inline-block;
+  border: 4px solid rgba(0, 0, 0, 0.1);
+  border-left-color: #000000;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  animation: donut-spin 1.2s linear infinite;
 }
