@@ -13,10 +13,9 @@ require_once('conn.php');
       $myArr[] = $data;
      }
 	if(mysqli_num_rows($rs) == 1){
-        //header('Location: ./pages/admin/user_list.html');
-        echo json_encode($myArr); 
-    } else {
-		echo "false";
-    }
+    echo json_encode($myArr); 
+  } else {
+		echo false;
+  }
 
 ?>
