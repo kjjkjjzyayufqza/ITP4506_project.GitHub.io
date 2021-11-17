@@ -3,10 +3,13 @@
     <nav class="float-left">
       <ul>
         <li>
-          <a href=" ">
 
-          </a>
+          
         </li>
+        <li>
+          
+
+      </li>
         <li>
           <a href="#" id="showname">
             About Us
@@ -31,6 +34,12 @@
       &copy;
       2021 , made with <i class="material-icons">favorite</i> by
       <a href="#" >Johnson</a>.
+      
+        <div class="while"> </div>
+     
+      
+        <div class="black"> </div>
+      
     </div>
   </div>
 </footer>
@@ -43,4 +52,34 @@
   $("#showblog").click(function () {
     alert("now not have this")
   })
+  $(".while").click(function () {
+    $('body').css({"background-color" : "#ffffff"})
+    $('.card').css({"background-color" : "#ffffff"})
+    $('td').css({"color" : "#000000"})
+    if(localStorage['color'] == "black"){
+      $('p').css({"color" : "#000000"})
+    }
+    localStorage['color'] = "while"
+  })
+  $(".black").click(function () {
+    $('body').css({"background-color" : "#333333"})
+    $('.card').css({"background-color" : "#666666"})
+    $('td').css({"color" : "#ffffff"})
+    $('p').css({"color" : "#000000"})
+    localStorage['color'] = "black"
+  })
 </script>
+<style>
+.while{
+  border: solid 1px #000;
+  border-radius: 10px;
+  padding: 10px 10px;
+  background-color: white;
+}
+.black{
+  border: solid 1px white;
+  border-radius: 10px;
+  padding: 10px 10px;
+  background-color: black;
+}
+</style>

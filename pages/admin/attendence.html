@@ -172,7 +172,20 @@
         $("ul li:eq(2)").addClass("active");
       });
       $("#end-navbar").load("../endnavigationbar.html");
-
+      if (localStorage['color'] == "black") {
+        console.log("i am black")
+        $('body').css({ "background-color": "#333333" })
+        $('.card').css({ "background-color": "#666666" })
+        $('td').css({ "color": "#ffffff" })
+      } else {
+        console.log("i am while")
+        $('body').css({ "background-color": "#ffffff" })
+        $('.card').css({ "background-color": "#ffffff" })
+        $('td').css({ "color": "#000000" })
+        if (localStorage['color'] == "black") {
+          $('p').css({ "color": "#000000" })
+        }
+      }
     });
   </script>
 </head>

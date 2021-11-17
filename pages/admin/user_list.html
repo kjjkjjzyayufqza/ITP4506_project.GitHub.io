@@ -223,7 +223,7 @@
             success: function (data, status, xhr) {
               console.log("create ok")
               location.reload();
-              
+
             },
             error: function (jqXhr, textStatus, errorMessage) {
               console.log("Error: " + errorMessage);
@@ -285,7 +285,7 @@
       });
 
       $(".search-input").on("keyup", function () {
-        
+
         var value = $(this).val().toLowerCase();
         $("#table tr").filter(function () {
           $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
@@ -299,6 +299,20 @@
         $("ul li:eq(0)").addClass("active");
       });
       $("#end-navbar").load("../endnavigationbar.html");
+      if (localStorage['color'] == "black") {
+        console.log("i am black")
+        $('body').css({ "background-color": "#333333" })
+        $('.card').css({ "background-color": "#666666" })
+        $('td').css({ "color": "#ffffff" })
+      } else {
+        console.log("i am while")
+        $('body').css({ "background-color": "#ffffff" })
+        $('.card').css({ "background-color": "#ffffff" })
+        $('td').css({ "color": "#000000" })
+        if (localStorage['color'] == "black") {
+          $('p').css({ "color": "#000000" })
+        }
+      }
 
       var checked = true;
       $(".calcheckbox").change(function () {
@@ -314,6 +328,7 @@
 
 
       });
+
     });
   </script>
 </head>
@@ -387,14 +402,14 @@
                       </button>
                     </div>
                     <div class="table-responsive" style="text-align:center;">
-                    <table id="table" data- data-toolbar="#toolbar" data-search="true" data-show-toggle="true"
-                      data-show-fullscreen="true" data-show-columns="true" data-show-columns-toggle-all="true"
-                      data-detail-view="true" data-show-export="true" data-click-to-select="true"
-                      data-detail-formatter="detailFormatter" data-minimum-count-columns="2" data-pagination="true"
-                      data-id-field="id" data-page-list="[10, 25, 50, 100, all]" data-show-footer="true"
-                      data-side-pagination="server">
-                    </table>
-                  </div>
+                      <table id="table" data- data-toolbar="#toolbar" data-search="true" data-show-toggle="true"
+                        data-show-fullscreen="true" data-show-columns="true" data-show-columns-toggle-all="true"
+                        data-detail-view="true" data-show-export="true" data-click-to-select="true"
+                        data-detail-formatter="detailFormatter" data-minimum-count-columns="2" data-pagination="true"
+                        data-id-field="id" data-page-list="[10, 25, 50, 100, all]" data-show-footer="true"
+                        data-side-pagination="server">
+                      </table>
+                    </div>
                   </div>
                 </div>
               </div>
