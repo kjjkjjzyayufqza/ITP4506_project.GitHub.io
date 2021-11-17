@@ -45,8 +45,8 @@
         },
         success: function (data, status, xhr) {
           console.log(data[0].name);
-          $("#className").val(data[0].name) ;
-          $("#description").val(data[0].description) ;
+          $("#className").val(data[0].name);
+          $("#description").val(data[0].description);
         },
         error: function (jqXhr, textStatus, errorMessage) {
 
@@ -74,7 +74,7 @@
 
         },
         error: function (jqXhr, textStatus, errorMessage) {
-          
+
         },
 
       });
@@ -93,26 +93,26 @@
           console.log('You click like action, row: ' + JSON.stringify(row))
           localStorage.setItem("selectid", row["classID"]);
           localStorage['studentID'] = row["studentID"]
-            console.log(localStorage['selectid'])
-            location.reload();
-            $.ajax({
-              dataType: "json",
-              type: 'post',
-              url: "../../php/ITP4506_backend/teacher/DropStudent.php",
-              async:false,
-              data: {
-                studentID: localStorage['studentID'],
-                id: localStorage['selectid'],
-              },
-              success: function (data, status, xhr) {
+          console.log(localStorage['selectid'])
+          location.reload();
+          $.ajax({
+            dataType: "json",
+            type: 'post',
+            url: "../../php/ITP4506_backend/teacher/DropStudent.php",
+            async: false,
+            data: {
+              studentID: localStorage['studentID'],
+              id: localStorage['selectid'],
+            },
+            success: function (data, status, xhr) {
 
-                console.log(data);
-                location.reload();
-              },
-              error: function (jqXhr, textStatus, errorMessage) {
-                
-              },
-            });
+              console.log(data);
+              location.reload();
+            },
+            error: function (jqXhr, textStatus, errorMessage) {
+
+            },
+          });
 
         },
       }
@@ -162,6 +162,47 @@
           }]
       })
 
+      var returnstudentlist;
+      $.ajax("../../php/ITP4506_backend/teacher/viewStudent.php", {
+        dataType: "json", // type of response data
+        timeout: 500, // timeout milliseconds
+        async: false,
+        success: function (data, status, xhr) {
+          returnstudentlist = data;
+          console.log(data);
+
+        },
+        error: function (jqXhr, textStatus, errorMessage) {
+          $("body").toString().replace("Error: " + errorMessage);
+          //alert(errorMessage)
+        },
+
+
+      });
+
+      $('#studenttable').bootstrapTable({
+        data: returnstudentlist,
+        locale: 'en-US',
+
+        strictSearch: true,
+        columns: [
+          {
+            checkbox: true
+          },
+          {
+            field: 'studentID',
+            title: 'ID'
+          }, {
+            field: 'firstName',
+            title: 'Name'
+          }, {
+            field: 'lastName',
+            title: 'Description'
+          }]
+      })
+
+
+
       function operateFormatter(value, row, index) {
         return [
           '<button type="button" rel="tooltip" class="btn btn-danger btn-round classdelete" id="delete"><span class="material-icons">remove_circle</span></button>',
@@ -177,41 +218,43 @@
       });
 
       $("#delete").click(function () {
-            // var selectid = $(this).parents("tr").find(".dataselect").text();
-            // localStorage.setItem("studentID", selectid);
-            // console.log(localStorage['studentID'])
-            // $.ajax({
-            //   dataType: "json",
-            //   type: 'post',
-            //   url: "../../php/ITP4506_backend/teacher/DropStudent.php",
-            //   data: {
-            //     studentID: localStorage['studentID'],
-            //     id: localStorage['selectid'],
-            //   },
-            //   success: function (data, status, xhr) {
-            //     console.log(data);
-            //   },
-            //   error: function (jqXhr, textStatus, errorMessage) {
-                
-            //   },
-            // });
-          })
+        // var selectid = $(this).parents("tr").find(".dataselect").text();
+        // localStorage.setItem("studentID", selectid);
+        // console.log(localStorage['studentID'])
+        // $.ajax({
+        //   dataType: "json",
+        //   type: 'post',
+        //   url: "../../php/ITP4506_backend/teacher/DropStudent.php",
+        //   data: {
+        //     studentID: localStorage['studentID'],
+        //     id: localStorage['selectid'],
+        //   },
+        //   success: function (data, status, xhr) {
+        //     console.log(data);
+        //   },
+        //   error: function (jqXhr, textStatus, errorMessage) {
+
+        //   },
+        // });
+      })
       $('#ebtn').click(function () {
         var searchText = $('#searchText').val();
         $.ajax({
           type: 'post',
           url: "../../php/ITP4506_backend/teacher/AddStudent.php",
           data: {
-            studentID: searchText,
+            studentID: "200373237",
             classID: localStorage['selectid'],
           },
           success: function (data, status) {
             console.log(data);
+
           },
           error: function (request, status, error) {
             alert(request, status);
           }
         });
+        location.reload();
       });
 
       $('#update').click(function () {
@@ -265,12 +308,14 @@
               <div class="card card-profile">
 
                 <div class="card-body">
+
+
+
                   <h6 class="card-category text-gray">Class Information</h6>
 
                   <div class="form-group">
                     <label>Name</label>
-                    <input type="email" class="form-control" id="className" aria-describedby="emailHelp"
-                      placeholder="">
+                    <input type="email" class="form-control" id="className" aria-describedby="emailHelp" placeholder="">
                   </div>
                   <div class="form-group">
                     <label>Description</label>
@@ -290,7 +335,7 @@
                     <div class="modal-dialog" role="document">
                       <div class="modal-content">
                         <div class="modal-header">
-                          <h5 class="modal-title" id="exampleModalLabel">Add New Class</h5>
+                          <h5 class="modal-title" id="exampleModalLabel">Add New Students</h5>
                           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                           </button>
@@ -299,8 +344,13 @@
                           <div class="">
                             <form>
                               <div class="table-responsive" style="text-align:center;">
-                                <input type="text" id="searchText" class="form-control" placeholder="Enter Student ID">
-                                <div class="btn btn-primary btn-round pull-left" id="ebtn">
+                                <table id="studenttable"   data-show-columns="true" data-show-columns-toggle-all="true"
+                                data-detail-view="true" 
+                                data-detail-formatter="detailFormatter" data-minimum-count-columns="2" data-pagination="true"
+                                data-id-field="id" data-page-list="[10, 25, 50, 100, all]" data-show-footer="true"
+                                data-side-pagination="server">
+                              </table>
+                                <div class="btn btn-primary btn-round pull-left classadd" id="ebtn">
                                   Add Student
                                 </div>
                               </div>
@@ -337,14 +387,20 @@
                   <!-- <div class="btn btn-default btn-round pull-left" id="ebtn">
                     Delete select
                   </div> -->
+                  <button type="button" class="btn btn-primary btn-round pull-right" data-toggle="modal"
+                  data-target="#exampleModal">
+                  + Add New Student
+                </button>
+
+
 
                   <table id="table" data- data-toolbar="#toolbar" data-search="true" data-show-toggle="true"
-                      data-show-fullscreen="true" data-show-columns="true" data-show-columns-toggle-all="true"
-                      data-detail-view="true" data-show-export="true" data-click-to-select="true"
-                      data-detail-formatter="detailFormatter" data-minimum-count-columns="2" data-pagination="true"
-                      data-id-field="id" data-page-list="[10, 25, 50, 100, all]" data-show-footer="true"
-                      data-side-pagination="server">
-                    </table>
+                    data-show-fullscreen="true" data-show-columns="true" data-show-columns-toggle-all="true"
+                    data-detail-view="true" data-show-export="true" data-click-to-select="true"
+                    data-detail-formatter="detailFormatter" data-minimum-count-columns="2" data-pagination="true"
+                    data-id-field="id" data-page-list="[10, 25, 50, 100, all]" data-show-footer="true"
+                    data-side-pagination="server">
+                  </table>
 
                 </div>
               </div>

@@ -44,12 +44,7 @@
         async: false,
         success: function (data, status, xhr) {
           returndata = data;
-          //console.log(data);
-          var stuClass = "";
-          for (let i = 0; i < data.length; i++) {
-            $("tbody").append("<tr><td></td><td class='dataselect'>" + data[i]["id"] + "</td><td>" + data[i]["firstName"] + "</td><td>" + data[i]["lastName"] + "</td><td>" + data[i]["mobile"] + "</td><td><button type='button' class='btn btn-primary viewstudent_profile' '>Detail</button></td></tr>");
-          }
-
+          console.log(data);
 
         },
         error: function (jqXhr, textStatus, errorMessage) {

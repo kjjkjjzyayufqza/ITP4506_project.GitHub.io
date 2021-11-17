@@ -133,9 +133,21 @@
       })
 
       function per(value, row, index) {
-        return [
-          value + '%',
-        ].join('')
+        if (value == "admin") {
+          return [
+            '<span id="rolespan" class="badge bg-gradient-warning ">admin</span>',
+          ].join('')
+        }
+        if (value == "teacher") {
+          return [
+            '<span id="rolespan" class="badge bg-gradient-info ">teacher</span>',
+          ].join('')
+        }
+        if (value == "student") {
+          return [
+            '<span id="rolespan" class="badge bg-gradient-light text-dark">student</span>',
+          ].join('')
+        }
       }
       function View(value, row, index) {
         console.log(value)

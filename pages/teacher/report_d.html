@@ -5,7 +5,7 @@
 <head>
   <meta charset="utf-8" />
   <title>
-    Attendence
+    Report Details
   </title>
   <meta content='width=device-width, initial-scale=1.0, shrink-to-fit=no' name='viewport' />
   <!--     Fonts and icons     -->
@@ -87,7 +87,7 @@
         },
       });
       $("#top-navbar").load("../upnavigationbar.html", function () {
-        $(".navbar-brand").text("Attendence");
+        $(".navbar-brand").text("Report / Report Details");
       });
       $("#navbar").load("./navigationbar.html", function () {
         $("ul li:eq(4)").addClass("active");
@@ -95,7 +95,9 @@
       $("#end-navbar").load("../endnavigationbar.html");
 
 
-
+      $("#printpdf").click(function(){
+        window.print();
+      })
 
     });
 
@@ -194,6 +196,12 @@
                   </div>
                   <canvas id="myChart"></canvas>
 
+                </div>
+                <div class="col-md-12">
+                  <center>
+                    <button class="btn btn-rounl bg-gradient-warning" id="printpdf">Print PDF</button>
+                  </center>
+                  
                 </div>
               </div>
             </div>

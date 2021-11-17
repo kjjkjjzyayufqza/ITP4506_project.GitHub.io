@@ -90,6 +90,7 @@
                   window.location.href = "pages/teacher/user_list.html";
                 }
                 if (re[0].role == "student") {
+                  localStorage['studentid'] = userID;
                   window.location.href = "pages/student/profile.html";
                 }
               } else {
