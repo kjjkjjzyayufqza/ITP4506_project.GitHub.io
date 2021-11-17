@@ -81,6 +81,11 @@
 
       var $table = $('#table')
       var $remove = $('#remove')
+      var $SetP = $('#SetP')
+      var $SetL = $('#SetL')
+      var $SetE = $('#SetE')
+      var $SetPL = $('#SetPL')
+      var $SetAbs = $('#SetAbs')
       var selections = []
       function getIdSelections() {
         return $.map($table.bootstrapTable('getSelections'), function (row) {
@@ -120,11 +125,67 @@
         'check-all.bs.table uncheck-all.bs.table',
         function () {
           $remove.prop('disabled', !$table.bootstrapTable('getSelections').length)
+          $SetP.prop('disabled', !$table.bootstrapTable('getSelections').length)
+          $SetL.prop('disabled', !$table.bootstrapTable('getSelections').length)
+          $SetE.prop('disabled', !$table.bootstrapTable('getSelections').length)
+          $SetPL.prop('disabled', !$table.bootstrapTable('getSelections').length)
+          $SetAbs.prop('disabled', !$table.bootstrapTable('getSelections').length)
 
           // save your data, here just save the current page
           selections = getIdSelections()
+
           // push or splice the selections if you want to save all data selections
         })
+
+      $table.on('all.bs.table', function (e, name, args) {
+        console.log(name, args)
+      })
+      $SetP.click(function () {
+
+        var ids = getIdSelections()
+      //   var rows = $table.bootstrapTable('getSelections');
+      //  alert(JSON.stringify(rows));
+
+
+        $(".dropdownbtncount").text("Present")
+        $(".dropdownbtncount").removeClass("btn-danger btn-warning")
+        $(".dropdownbtncount").addClass("btn btn-success");
+
+      })
+
+      $SetL.click(function () {
+        var ids = getIdSelections()
+
+
+        $(".dropdownbtncount").text("Late")
+        $(".dropdownbtncount").addClass("btn btn-danger");
+      })
+      $SetE.click(function () {
+        var ids = getIdSelections()
+
+
+        $(".dropdownbtncount").text("Early leave")
+        $(".dropdownbtncount").removeClass("btn-danger btn-success")
+        $(".dropdownbtncount").addClass("btn btn-warning");
+      })
+      $SetPL.click(function () {
+        var ids = getIdSelections()
+
+
+        $(".dropdownbtncount").text("Personal leave")
+        $(".dropdownbtncount").removeClass("btn-danger btn-success")
+        $(".dropdownbtncount").addClass("btn btn-warning");
+      })
+      $SetAbs.click(function () {
+        var ids = getIdSelections()
+
+
+        $(".dropdownbtncount").text("Absent without reason")
+        $(".dropdownbtncount").addClass("btn btn-danger");
+      })
+
+
+ 
 
       $remove.click(function () {
         var ids = getIdSelections()
@@ -197,7 +258,7 @@
           'Setting status',
           '</button>',
           '<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">',
-          '<a class="dropdown-item"  >Present</a>',
+          '<a class="dropdown-item "  >Present</a>',
           '<a class="dropdown-item"  >Late</a>',
           '<a class="dropdown-item"  >Early leave</a>',
           '<a class="dropdown-item"  >Personal leave</a>',
@@ -211,13 +272,12 @@
 
       var btntext;
 
-      var data = [];
-      var datainput = [];
+      var inputdata = [];
+
       var selectbtnanddrop = [];
       var selectbtn = "", selectdropdown = ""
       var temp = []
       var index;
-      data["class"] = localStorage['selectid'];
       allstatusbtn.add($(".dropdownbtncount")).click(function () {
         console.log(this.id)
         btntext = this.id;
@@ -225,30 +285,62 @@
 
         if (selectbtn != returndata[index].studentID) {
           selectbtn = returndata[index].studentID
-        }
 
-        data["studentdata"] = localStorage['selectid'];
+        }
       })
 
       $(".dropdown-item").click(function () {
         console.log($(this).text())
         $("#" + btntext).text($(this).text())
+        if ($("#" + btntext).text() == "Present") {
+          $("#" + btntext).addClass("btn btn-success");
+        };
+        if ($("#" + btntext).text() == "Late") {
+          $("#" + btntext).addClass("btn btn-danger");
+        };
+        if ($("#" + btntext).text() == "Early leave") {
+          $("#" + btntext).addClass("btn btn-warning");
+        };
+        if ($("#" + btntext).text() == "Personal leave") {
+          $("#" + btntext).addClass("btn btn-warning");
+        };
+        if ($("#" + btntext).text() == "Absent without reason") {
+          $("#" + btntext).addClass("btn btn-danger");
+        };
 
         selectdropdown = $(this).text()
-        temp = [selectbtn, selectdropdown]
+        temp = { "studentID": selectbtn, "studentstatus": selectdropdown }
+        inputdata.push(temp)
 
-
+        console.log(inputdata)
 
       })
-
+      var myJsonString;
       $("#updatabtn").click(function () {
-        console.log(allstatusbtn.add($(".dropdownbtncount"))[1].id)
-        for(i = 0; i < allstatusbtn.add($(".dropdownbtncount")).length; i ++){
-          var index = allstatusbtn.add($(".dropdownbtncount"))[i].id.replace(/[^0-9]/ig, "");
-          var studetnid = returndata[index].studentID
-          var status = allstatusbtn.add($(".dropdownbtncount"))[i].text()
-          console.log(studetnid)
-        }
+        //console.log(allstatusbtn.add($(".dropdownbtncount"))[1].id)
+        myJsonString = JSON.stringify({
+          "classid": localStorage['selectid'],
+          "status": inputdata
+        });
+        console.log(myJsonString)
+        $.ajax({
+          dataType: "json",
+          type: 'post',
+          url: "../../php/ITP4506_backend/teacher/updataStudentstatus.php",
+          async: true,
+          data: {
+            'data': myJsonString,
+
+          },
+          success: function (data, status, xhr) {
+            console.log("i done")
+            console.log(data);
+
+          },
+          error: function (jqXhr, textStatus, errorMessage) {
+            console.log("i fail " + jqXhr, textStatus, errorMessage)
+          },
+        });
       })
       // function Latecheck(value, row, index) {
       //   return [
@@ -394,24 +486,24 @@
 
                 <div class="card-body">
                   <div id="toolbar ">
-                    <button id="remove" class="btn btn-info " disabled>
-                      <i class="fa fa-trash"></i> Delete
+                    <button id="SetP" class="btn btn-info " disabled>
+                      <i class="fa fa-check-square-o" aria-hidden="true"></i> Set P
                     </button>
-                    <button id="remove" class="btn btn-info " disabled>
-                      <i class="fa fa-trash"></i> Delete
+                    <button id="SetL" class="btn btn-info " disabled>
+                      <i class="fa fa-check-square-o" aria-hidden="true"></i> Set L
                     </button>
-                    <button id="remove" class="btn btn-info " disabled>
-                      <i class="fa fa-trash"></i> Delete
+                    <button id="SetE" class="btn btn-info " disabled>
+                      <i class="fa fa-check-square-o" aria-hidden="true"></i> Set E
                     </button>
-                    <button id="remove" class="btn btn-info " disabled>
-                      <i class="fa fa-trash"></i> Delete
+                    <button id="SetPL" class="btn btn-info " disabled>
+                      <i class="fa fa-check-square-o" aria-hidden="true"></i> Set PL
                     </button>
-                    <button id="remove" class="btn btn-info " disabled>
-                      <i class="fa fa-trash"></i> Delete
+                    <button id="SetAbs" class="btn btn-info " disabled>
+                      <i class="fa fa-check-square-o" aria-hidden="true"></i> Set Abs
                     </button>
                   </div>
                   <button id="updatabtn" class="btn bg-gradient-warning btn-round">
-                    <i class="fa fa-trash"></i> Updata
+                    <i class="fa fa-upload" aria-hidden="true"></i> Updata
                   </button>
                   <div class="table-responsive" style="text-align:center;">
                     <table id="table" data- data-toolbar="#toolbar" data-search="true" data-show-toggle="true"
