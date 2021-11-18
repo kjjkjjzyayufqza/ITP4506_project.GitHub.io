@@ -1,7 +1,7 @@
 <?php
     require_once('../conn.php');
     
-    $sql = "SELECT * FROM class WHERE archive = '1'";
+    $sql = "SELECT * FROM class WHERE archive = '1' AND academicYear = '2021'";
     $rs = mysqli_query($conn, $sql);
 $myArr = array();
 $temp = 0;

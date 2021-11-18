@@ -25,6 +25,8 @@
   <script src="https://unpkg.com/bootstrap-table@1.19.0/dist/extensions/export/bootstrap-table-export.min.js"></script>
   <link rel="stylesheet" href="../../assets/css/font-awesome.min.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.5.1/chart.min.js"></script>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
   <script>
     function detailFormatter(index, row) {
       var html
@@ -72,7 +74,7 @@
       var selections = []
       function getIdSelections() {
         return $.map($table.bootstrapTable('getSelections'), function (row) {
-          return row.id
+          return row
         })
       }
       window.operateEvents = {
@@ -125,13 +127,19 @@
             field: 'academicYear',
             title: 'Academicyear',
             formatter: createyear
-          },{
+          }, {
             field: 'edit',
             title: 'Edit',
             align: 'center',
             clickToSelect: false,
             events: window.operateEvents,
             formatter: operateFormatter
+          }, {
+            field: 'status',
+            title: 'Status',
+            align: 'center',
+            clickToSelect: false,
+            formatter: operatecheck
           }]
       })
 
@@ -153,7 +161,26 @@
         }
 
       }
+      function operatecheck(value, row, index) {
+        if (returndata[index]["archive"]) {
+          return [
 
+            'Disable <label name="changeval" class="toggle-control">',
+            '<input type="checkbox" class="ce" checked>',
+            '<span class="control"></span>',
+            '</label>Enable',
+          ].join('')
+        } else {
+          return [
+
+            'Disable <label name="changeval" class="toggle-control">',
+            '<input type="checkbox" class="ce" checked>',
+            '<span class="control"></span>',
+            '</label>Enable',
+          ].join('')
+        }
+
+      }
       function operateFormatter(value, row, index) {
         return [
           '<button type="button" id="class_studentslist" rel="tooltip" class="btn btn-info class_studentslist" >',
@@ -161,9 +188,40 @@
           '</button > ',
         ].join('')
       }
-      $("#Archiveopen").click(function(){
+      $("#Archiveopen").click(function () {
         window.location.href = "class_Archive.html";
       })
+
+
+
+      $('[name="changeval"]').find('input:checkbox').change(function () {
+        console.log($(this).is(':checked'))
+        $(".testbtn").trigger("click");
+        window.setTimeout(function () {
+          $table.bootstrapTable('remove', {
+            field: 'id',
+            values: "123456777"
+          })
+        }, 1000);
+
+        $.ajax({
+            type: 'post',
+            url: "../../php/ITP4506_backend/admin/setArchive.php",
+            data: {
+              id: "123456777",
+              archive: 0,
+            },
+            success: function (data, status, xhr) {
+              console.log("create ok")
+
+
+            },
+            error: function (jqXhr, textStatus, errorMessage) {
+              console.log("Error: " + errorMessage);
+            },
+          });
+      })
+
       //var data = [returnedData[0].present, returnedData[0].late, returnedData[0].earlyLeave, returnedData[0].sickLeave, returnedData[0].personalLeave, returnedData[0].absentWithoutReason]
       var ctx = document.getElementById("myChart");
 
@@ -174,7 +232,7 @@
           labels: ["Enable", "Disable"],
           datasets: [{
             label: 'Data',
-            data: [returndata[returndata.length-1]["count"], returndata_dis[returndata_dis.length-1]["discount"]],
+            data: [returndata[returndata.length - 1]["count"], returndata_dis[returndata_dis.length - 1]["discount"]],
             backgroundColor: [
               'rgba(255, 99, 132, 1)',
               'rgba(54, 162, 235, 1)',
@@ -244,6 +302,11 @@
 </head>
 
 <body class="">
+  <!-- <div class="alert alert-danger alert-dismissible d-flex align-items-center fade show" style="position: absolute; left: 45%;z-index: 999;">
+    <i class="bi-exclamation-octagon-fill"></i>
+    <strong class="mx-2">Error!</strong> A problem has been occurred while submitting your data.
+    <button type="button" class="btn-close " data-bs-dismiss="alert">close</button>
+</div> -->
   <div class="wrapper ">
 
     <div id="navbar"></div>
@@ -264,7 +327,30 @@
                   <h4 class="card-title ">Class List</h4>
                 </div>
                 <div class="card-body">
-
+                  <div class="btn btn-primary btn-round pull-right testbtn" data-toggle="modal" data-target="#exampleModal" hidden>
+                    TEST btn
+                  </div>
+                  <!-- Modal -->
+                  <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
+                    aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h5 class="modal-title" id="exampleModalLabel">Info</h5>
+                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                          </button>
+                        </div>
+                        <div class="modal-body">
+                          <h1>Success</h1>
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                          
+                        </div>
+                      </div>
+                    </div>
+                  </div>
 
                 </div>
                 <div class="table-responsive " style="text-align:center;" id="showtips">
@@ -323,7 +409,7 @@
     </div>
 
     <div id="end-navbar">
-      
+
     </div>
 
   </div>

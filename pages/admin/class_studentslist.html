@@ -166,7 +166,13 @@
             formatter: operateFormatter
           }]
       })
+      $(".search-input").on("keyup", function () {
 
+var value = $(this).val().toLowerCase();
+$("#table tr").filter(function () {
+  $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+});
+});
       function createrole(value, row, index) {
         if (value == "admin") {
           return [
@@ -263,7 +269,7 @@
       });
 
       $("#top-navbar").load("../upnavigationbar.html", function () {
-        $(".navbar-brand").text("Class studentslist");
+        $(".navbar-brand").text("Class list / Class studentslist");
       });
       $("#navbar").load("./navigationbar.html", function () {
         $("ul li:eq(1)").addClass("active");
@@ -379,10 +385,10 @@
                   </div> -->
                   <div class="col-md-4 pull-right">
 
-                    <button type="button" class="btn btn-primary btn-round" data-toggle="modal"
+                    <!-- <button type="button" class="btn btn-primary btn-round" data-toggle="modal"
                       data-target="#exampleModal">
                       Add Student
-                    </button>
+                    </button> -->
                   </div>
                   <table id="table" data- data-toolbar="#toolbar" data-search="true" data-show-toggle="true"
                     data-show-fullscreen="true" data-show-columns="true" data-show-columns-toggle-all="true"
