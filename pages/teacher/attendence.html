@@ -36,9 +36,13 @@
       var returndata;
 
       $.ajax("../../php/ITP4506_backend/teacher/searchStdRecord.php", {
+        type: 'post',
         dataType: "json", // type of response data
         timeout: 500, // timeout milliseconds
         async: false,
+        data: {
+            id: localStorage.getItem('id')
+        },
         success: function (data, status, xhr) {
           returndata = data;
           console.log(data)
