@@ -247,8 +247,13 @@
       })
 
       $("#btnyes").click(function(){
-        
-        location.reload();
+        window.setTimeout(function () {
+          $table.bootstrapTable('remove', {
+            field: 'firstName',
+            values: "Johnsonccc"
+          })
+        }, 500);
+        //location.reload();
       })
       $("#openstudent_profile").click(function () {
         $(this).remove();

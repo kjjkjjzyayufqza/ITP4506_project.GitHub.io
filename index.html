@@ -108,7 +108,9 @@
         }
 
       });
-
+      $("#egg").click(function(){
+        alert("hello")
+      })
       var tempobj = [{
         "firstName": "Johnsonccc",
         "lastName": "Chong",
@@ -148,7 +150,7 @@
               </ul>
               <ul class="navbar-nav d-lg-block d-none">
                 <li class="nav-item">
-                  <a href="" class="btn btn-sm btn-round mb-0 me-1 bg-gradient-dark">?</a>
+                  <a href="#" id="egg" class="btn btn-sm btn-round mb-0 me-1 bg-gradient-dark">?</a>
                 </li>
               </ul>
             </div>
@@ -167,13 +169,13 @@
               <div class="card card-plain mt-8">
                 <div class="card-header pb-0 text-left bg-transparent">
                   <h3 class="font-weight-bolder text-info text-gradient">Welcome back</h3>
-                  <p class="mb-0">Enter your email and password to sign in</p>
+                  <p class="mb-0">Enter your ID and Password to sign in</p>
                 </div>
                 <div class="card-body">
                   <form class="more-padding" autocomplete="off" id="login" action="login.php" method="post">
-                    <label>Email</label>
+                    <label>ID</label>
                     <div class="mb-3">
-                      <input type="text" id="text1" class="form-control" placeholder="Email" aria-label="Email"
+                      <input type="text" id="text1" class="form-control" placeholder="ID" aria-label="ID"
                         aria-describedby="email-addon">
                     </div>
                     <label>Password</label>
@@ -193,12 +195,12 @@
                     <span id="response"></span>
                   </form>
                 </div>
-                <div class="card-footer text-center pt-0 px-lg-2 px-1">
+                <!-- <div class="card-footer text-center pt-0 px-lg-2 px-1">
                   <p class="mb-4 text-sm mx-auto">
                     Don't have an account?
                     <a href="javascript:;" class="text-info text-gradient font-weight-bold">Sign up</a>
                   </p>
-                </div>
+                </div> -->
               </div>
             </div>
             <div class="col-md-6">

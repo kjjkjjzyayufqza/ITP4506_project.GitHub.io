@@ -140,21 +140,21 @@
             formatter: operateFormatter
           }]
       })
-      function yearcolor(value, row, index){
-        if(value == 2021){
+      function yearcolor(value, row, index) {
+        if (value == 2021) {
           return [
-          '<span id="rolespan" class="badge bg-gradient-success ">' + value + '</span>',
-        ].join('')
+            '<span id="rolespan" class="badge bg-gradient-success ">' + value + '</span>',
+          ].join('')
         }
-        if(value > 2021){
+        if (value > 2021) {
           return [
-          '<span id="rolespan" class="badge bg-gradient-info ">' + value + '</span>',
-        ].join('')
+            '<span id="rolespan" class="badge bg-gradient-info ">' + value + '</span>',
+          ].join('')
         }
-        if(value < 2021){
+        if (value < 2021) {
           return [
-          '<span id="rolespan" class="badge bg-gradient-light text-dark">' + value + '</span>',
-        ].join('')
+            '<span id="rolespan" class="badge bg-gradient-light text-dark">' + value + '</span>',
+          ].join('')
         }
       }
       function operateFormatter(value, row, index) {
@@ -171,29 +171,42 @@
         });
       });
 
+      $("#name").change(function () {
+
+      })
 
       $('#create').click(function () {
         var name = $('#name').val();
         var description = $('#description').val();
         var academicYear = $('#academicYear').val();
+
+        var pattern2 = new RegExp("[\u4E00-\u9FA5]+");
+
+
+
         if (name.length > 0 && description.length > 0) {
-          $.ajax({
-            type: 'post',
-            url: "../../php/ITP4506_backend/teacher/createClass.php",
-            data: {
-              name: name,
-              teacherID: "201116523",
-              description: description,
-              academicYear: academicYear
-            },
-            success: function (data, status) {
-              console.log(data);
-              location.reload();
-            },
-            error: function (request, status, error) {
-              alert(request, status);
-            }
-          });
+          if (!pattern2.test(name)) {
+            $.ajax({
+              type: 'post',
+              url: "../../php/ITP4506_backend/teacher/createClass.php",
+              data: {
+                name: name,
+                teacherID: "201116523",
+                description: description,
+                academicYear: academicYear
+              },
+              success: function (data, status) {
+                console.log(data);
+                location.reload();
+              },
+              error: function (request, status, error) {
+                alert(request, status);
+              }
+            });
+          }else{
+            alert("please number and eng")
+          }
+
         } else {
           alert("please input")
         }
