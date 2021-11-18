@@ -293,10 +293,10 @@
       });
 
       $("#top-navbar").load("../upnavigationbar.html", function () {
-        $(".navbar-brand").text("Profile");
+        $(".navbar-brand").text("Home");
       });
       $("#navbar").load("./navigationbar.html", function () {
-        $("ul li:eq(0)").addClass("active");
+        
       });
       $("#end-navbar").load("../endnavigationbar.html");
       if (localStorage['color'] == "black") {
@@ -355,62 +355,11 @@
             <div class="col-md-12">
               <div class="card">
                 <div class="card-header-primary" style="border-radius: 20px;">
-                  <h4 class="card-title ">User List</h4>
+                  <h4 class="card-title ">Home</h4>
                 </div>
                 <div class="card-body">
-                  <!-- <div class="btn btn-default btn-round pull-left" id="ebtn">
-                    Set Enable
-                  </div>
-                  <div class="btn btn-default btn-round pull-left" id="dbtn">
-                    Set Disable
-                  </div> -->
-                  <div class="btn btn-primary btn-round pull-right" data-toggle="modal" data-target="#exampleModal">
-                    + Add New Account
-                  </div>
-
-
-                  <!-- Modal -->
-                  <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
-                    aria-labelledby="exampleModalLabel" aria-hidden="true">
-                    <div class="modal-dialog" role="document">
-                      <div class="modal-content">
-                        <div class="modal-header">
-                          <h5 class="modal-title" id="exampleModalLabel">Create Student</h5>
-                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                          </button>
-                        </div>
-                        <div class="modal-body">
-                          <select class="form-control" id="role">
-                            <option value="teacher">Teacher</option>
-                            <option value="student">Student</option>
-                          </select>
-                          <input type="text" id="fnameinput" value="" class="form-control" placeholder="First Name...">
-                          <input type="text" id="lnameinput" value="" class="form-control" placeholder="Last Name...">
-                        </div>
-                        <div class="modal-footer">
-                          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                          <button type="button" class="btn btn-primary" id="createacc">Create</button>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="" style="">
-                    <div id="toolbar">
-                      <button id="remove" class="btn btn-danger " disabled>
-                        <i class="fa fa-trash"></i> Delete
-                      </button>
-                    </div>
-                    <div class="table-responsive" style="text-align:center;">
-                      <table id="table" data- data-toolbar="#toolbar" data-search="true" data-show-toggle="true"
-                        data-show-fullscreen="true" data-show-columns="true" data-show-columns-toggle-all="true"
-                        data-detail-view="true" data-show-export="true" data-click-to-select="true"
-                        data-detail-formatter="detailFormatter" data-minimum-count-columns="2" data-pagination="true"
-                        data-id-field="id" data-page-list="[10, 25, 50, 100, all]" data-show-footer="true"
-                        data-side-pagination="server">
-                      </table>
-                    </div>
-                  </div>
+                  <h1>Welcome User</h1>
+                  <img src="../../assets/img/logo.png" width="800px" height="400px"></img>
                 </div>
               </div>
             </div>

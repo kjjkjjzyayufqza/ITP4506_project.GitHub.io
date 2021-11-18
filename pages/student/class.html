@@ -31,11 +31,12 @@
             id: id,
           },
           success: function (data, status, xhr) {
-            $("#year").text($("#year").text() + " " +data[0]["academicYear"]);
-            $("#fName").text($("#fName").text() + " " +data[0]["firstName"]);
-            $("#lName").text($("#lName").text() + " " +data[0]["lastName"]);
-            $("#class").text($("#class").text() + " " +data[0]["name"]);
-            $("#degree").text($("#degree").text() + " " +data[0]["description"]);
+            console.log(data)
+            $("#year").val(data[0]["academicYear"]);
+            $("#fName").val(data[0]["firstName"]);
+            $("#lName").val(data[0]["lastName"]);
+            $("#class").val( data[0]["name"]);
+            $("#degree").val( data[0]["description"]);
           },
           error: function (request, status, error) {
             alert(request, status);
@@ -117,11 +118,38 @@
                 <div class="row">
                   <div class="col-md-12">
                     <div class="form-group">
-                      <h4 class="card-body " id="fName">First Name:</h4>
-                      <h4 class="card-body " id="lName">Last Name:</h4>
-                      <h4 class="card-body " id="class">Class:</h4>
-                      <h4 class="card-body " id="year">Academic Year:</h4>
-                      <h4 class="card-body " id="degree">Degree:</h4>
+
+                      <div class="col-md-6">
+                        <div class="form-group">
+                          <label class="bmd-label-floating">Fist Name</label>
+                          <input type="text" id="fName" class="form-control" disabled>
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <div class="form-group">
+                          <label class="bmd-label-floating">Last Name</label>
+                          <input type="text" id="lName" class="form-control" disabled>
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <div class="form-group">
+                          <label class="bmd-label-floating">Class</label>
+                          <input type="text" id="class" class="form-control" disabled>
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <div class="form-group">
+                          <label class="bmd-label-floating">Year</label>
+                          <input type="text" id="year" class="form-control" disabled>
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <div class="form-group">
+                          <label class="bmd-label-floating">Degree</label>
+                          <input type="text" id="degree" class="form-control" disabled>
+                        </div>
+                      </div>
+
                     </div>
                   </div>
                 </div>
@@ -168,17 +196,5 @@
   <!--  Plugin for the Sliders, full documentation here: http://refreshless.com/nouislider/ -->
   <script src="../../assets/js/plugins/nouislider.min.js"></script>
   <!-- Include a polyfill for ES6 Promises (optional) for IE11, UC Browser and Android browser support SweetAlert -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/core-js/2.4.1/core.js"></script>
-  <!-- Library for adding dinamically elements -->
-  <script src="../../assets/js/plugins/arrive.min.js"></script>
-  <!--  Google Maps Plugin    -->
-  <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY_HERE"></script>
-  <!-- Chartist JS -->
-  <script src="../../assets/js/plugins/chartist.min.js"></script>
-  <!--  Notifications Plugin    -->
-  <script src="../../assets/js/plugins/bootstrap-notify.js"></script>
-  <!-- Control Center for Material Dashboard: parallax effects, scripts for the example pages etc -->
-  <script src="../../assets/js/material-dashboard.js?v=2.1.2" type="text/javascript"></script>
-  <!-- Material Dashboard DEMO methods, don't include it in your project! -->
-  <script src="../../assets/demo/demo.js"></script>
+
 </html>

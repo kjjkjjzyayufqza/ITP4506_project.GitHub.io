@@ -9,7 +9,7 @@ while($rc = mysqli_fetch_assoc($rs))
 {
   $data["name"] = $rc["name"];
   $data["description"] = $rc["description"];
-  $data["firstName"] = $rc["teacherID"];
+  $data["firstName"] = $rc["firstName"];
   $data["lastName"] = $rc["lastName"];
   $data["academicYear"] = $rc["academicYear"];
   $myArr[] = $data;
