@@ -48,7 +48,6 @@
           console.log("Error: " + errorMessage);
         },
       });
-
       var $table = $('#table')
       var $remove = $('#remove')
       var selections = []
@@ -102,22 +101,28 @@
             title: 'Class'
           }, {
             field: 'present',
-            title: 'Present'
+            title: 'Present',
+            formatter: paint
           }, {
             field: 'late',
-            title: 'Late'
+            title: 'Late',
+            formatter: paint
           }, {
             field: 'earlyLeave',
             title: 'Early Leave',
+            formatter: paint
           }, {
             field: 'sickLeave',
             title: 'Sick Leave',
+            formatter: paint
           }, {
             field: 'personalLeave',
             title: 'Personal leave',
+            formatter: paint
           }, {
             field: 'absentWithoutReason',
             title: 'Absent Without Reason',
+            formatter: paint
           }, {
             field: 'View',
             title: 'View',
@@ -125,6 +130,13 @@
             formatter: View
           }]
       })
+      function paint(value, row, index) {
+        console.log(value)
+        return [
+          parseInt(value) + "%"
+        ].join('')
+
+      }
 
       function View(value, row, index) {
         console.log(value)

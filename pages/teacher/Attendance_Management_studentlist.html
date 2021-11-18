@@ -296,15 +296,18 @@
         console.log($(this).text())
         $("#" + btntext).text($(this).text())
         if ($("#" + btntext).text() == "Present") {
+          $("#" + btntext).removeClass("btn-danger btn-warning")
           $("#" + btntext).addClass("btn btn-success");
         };
         if ($("#" + btntext).text() == "Late") {
           $("#" + btntext).addClass("btn btn-danger");
         };
         if ($("#" + btntext).text() == "Early leave") {
+          $("#" + btntext).removeClass("btn-danger btn-success")
           $("#" + btntext).addClass("btn btn-warning");
         };
         if ($("#" + btntext).text() == "Personal leave") {
+          $("#" + btntext).removeClass("btn-danger btn-success")
           $("#" + btntext).addClass("btn btn-warning");
         };
         if ($("#" + btntext).text() == "Absent without reason") {

@@ -41,6 +41,7 @@
         url: "../../php/ITP4506_backend/admin/viewattendencereport.php",
         async: false,
         success: function (data, status, xhr) {
+          console.log(data)
           returndata = JSON.parse(data);
 
         },
@@ -133,21 +134,12 @@
       })
 
       function per(value, row, index) {
-        if (value == "admin") {
-          return [
-            '<span id="rolespan" class="badge bg-gradient-warning ">admin</span>',
-          ].join('')
-        }
-        if (value == "teacher") {
-          return [
-            '<span id="rolespan" class="badge bg-gradient-info ">teacher</span>',
-          ].join('')
-        }
-        if (value == "student") {
-          return [
-            '<span id="rolespan" class="badge bg-gradient-light text-dark">student</span>',
-          ].join('')
-        }
+        console.log(value)
+        return [
+          parseInt(value) + "%"
+        ].join('')
+
+      
       }
       function View(value, row, index) {
         console.log(value)

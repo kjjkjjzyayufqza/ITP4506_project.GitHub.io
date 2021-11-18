@@ -34,14 +34,14 @@
     }
     $(document).ready(function () {
       var returndata;
-
+      console.log("h")
       $.ajax("../../php/ITP4506_backend/teacher/searchStdRecord.php", {
         type: 'post',
         dataType: "json", // type of response data
         timeout: 500, // timeout milliseconds
         async: false,
         data: {
-            id: localStorage.getItem('id')
+          id: localStorage.getItem('id')
         },
         success: function (data, status, xhr) {
           returndata = data;
@@ -72,26 +72,26 @@
           console.log('You click like action, row: ' + JSON.stringify(row))
           localStorage.setItem("selectid", row["classID"]);
           localStorage['studentID'] = row["studentID"]
-            console.log(localStorage['selectid'])
-            location.reload();
-            $.ajax({
-              dataType: "json",
-              type: 'post',
-              url: "../../php/ITP4506_backend/teacher/DropStudent.php",
-              async:false,
-              data: {
-                studentID: localStorage['studentID'],
-                id: localStorage['selectid'],
-              },
-              success: function (data, status, xhr) {
+          console.log(localStorage['selectid'])
+          location.reload();
+          $.ajax({
+            dataType: "json",
+            type: 'post',
+            url: "../../php/ITP4506_backend/teacher/DropStudent.php",
+            async: false,
+            data: {
+              studentID: localStorage['studentID'],
+              id: localStorage['selectid'],
+            },
+            success: function (data, status, xhr) {
 
-                console.log(data);
-                location.reload();
-              },
-              error: function (jqXhr, textStatus, errorMessage) {
-                
-              },
-            });
+              console.log(data);
+              location.reload();
+            },
+            error: function (jqXhr, textStatus, errorMessage) {
+
+            },
+          });
 
         },
       }
@@ -113,8 +113,60 @@
         })
         $remove.prop('disabled', true)
       })
+
+      var tempdata;
+      tempdata = [
+        {
+          "id": "200373237",
+          "name": "Johnsonccc Chong",
+          "className": "1A",
+          "date": [
+            "2021-11-01",
+            "2021-11-02",
+            "2021-11-03"
+          ],
+          "time": "05:24:17",
+          "status": [
+            "present",
+            "present",
+            "present",
+          ]
+        },
+        {
+          "id": "200373237",
+          "name": "Alvin Cheung",
+          "className": "1B",
+          "date": [
+            "2021-11-01",
+            "2021-11-02",
+            "2021-11-03"
+          ],
+          "time": "05:24:17",
+          "status": [
+            "present",
+            "present",
+            "late",
+          ]
+        },
+        {
+          "id": "200408463",
+          "name": "Vincy Pun",
+          "className": "1A",
+          "date": [
+            "2021-11-01",
+            "2021-11-02",
+            "2021-11-03"
+          ],
+          "time": "05:24:17",
+          "status": [
+            "late",
+            "late",
+            "late",
+          ]
+        }
+      ]
       $('#table').bootstrapTable({
-        data: returndata,
+        data: tempdata,
         locale: 'en-US',
         search: true,
         strictSearch: true,
@@ -129,29 +181,62 @@
             field: 'className',
             title: 'Class'
           }, {
-            field: 'date',
-            title: 'Attendence Date'
-          }, {
-            field: 'time',
-            title: 'Attendence Time'
+            field: 'status',
+            title: tempdata[0]["date"][0],
+            formatter: operateFormatter1,
           }, {
             field: 'status',
-            title: 'Attendence Status',
-            formatter: operateFormatter,
-          }]
+            title: tempdata[0]["date"][1],
+            formatter: operateFormatter2,
+          }, {
+            field: 'status',
+            title: tempdata[0]["date"][2],
+            formatter: operateFormatter3,
+          },]
       })
 
-      function operateFormatter(value, row, index) {
-        if(value == "present"){
+      function operateFormatter1(value, row, index) {
+
+
+        if (value[0] == "present") {
           return [
-          '<span id="rolespan" class="badge bg-gradient-success ">' + value + '</span>',
-        ].join('')
-        }else{
+            '<span id="rolespan" class="badge bg-gradient-success ">' + value[0] + '</span>',
+          ].join('')
+        } else {
           return [
-          '<span id="rolespan" class="badge bg-gradient-warning ">' + value + '</span>',
-        ].join('')
+            '<span id="rolespan" class="badge bg-gradient-warning ">' + value[0] + '</span>',
+          ].join('')
         }
 
+      }
+
+      function operateFormatter2(value, row, index) {
+
+
+        if (value[1] == "present") {
+          return [
+            '<span id="rolespan" class="badge bg-gradient-success ">' + value[1] + '</span>',
+          ].join('')
+        } else {
+          return [
+            '<span id="rolespan" class="badge bg-gradient-warning ">' + value[1] + '</span>',
+          ].join('')
+        }
+
+      }
+
+      function operateFormatter3(value, row, index) {
+
+
+        if (value[2] == "present") {
+          return [
+            '<span id="rolespan" class="badge bg-gradient-success ">' + value[2] + '</span>',
+          ].join('')
+        } else {
+          return [
+            '<span id="rolespan" class="badge bg-gradient-warning ">' + value[2] + '</span>',
+          ].join('')
+        }
 
       }
       $(".search-input").on("keyup", function () {
@@ -250,7 +335,7 @@
                         </div>
                       </div>
                     </div>
-                    
+
                   </div>
                   <!-- <div class="table-responsive " style="text-align:center;" id="showtips" >
                     <button type="button" class="btn btn-round " data-toggle="modal" data-target="#exampleModal">
@@ -261,7 +346,7 @@
                   <div class="table-responsive" style="text-align:center;">
 
 
-                  <table id="table" data- data-toolbar="#toolbar" data-search="true" data-show-toggle="true"
+                    <table id="table" data- data-toolbar="#toolbar" data-search="true" data-show-toggle="true"
                       data-show-fullscreen="true" data-show-columns="true" data-show-columns-toggle-all="true"
                       data-detail-view="true" data-show-export="true" data-click-to-select="true"
                       data-detail-formatter="detailFormatter" data-minimum-count-columns="2" data-pagination="true"

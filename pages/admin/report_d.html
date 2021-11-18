@@ -36,9 +36,9 @@
 
           var stuClass = "";
           for (let i = 0; i < Object.keys(returnedData).length; i++) {
-            stuClass += "<tr '> </th>" + "<td class='dataselect'>" + returnedData[i].id + "</td>" + "<td class='dataselect'>" + returnedData[i].name + "</td>" + "<td class='dataselect'>" + returnedData[i].className + "</td><td class='dataselectname'>" + returnedData[i].present + "%</td><td class='dataselectname'>" + returnedData[i].late + "%</td>"
-            stuClass += "<td> " + returnedData[i].earlyLeave + " %</td> " + "<td> " + returnedData[i].sickLeave + " %</td> + " + "<td> " + returnedData[i].personalLeave + " %</td> + ";
-            stuClass += "<td> " + returnedData[i].absentWithoutReason + "%</td > </tr > "
+            stuClass += "<tr '> </th>" + "<td class='dataselect'>" + returnedData[i].id + "</td>" + "<td class='dataselect'>" + returnedData[i].name + "</td>" + "<td class='dataselect'>" + returnedData[i].className + "</td><td class='dataselectname'>" + parseInt(returnedData[i].present) + "%</td><td class='dataselectname'>" + parseInt(returnedData[i].late) + "%</td>"
+            stuClass += "<td> " + parseInt(returnedData[i].earlyLeave) + " %</td> " + "<td> " + parseInt(returnedData[i].sickLeave) + " %</td> + " + "<td> " + parseInt(returnedData[i].personalLeave) + " %</td> + ";
+            stuClass += "<td> " + parseInt(returnedData[i].absentWithoutReason) + "%</td > </tr > "
 
           }
           $("#student").html(stuClass);

@@ -48,8 +48,8 @@
         },
         success: function (data, status, xhr) {
           console.log(data[0].name);
-          $("#className").val(data[0].name) ;
-          $("#description").val(data[0].description) ;
+          $("#className").val(data[0].name);
+          $("#description").val(data[0].description);
         },
         error: function (jqXhr, textStatus, errorMessage) {
 
@@ -103,10 +103,10 @@
             dataType: "json",
             type: 'post',
             url: "../../php/ITP4506_backend/admin/DropStudent.php",
-            async : false,
+            async: false,
             data: {
               id: localStorage['selectid'],
-              studentID : localStorage['studentID'],
+              studentID: localStorage['studentID'],
             },
             success: function (data, status, xhr) {
               location.reload()
@@ -168,11 +168,11 @@
       })
       $(".search-input").on("keyup", function () {
 
-var value = $(this).val().toLowerCase();
-$("#table tr").filter(function () {
-  $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
-});
-});
+        var value = $(this).val().toLowerCase();
+        $("#table tr").filter(function () {
+          $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+        });
+      });
       function createrole(value, row, index) {
         if (value == "admin") {
           return [
@@ -220,49 +220,51 @@ $("#table tr").filter(function () {
 
       $('#ebtn').click(function () {
         var searchText = $('#searchText').val();
-        if(searchText.length > 0){
+        if (searchText.length > 0) {
           $.ajax({
-          type: 'post',
-          url: "../../php/ITP4506_backend/teacher/AddStudent.php",
-          data: {
-            studentID: searchText,
-            classID: localStorage['selectid'],
-          },
-          success: function (data, status) {
-            console.log(data);
-            location.reload();
-          },
-          error: function (request, status, error) {
-            alert(request, status);
-          }
-        });
-        }else{
+            type: 'post',
+            url: "../../php/ITP4506_backend/teacher/AddStudent.php",
+            data: {
+              studentID: searchText,
+              classID: localStorage['selectid'],
+            },
+            success: function (data, status) {
+              console.log(data);
+              location.reload();
+            },
+            error: function (request, status, error) {
+              alert(request, status);
+            }
+          });
+        } else {
           alert("please input id")
         }
-        
+
 
       });
       $('#update').click(function () {
         var className = $('#className').val();
         var description = $('#description').val();
-        if(className.length > 0 && description.length > 0){
+        if (className.length > 0 && description.length > 0) {
           $.ajax({
-          type: 'post',
-          url: "../../php/ITP4506_backend/teacher/editClass.php",
-          data: {
-            id: localStorage['selectid'],
-            name: className,
-            description: description,
-          },
-          success: function (data, status) {
-            location.reload();
-            
-          },
-          error: function (request, status, error) {
-            alert(request, status);
-          }
-        });
-        }else{
+            type: 'post',
+            url: "../../php/ITP4506_backend/teacher/editClass.php",
+            data: {
+              id: localStorage['selectid'],
+              name: className,
+              description: description,
+            },
+            success: function (data, status) {
+              $("#TESTBTN").trigger("click");
+              setTimeout("location.reload();", 2000 )
+              //location.reload();
+
+            },
+            error: function (request, status, error) {
+              alert(request, status);
+            }
+          });
+        } else {
           alert("pleare input value")
         }
 
@@ -316,12 +318,11 @@ $("#table tr").filter(function () {
 
                   <div class="form-group">
                     <label>Name</label>
-                    <input type="text" class="form-control" id="className"  placeholder="">
+                    <input type="text" class="form-control" id="className" placeholder="">
                   </div>
                   <div class="form-group">
                     <label>Description</label>
-                    <input type="text" class="form-control" id="description" 
-                      placeholder="">
+                    <input type="text" class="form-control" id="description" placeholder="">
                   </div>
 
                   <p class="card-description">
@@ -330,27 +331,25 @@ $("#table tr").filter(function () {
                   <button type="button" id="update" class="btn btn-primary btn-round" data-toggle="modal">
                     Updata Class
                   </button>
+                  <div class="btn btn-primary btn-round pull-right" data-toggle="modal" id="TESTBTN" data-target="#exampleModal" hidden>
+                    TESTBTN
+                  </div>
                   <!-- Modal -->
                   <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
                     aria-labelledby="exampleModalLabel" aria-hidden="true">
                     <div class="modal-dialog" role="document">
                       <div class="modal-content">
                         <div class="modal-header">
-                          <h5 class="modal-title" id="exampleModalLabel">Add New student</h5>
+                          <h5 class="modal-title" id="exampleModalLabel">Info</h5>
                           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                           </button>
                         </div>
                         <div class="modal-body">
                           <div class="">
-                            <form>
-                              <div class="table-responsive" style="text-align:center;">
-                                <input type="text" id="searchText" class="form-control" placeholder="Enter Student ID">
-                                <div class="btn btn-primary btn-round pull-left" id="ebtn">
-                                  Add Student
-                                </div>
-                              </div>
-                            </form>
+                            <img class="col-md-12" src="../../assets/img/success.gif"></img>
+                            <div><h1>Success</h1></div>
+                            <div><h2>Refresh after 1 second......</h2></div>
                           </div>
                         </div>
                         <div class="modal-footer">
