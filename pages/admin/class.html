@@ -111,9 +111,7 @@
         search: true,
         strictSearch: true,
         columns: [
-          {
 
-          },
           {
             field: 'id',
             title: 'ID'
@@ -205,21 +203,21 @@
         }, 1000);
 
         $.ajax({
-            type: 'post',
-            url: "../../php/ITP4506_backend/admin/setArchive.php",
-            data: {
-              id: "123456777",
-              archive: 0,
-            },
-            success: function (data, status, xhr) {
-              console.log("create ok")
+          type: 'post',
+          url: "../../php/ITP4506_backend/admin/setArchive.php",
+          data: {
+            id: "123456777",
+            archive: 0,
+          },
+          success: function (data, status, xhr) {
+            console.log("create ok")
 
 
-            },
-            error: function (jqXhr, textStatus, errorMessage) {
-              console.log("Error: " + errorMessage);
-            },
-          });
+          },
+          error: function (jqXhr, textStatus, errorMessage) {
+            console.log("Error: " + errorMessage);
+          },
+        });
       })
 
       //var data = [returnedData[0].present, returnedData[0].late, returnedData[0].earlyLeave, returnedData[0].sickLeave, returnedData[0].personalLeave, returnedData[0].absentWithoutReason]
@@ -327,7 +325,8 @@
                   <h4 class="card-title ">Class List</h4>
                 </div>
                 <div class="card-body">
-                  <div class="btn btn-primary btn-round pull-right testbtn" data-toggle="modal" data-target="#exampleModal" hidden>
+                  <div class="btn btn-primary btn-round pull-right testbtn" data-toggle="modal"
+                    data-target="#exampleModal" hidden>
                     TEST btn
                   </div>
                   <!-- Modal -->
@@ -346,7 +345,7 @@
                         </div>
                         <div class="modal-footer">
                           <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                          
+
                         </div>
                       </div>
                     </div>

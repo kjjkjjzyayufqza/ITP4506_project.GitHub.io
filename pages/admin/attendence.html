@@ -110,9 +110,7 @@
         search: true,
         strictSearch: true,
         columns: [
-          {
-
-          },
+ 
           {
             field: 'name',
             title: 'Name'
@@ -155,6 +153,10 @@
           ].join('')
         }
         if (value =="personalLeave") {
+          return [
+            '<span class="badge bg-gradient-warning">' + row["status"] + '</span>',
+          ].join('')
+        }else{
           return [
             '<span class="badge bg-gradient-warning">' + row["status"] + '</span>',
           ].join('')

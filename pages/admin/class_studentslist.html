@@ -141,9 +141,7 @@
         search: true,
         strictSearch: true,
         columns: [
-          {
 
-          },
           {
             field: 'studentID',
             title: 'Student ID'
@@ -157,14 +155,7 @@
             field: 'role',
             title: 'Role',
             formatter: createrole
-          }, {
-            field: 'remove',
-            title: 'Remove',
-            align: 'center',
-            clickToSelect: false,
-            events: window.operateEvents,
-            formatter: operateFormatter
-          }]
+          }, ]
       })
       $(".search-input").on("keyup", function () {
 

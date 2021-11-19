@@ -84,14 +84,14 @@
               if (isjson) {
                 localStorage.setItem('id', userID);
                 if (re[0].role == "admin") {
-                  window.location.href = "pages/admin/user_list.html";
+                  window.location.href = "pages/admin/home.html";
                 }
                 if (re[0].role == "teacher") {
-                  window.location.href = "pages/teacher/user_list.html";
+                  window.location.href = "pages/teacher/home.html";
                 }
                 if (re[0].role == "student") {
                   localStorage['studentid'] = userID;
-                  window.location.href = "pages/student/profile.html";
+                  window.location.href = "pages/student/home.html";
                 }
               } else {
                 $('.myclass').text("Wrong Username or Password").css({ "color": "red" });;
