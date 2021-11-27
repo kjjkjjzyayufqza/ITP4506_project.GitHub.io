@@ -92,7 +92,7 @@
         search: true,
         strictSearch: true,
         columns: [
- 
+
           {
             field: 'name',
             title: 'Name'
@@ -137,7 +137,7 @@
           parseInt(value) + "%"
         ].join('')
 
-      
+
       }
       function View(value, row, index) {
         console.log(value)
@@ -147,7 +147,7 @@
 
       }
       $(".search-input").on("keyup", function () {
-        
+
         var value = $(this).val().toLowerCase();
         $("#table tr").filter(function () {
           $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
@@ -158,16 +158,21 @@
       })
 
       $(".dropdown-item").click(function () {
-        
+
         $("#dropdownMenuButton").text($(this).text());
         // $("#student tr").hide();
         // $("#student tr").filter(":contains('" + $(this).text() + "')").show();
         var value = $(this).text();
         console.log(value)
-        $("#table tr").filter(function () {
-          $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
-        });
+        if (value == "Current") {
+          
+        } else {
+          //$('#table').bootstrapTable('load', returndata);
+        }
+
       });
+
+
 
       $("#top-navbar").load("../upnavigationbar.html", function () {
         $(".navbar-brand").text("Report");
@@ -212,7 +217,18 @@
                 <div class="card-header card-header-primary" style="border-radius: 20px;">
                   <h4 class="card-title ">Attendace Record</h4>
                 </div>
-
+                <div class="col-md-4">
+                  <div class="dropdown">
+                    <button class="btn btn-info btn-round dropdown-toggle" type="button" id="dropdownMenuButton"
+                      data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      Choose Year
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                      <a class="dropdown-item" href="#">Current</a>
+                      <a class="dropdown-item" href="#">Previous</a>
+                    </div>
+                  </div>
+                </div>
                 <div class="card-body">
                   <div class="table-responsive" style="text-align:center;">
                     <table id="table" data- data-toolbar="#toolbar" data-search="true" data-show-toggle="true"
@@ -279,6 +295,7 @@
   <script src="../../assets/js/material-dashboard.js?v=2.1.2" type="text/javascript"></script>
   <!-- Material Dashboard DEMO methods, don't include it in your project! -->
   <script src="../../assets/demo/demo.js"></script>
+
 </body>
 
 </html>
